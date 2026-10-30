@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit",
+    "validate": "node scripts/validate-content.mjs",
     "test": "node scripts/verify-url-parity.mjs"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.20",
     "cheerio": "^1.2.0",
+    "esbuild": "^0.28.2",
     "postcss": "^8.5.32",
     "tailwindcss": "^3.4.17",
     "typescript": "^7.0.2"
