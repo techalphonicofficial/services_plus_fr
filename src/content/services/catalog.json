@@ -1,0 +1,835 @@
+[
+  {
+    "slug": "adding-new-director",
+    "title": "Adding New Director",
+    "category": "compliance",
+    "metaDescription": "Services Plus helps add a new director to your company in India. Get expert support for documentation, ROC filing & legal compliance.",
+    "href": "/service/adding-new-director"
+  },
+  {
+    "slug": "apeda-license",
+    "title": "Apply APEDA License Online",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers APEDA registration in India. Get exporter license, documentation & compliance support for agri product export easily.",
+    "href": "/service/apeda-license"
+  },
+  {
+    "slug": "authorized-capital-increase",
+    "title": "Authorized Capital Increase",
+    "category": "startup",
+    "metaDescription": "Services Plus helps increase authorized capital in India. Get expert support for ROC filing, documentation & legal compliance quickly.",
+    "href": "/service/authorized-capital-increase"
+  },
+  {
+    "slug": "ayush-license",
+    "title": "AYUSH License Registration",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers AYUSH license registration in India. Get expert support for approval, documentation & legal compliance.",
+    "href": "/service/ayush-license"
+  },
+  {
+    "slug": "business-tax-return-filing",
+    "title": "Business Tax Return Filing",
+    "category": "taxes",
+    "metaDescription": "Simplify tax return filing with Services Plus. Step-by-step guide, expert tips & compliance support for smooth business tax management.",
+    "href": "/service/business-tax-return-filing"
+  },
+  {
+    "slug": "cdsco-license",
+    "title": "What Is A CDSCO License?",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers CDSCO license registration in India. Get approval for drugs & medical devices with expert support and compliance services.",
+    "href": "/service/cdsco-license"
+  },
+  {
+    "slug": "ce-certificate",
+    "title": "Apply CE Certificate Online",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers CE certification services. Get CE mark approval, documentation & compliance support for exporting products to Europe.",
+    "href": "/service/ce-certificate"
+  },
+  {
+    "slug": "company-incorporation",
+    "title": "Company Incorporation in India: The Complete Step-by-Step Guide (2026)",
+    "category": "startup",
+    "metaDescription": "Learn how company incorporation in India works. Entity types, SPICe+ process, documents, government fees, timelines, and post-registration compliance, explained simply.",
+    "href": "/service/company-incorporation"
+  },
+  {
+    "slug": "copyright-registration",
+    "title": "What Is Copyright Registration?",
+    "category": "trademark",
+    "metaDescription": "Secure your creative work with copyright registration by Services Plus. Quick process, expert help & full legal support at low cost.",
+    "href": "/service/copyright-registration"
+  },
+  {
+    "slug": "cpwd-contractor-registration",
+    "title": "CPWD Contractor Registration Online: Complete Guide to Classes, Fees, Documents & the CEMS Process (2026)",
+    "category": "startup",
+    "metaDescription": "Get CPWD Contractor Registration online with expert guidance on eligibility, documents, application process, and approval from Services Plus.",
+    "href": "/service/cpwd-contractor-registration"
+  },
+  {
+    "slug": "custom-erp-software",
+    "title": "Custom Erp Software",
+    "category": "startup",
+    "metaDescription": "Professional Custom Erp Software in India. Fast processing, 100% online documentation, and expert assistance by Services Plus.",
+    "href": "/service/custom-erp-software"
+  },
+  {
+    "slug": "design-registration",
+    "title": "Design Registration In India",
+    "category": "startup",
+    "metaDescription": "Services Plus offers design registration in India. Protect your product design with expert filing, legal support & quick registration process.",
+    "href": "/service/design-registration"
+  },
+  {
+    "slug": "development-services",
+    "title": "Development Services",
+    "category": "startup",
+    "metaDescription": "Professional Development Services in India. Fast processing, 100% online documentation, and expert assistance by Services Plus.",
+    "href": "/service/development-services"
+  },
+  {
+    "slug": "digital-signature",
+    "title": "What Is A Digital Signature?",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for Digital Signature (DSC) online with Services Plus. Fast processing, secure signing & complete expert assistance.",
+    "href": "/service/digital-signature"
+  },
+  {
+    "slug": "dir-3-kyc",
+    "title": "DIR-3 KYC",
+    "category": "startup",
+    "metaDescription": "Services Plus offers DIR-3 KYC filing in India. Get director KYC compliance, timely filing & expert support to avoid penalties easily.",
+    "href": "/service/dir-3-kyc"
+  },
+  {
+    "slug": "e-way-bill",
+    "title": "E-Way Bill",
+    "category": "startup",
+    "metaDescription": "Get E-Way Bill registration with Services Plus. Easy process, expert assistance & complete GST compliance support for businesses.",
+    "href": "/service/e-way-bill"
+  },
+  {
+    "slug": "epf-registration",
+    "title": "EPF Registration – Online PF Registration for Employers in India – A Complete Guide",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers EPF registration in India. Get PF registration for employers, compliance support & expert assistance with easy process.",
+    "href": "/service/epf-registration"
+  },
+  {
+    "slug": "esi-registration",
+    "title": "What Is ESI Registration?",
+    "category": "startup",
+    "metaDescription": "Services Plus offers ESI registration in India. Get ESIC registration for employers, compliance support & expert help with easy process.",
+    "href": "/service/esi-registration"
+  },
+  {
+    "slug": "fda-license",
+    "title": "FDA license in India",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers FDA license registration in India. Get expert support for approval, documentation & compliance for food and drug products.",
+    "href": "/service/fda-license"
+  },
+  {
+    "slug": "fertilizer-license",
+    "title": "Fertilizer License Registration In India",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers fertilizer license registration in India. Get approval for fertilizer business, documentation & compliance support easily.",
+    "href": "/service/fertilizer-license"
+  },
+  {
+    "slug": "form-16-issuance",
+    "title": "Form-16 Issuance",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers quick Form-16 issuance and compliance services in India. Get accurate processing, timely delivery & expert support.",
+    "href": "/service/form-16-issuance"
+  },
+  {
+    "slug": "fssai-registration",
+    "title": "What Is FSSAI Registration?",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for FSSAI food license with Services Plus. Quick registration, expert help & complete compliance support for your business.",
+    "href": "/service/fssai-registration"
+  },
+  {
+    "slug": "gem-registration",
+    "title": "GeM Registration – Online GeM Portal Seller & Buyer Registration: Complete Guide (2026)",
+    "category": "certification-licensing",
+    "metaDescription": "Get expert GeM Registration Services in India. Register as a GeM seller online with easy documentation, profile setup and professional support.",
+    "href": "/service/gem-registration"
+  },
+  {
+    "slug": "gem-service",
+    "title": "Gem Service",
+    "category": "certification-licensing",
+    "metaDescription": "Professional Gem Service in India. Fast processing, 100% online documentation, and expert assistance by Services Plus.",
+    "href": "/service/gem-service"
+  },
+  {
+    "slug": "gst-and-income-tax-software",
+    "title": "Gst And Income Tax Software",
+    "category": "taxes",
+    "metaDescription": "Professional Gst And Income Tax Software in India. Fast processing, 100% online documentation, and expert assistance by Services Plus.",
+    "href": "/service/gst-and-income-tax-software"
+  },
+  {
+    "slug": "gst-annual-return-filing",
+    "title": "GST Annual Return Filing",
+    "category": "taxes",
+    "metaDescription": "Apply for annual GST return filing in India with Services Plus. Get accurate filing, expert support & timely compliance to avoid penalties.",
+    "href": "/service/gst-annual-return-filing"
+  },
+  {
+    "slug": "gst-billing-software",
+    "title": "GST Billing Software",
+    "category": "taxes",
+    "metaDescription": "Services Plus offers GST billing software in India. Create invoices, manage GST & simplify accounting with easy-to-use and compliant solution.",
+    "href": "/service/gst-billing-software"
+  },
+  {
+    "slug": "gst-e-invoicing",
+    "title": "What Is GST E-Invoicing?",
+    "category": "taxes",
+    "metaDescription": "Services Plus offers GST e-invoicing in India. Generate e-invoices, ensure GST compliance & manage billing with fast and expert support.",
+    "href": "/service/gst-e-invoicing"
+  },
+  {
+    "slug": "gst-invoicing",
+    "title": "GST Invoicing Agency In India",
+    "category": "taxes",
+    "metaDescription": "Services Plus offers GST invoicing in India. Generate accurate invoices, ensure compliance & manage billing easily with expert support.",
+    "href": "/service/gst-invoicing"
+  },
+  {
+    "slug": "gst-lut-forms",
+    "title": "GST LUT Form",
+    "category": "taxes",
+    "metaDescription": "Services Plus helps with GST LUT form filing in India. Export without tax, quick approval & expert support with easy documentation.",
+    "href": "/service/gst-lut-forms"
+  },
+  {
+    "slug": "gst-registration",
+    "title": "GST Registration in India: Get Your GSTIN Without the Guesswork",
+    "category": "taxes",
+    "metaDescription": "Complete guide to GST registration in India. Who needs it, turnover limits, documents, the new route under Rule 14A, fees, and penalties. Expert help from Services Plus.",
+    "href": "/service/gst-registration"
+  },
+  {
+    "slug": "gst-registration-cancellation",
+    "title": "GST Registration Cancellation",
+    "category": "taxes",
+    "metaDescription": "Cancel GST registration in India with Services Plus. Get fast processing, expert support & complete compliance for smooth business closure.",
+    "href": "/service/gst-registration-cancellation"
+  },
+  {
+    "slug": "gst-return-filing",
+    "title": "GST Return Filing in India: Every Form, Every Deadline, Explained Simply",
+    "category": "taxes",
+    "metaDescription": "Which GST return do you file, and by when? A plain-English guide to GSTR-1, GSTR-3B, QRMP, due dates, late fees, and the hard-locking and IMS rules that changed filing in 2026.",
+    "href": "/service/gst-return-filing"
+  },
+  {
+    "slug": "hr-and-payroll-service",
+    "title": "HR & Payroll Services",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers HR and payroll services in India. Get salary processing, compliance, PF, ESI & expert support for smooth operations.",
+    "href": "/service/hr-and-payroll-service"
+  },
+  {
+    "slug": "import-export-code",
+    "title": "What Is Import-Export License?",
+    "category": "startup",
+    "metaDescription": "Apply for Import Export Code (IEC) with Services Plus. Quick process, expert guidance & full compliance support for your business.",
+    "href": "/service/import-export-code"
+  },
+  {
+    "slug": "income-tax-notice-response",
+    "title": "Authenticate Income Tax Notice",
+    "category": "taxes",
+    "metaDescription": "Get expert assistance to respond to your Income Tax Notice. Quick, accurate filing and guidance to avoid penalties. Respond to tax notices online now!",
+    "href": "/service/income-tax-notice-response"
+  },
+  {
+    "slug": "indian-subsidiary",
+    "title": "Indian Subsidiary Registration India",
+    "category": "startup",
+    "metaDescription": "Set up your Indian subsidiary company easily with Services Plus. Expert assistance, quick process & full legal compliance support.",
+    "href": "/service/indian-subsidiary"
+  },
+  {
+    "slug": "input-tax-credit",
+    "title": "Input Tax Credit",
+    "category": "taxes",
+    "metaDescription": "Services Plus helps you claim Input Tax Credit (ITC) in India. Ensure compliance, reduce tax liability & get expert GST support easily.",
+    "href": "/service/input-tax-credit"
+  },
+  {
+    "slug": "iso-certification",
+    "title": "ISO Certification Registration process In India",
+    "category": "startup",
+    "metaDescription": "Services Plus offers ISO certification in India. Get expert support for documentation, audit & compliance to improve business quality standards.",
+    "href": "/service/iso-certification"
+  },
+  {
+    "slug": "itr-3-return-filing",
+    "title": "ITR-3 Return Filing Online India",
+    "category": "taxes",
+    "metaDescription": "File your ITR-3 return online with Services Plus. Get expert help, accurate filing & timely submission for business and professionals.",
+    "href": "/service/itr-3-return-filing"
+  },
+  {
+    "slug": "itr-4-return-filing",
+    "title": "ITR Form Online In India",
+    "category": "taxes",
+    "metaDescription": "Easily file ITR-4 for presumptive income with Services Plus. Fast process, expert support & error-free compliance for your business.",
+    "href": "/service/itr-4-return-filing"
+  },
+  {
+    "slug": "itr-5-return-filing",
+    "title": "ITR‑5 Form In India",
+    "category": "taxes",
+    "metaDescription": "File your ITR-5 return online with Services Plus. Check eligibility, process & due date with expert help for accurate and timely filing.",
+    "href": "/service/itr-5-return-filing"
+  },
+  {
+    "slug": "itr-6-return-filing",
+    "title": "ITR Form Online in india",
+    "category": "taxes",
+    "metaDescription": "Easily file your ITR-6 return with Services Plus. Fast process, expert assistance & complete compliance support for companies.",
+    "href": "/service/itr-6-return-filing"
+  },
+  {
+    "slug": "itr-7-return-filing",
+    "title": "ITR-7 Form in India",
+    "category": "taxes",
+    "metaDescription": "Easily file ITR-7 for trusts & NGOs with Services Plus. Fast process, expert assistance & complete compliance support.",
+    "href": "/service/itr-7-return-filing"
+  },
+  {
+    "slug": "limited-liability-partnership",
+    "title": "What Is A Limited Liability Partnership Registration?",
+    "category": "startup",
+    "metaDescription": "Register your Limited Liability Partnership in India with Services Plus. Quick process, expert help & full legal compliance support.",
+    "href": "/service/limited-liability-partnership"
+  },
+  {
+    "slug": "liquor-license",
+    "title": "Liquor License Registration",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers liquor license registration in India. Get expert help for approvals, documentation & compliance as per state laws.",
+    "href": "/service/liquor-license"
+  },
+  {
+    "slug": "llp-compliance",
+    "title": "LLP Registration Services",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers LLP compliance services in India. Get expert support for annual filing, ROC compliance & timely legal requirements.",
+    "href": "/service/llp-compliance"
+  },
+  {
+    "slug": "music-license",
+    "title": "Music License in India",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers music license registration in India. Get approval for public performance, background music & compliance support easily.",
+    "href": "/service/music-license"
+  },
+  {
+    "slug": "nidhi-company",
+    "title": "What Is A Nidhi Company Registration?",
+    "category": "startup",
+    "metaDescription": "Services Plus provides Nidhi Company registration in India. Get quick setup, legal compliance & expert support with easy documentation.",
+    "href": "/service/nidhi-company"
+  },
+  {
+    "slug": "one-person-company",
+    "title": "What Is One Person Company Registration?",
+    "category": "startup",
+    "metaDescription": "Services Plus offers One Person Company registration in India. Get fast OPC setup, legal compliance & expert support at affordable cost.",
+    "href": "/service/one-person-company"
+  },
+  {
+    "slug": "partnership",
+    "title": "What is a Partnership firm in India?",
+    "category": "startup",
+    "metaDescription": "Easily register your partnership firm in India. Complete documentation, legal support & quick processing by experienced professionals.",
+    "href": "/service/partnership"
+  },
+  {
+    "slug": "partnership-compliance",
+    "title": "Partnership Firm Compliance",
+    "category": "compliance",
+    "metaDescription": "Services Plus provides partnership firm compliance in India. Get expert help for filings, legal requirements & timely compliance support.",
+    "href": "/service/partnership-compliance"
+  },
+  {
+    "slug": "patent-registration",
+    "title": "Patent Registration In India",
+    "category": "trademark",
+    "metaDescription": "Services Plus offers patent registration in India. Protect your invention with expert drafting, filing & complete legal support.",
+    "href": "/service/patent-registration"
+  },
+  {
+    "slug": "personal-tax-return-filing",
+    "title": "Personal Tax Return Filing In India",
+    "category": "taxes",
+    "metaDescription": "File your personal tax return in India with Services Plus. Get expert help, accurate filing & timely submission for hassle-free compliance.",
+    "href": "/service/personal-tax-return-filing"
+  },
+  {
+    "slug": "pesticides-licence",
+    "title": "Pesticides License Registration Online: Legal Framework & Approval Process By Services Plus",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers pesticides licence registration in India. Get approval for pesticide business, documentation & compliance support easily.",
+    "href": "/service/pesticides-licence"
+  },
+  {
+    "slug": "pf-return-filing",
+    "title": "PF Return Filing",
+    "category": "startup",
+    "metaDescription": "Services Plus offers PF return filing in India. Get accurate EPF filing, timely submission & expert compliance support for your business.",
+    "href": "/service/pf-return-filing"
+  },
+  {
+    "slug": "private-limited-company",
+    "title": "Private Limited Company Registration in India: Complete Guide to Process, Documents & Compliance (2026)",
+    "category": "startup",
+    "metaDescription": "Register a Private Limited Company online with expert help for documents, incorporation, MCA filing and registration process from Services Plus.",
+    "href": "/service/private-limited-company"
+  },
+  {
+    "slug": "private-limited-company-compliance",
+    "title": "Private Limited Company Compliance",
+    "category": "compliance",
+    "metaDescription": "Services Plus provides Private Limited Company compliance in India. Get expert support for filings, ROC compliance & timely legal requirements.",
+    "href": "/service/private-limited-company-compliance"
+  },
+  {
+    "slug": "professional-tax",
+    "title": "What Is Professional Tax Registration?",
+    "category": "taxes",
+    "metaDescription": "Register for Professional Tax in India with Services Plus. Fast process, expert help & complete compliance support for your business.",
+    "href": "/service/professional-tax"
+  },
+  {
+    "slug": "proprietorship-compliance",
+    "title": "Proprietorship Firm Registration in India",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers proprietorship firm registration in India. Get quick setup, legal compliance & expert support with easy documentation.",
+    "href": "/service/proprietorship-compliance"
+  },
+  {
+    "slug": "proprietorship-registration",
+    "title": "Sole Proprietorship Registration in India: Complete Guide to Documents and Process (2026)",
+    "category": "startup",
+    "metaDescription": "Get easy Sole Proprietorship Registration in India with expert guidance on documents, process, GST and business setup from Services Plus.",
+    "href": "/service/proprietorship-registration"
+  },
+  {
+    "slug": "proprietorship-registration-in-delhi",
+    "title": "Proprietorship registration In Delhi",
+    "category": "startup",
+    "metaDescription": "Start Your Proprietorship Registration in Delhi with Services Plus. Get expert help for Sole Proprietorship Firm Registration in Delhi at reasonable rates.",
+    "href": "/service/proprietorship-registration-in-delhi"
+  },
+  {
+    "slug": "proprietorship-registration-in-greater-noida",
+    "title": "Proprietorship Registration In Greater Noida",
+    "category": "startup",
+    "metaDescription": "Proprietorship Registration in Greater Noida. Services Plus assists expertly with Sole Proprietorship Firm Registration in Greater Noida.",
+    "href": "/service/proprietorship-registration-in-greater-noida"
+  },
+  {
+    "slug": "proprietorship-registration-in-gurgaon",
+    "title": "Proprietorship Registration in Gurgaon | Quick & Easy Business Setup",
+    "category": "startup",
+    "metaDescription": "Get your Proprietorship Registration in Gurgaon done hassle-free. Fast documentation, expert assistance, and affordable pricing to start your business today!",
+    "href": "/service/proprietorship-registration-in-gurgaon"
+  },
+  {
+    "slug": "proprietorship-registration-in-noida",
+    "title": "Proprietorship Registration In Noida",
+    "category": "startup",
+    "metaDescription": "Looking for Proprietorship Registration in Noida? Services Plus offers reliable Sole Proprietorship Firm Registration in Noida with expert support.",
+    "href": "/service/proprietorship-registration-in-noida"
+  },
+  {
+    "slug": "provisional-patent",
+    "title": "Provisional Patent In India",
+    "category": "trademark",
+    "metaDescription": "Services Plus offers provisional patent filing in India. Protect your idea with expert drafting, quick filing & complete legal support.",
+    "href": "/service/provisional-patent"
+  },
+  {
+    "slug": "psara-license",
+    "title": "PSARA License Registration: Complete Guide to Eligibility, Documents, Fees & Renewal (2026)",
+    "category": "certification-licensing",
+    "metaDescription": "Get PSARA License Registration with Services Plus. Get expert help with eligibility, documents, online application, verification, approval and renewal.",
+    "href": "/service/psara-license"
+  },
+  {
+    "slug": "psara-license-in-delhi",
+    "title": "PSARA License in Delhi : Empower Your Security Business",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for PSARA license in Delhi with expert support. Know eligibility, documents required, fees, and step-by-step application process.",
+    "href": "/service/psara-license-in-delhi"
+  },
+  {
+    "slug": "psara-license-in-maharashtra",
+    "title": "PSARA License in Maharashtra | Apply Online & Consultancy",
+    "category": "certification-licensing",
+    "metaDescription": "Get PSARA License in Maharashtra with expert support. Fast application, complete documentation & approval for private security agencies. Apply now!",
+    "href": "/service/psara-license-in-maharashtra"
+  },
+  {
+    "slug": "psara-license-in-rajasthan",
+    "title": "PSARA License in Rajasthan | Private Security Agency Registration",
+    "category": "certification-licensing",
+    "metaDescription": "Get PSARA License in Rajasthan with expert assistance. Fast, hassle-free Private Security Agency Registration with complete compliance support.",
+    "href": "/service/psara-license-in-rajasthan"
+  },
+  {
+    "slug": "psara-license-in-tamil-nadu",
+    "title": "PSARA License in Tamil Nadu | Apply Online & Cost",
+    "category": "certification-licensing",
+    "metaDescription": "Get PSARA License in Tamil Nadu with expert support. Know eligibility, documents, cost, and online application process for security agencies.",
+    "href": "/service/psara-license-in-tamil-nadu"
+  },
+  {
+    "slug": "psara-license-in-telangana",
+    "title": "PSARA License in Telangana | Apply Online & Consultancy",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for PSARA License in Telangana with expert assistance. Complete documentation, fast processing & approval for security agencies.",
+    "href": "/service/psara-license-in-telangana"
+  },
+  {
+    "slug": "psara-license-in-uttar-pradesh",
+    "title": "PSARA License in Uttar Pradesh: Hassle-Free Registration with Services Plus",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for PSARA license in Uttar Pradesh with expert help. Check eligibility, documents required, fees, and step-by-step application process.",
+    "href": "/service/psara-license-in-uttar-pradesh"
+  },
+  {
+    "slug": "psara-license-in-uttarakhand",
+    "title": "PSARA License in Uttarakhand | Apply Online & Fees",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for PSARA license in Uttarakhand with expert assistance. Check eligibility, documents required, fees, and step-by-step application process.",
+    "href": "/service/psara-license-in-uttarakhand"
+  },
+  {
+    "slug": "psara-license-registration-in-india",
+    "title": "PSARA License Registration in India: What Every Security Agency Owner Needs to Know",
+    "category": "certification-licensing",
+    "metaDescription": "Get PSARA License Registration in India with expert assistance for documents, application, eligibility and approval. Start your process with Services Plus.",
+    "href": "/service/psara-license-registration-in-india"
+  },
+  {
+    "slug": "registered-office-change",
+    "title": "Registered Office Change",
+    "category": "startup",
+    "metaDescription": "Services Plus helps with registered office change in India. Get expert support for address update, ROC filing & legal compliance easily.",
+    "href": "/service/registered-office-change"
+  },
+  {
+    "slug": "removal-resignation-of-directors",
+    "title": "Removal/ Resignation of Directors",
+    "category": "compliance",
+    "metaDescription": "Services Plus helps with director removal & resignation in India. Get expert support for ROC filing, documentation & legal compliance.",
+    "href": "/service/removal-resignation-of-directors"
+  },
+  {
+    "slug": "section-8-company",
+    "title": "What is A Section 8 Company Registration In India?",
+    "category": "startup",
+    "metaDescription": "Start your NGO with Section 8 Company registration in India. Quick process, expert help & full legal compliance by Services Plus.",
+    "href": "/service/section-8-company"
+  },
+  {
+    "slug": "seed-license",
+    "title": "Apply Seed License Online",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers seed license registration in India. Get approval for seed business, documentation & compliance support easily.",
+    "href": "/service/seed-license"
+  },
+  {
+    "slug": "share-transfer",
+    "title": "Company Share Transfer Process",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers share transfer services in India. Get expert support for documentation, legal compliance & smooth ownership transfer.",
+    "href": "/service/share-transfer"
+  },
+  {
+    "slug": "spice-board-license",
+    "title": "Spice Board Registration In India",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers Spice Board license registration in India. Get exporter registration, approvals & compliance support for spice business.",
+    "href": "/service/spice-board-license"
+  },
+  {
+    "slug": "startup-india-registration",
+    "title": "What Is Start-up India Registration?",
+    "category": "startup",
+    "metaDescription": "Register your startup under Startup India with Services Plus. Get DPIIT recognition, tax benefits & complete expert assistance.",
+    "href": "/service/startup-india-registration"
+  },
+  {
+    "slug": "tds-return-filing",
+    "title": "TDS Return Filing",
+    "category": "taxes",
+    "metaDescription": "File your TDS return online with Services Plus. Get accurate filing, expert support & timely submission to ensure full tax compliance.",
+    "href": "/service/tds-return-filing"
+  },
+  {
+    "slug": "trade-license",
+    "title": "Trade License Registration In India",
+    "category": "certification-licensing",
+    "metaDescription": "Services Plus offers trade license registration in India. Get approval, documentation & compliance support from local authorities easily.",
+    "href": "/service/trade-license"
+  },
+  {
+    "slug": "trademark-objection",
+    "title": "What Is A Trademark Objection",
+    "category": "trademark",
+    "metaDescription": "Handle trademark objections easily with Services Plus. Expert assistance, quick reply filing & complete legal support for approval.",
+    "href": "/service/trademark-objection"
+  },
+  {
+    "slug": "trademark-opposition",
+    "title": "Trademark Opposition",
+    "category": "trademark",
+    "metaDescription": "Services Plus offers trademark opposition services in India. Get expert legal support, filing & defense for smooth trademark approval.",
+    "href": "/service/trademark-opposition"
+  },
+  {
+    "slug": "trademark-registration",
+    "title": "What Is Trademark Registration?",
+    "category": "trademark",
+    "metaDescription": "Secure your brand with trademark registration by Services Plus. Quick filing, expert assistance & full legal support at affordable cost.",
+    "href": "/service/trademark-registration"
+  },
+  {
+    "slug": "trademark-renewal",
+    "title": "What Is Online Renewal Of Trademark?",
+    "category": "trademark",
+    "metaDescription": "Renew your trademark easily with Services Plus. Quick process, expert assistance & complete legal support to maintain brand protection.",
+    "href": "/service/trademark-renewal"
+  },
+  {
+    "slug": "uae-trademark",
+    "title": "Best UAE Trademark Company In India",
+    "category": "trademark",
+    "metaDescription": "Services Plus offers UAE trademark registration. Protect your brand in UAE with expert support, fast filing & legal compliance services.",
+    "href": "/service/uae-trademark"
+  },
+  {
+    "slug": "udyam-registration",
+    "title": "What Is Udyam Registration In India?",
+    "category": "startup",
+    "metaDescription": "Services Plus offers Udyam registration in India. Get MSME certificate, government benefits & fast approval with expert support.",
+    "href": "/service/udyam-registration"
+  },
+  {
+    "slug": "udyam-registration-in-faridabad",
+    "title": "Udyam Registration in Faridabad: Legal Recognition Every MSME Needs",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for Udyam Registration in Faridabad online. Get MSME certificate, government benefits, and quick approval with simple Aadhaar-based registration process.",
+    "href": "/service/udyam-registration-in-faridabad"
+  },
+  {
+    "slug": "udyam-registration-in-ghaziabad",
+    "title": "Udyam Registration in Ghaziabad – Trusted MSME Registration Services",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for Udyam Registration in Ghaziabad online. Get MSME certificate, free government registration, and quick approval with simple Aadhaar-based process.",
+    "href": "/service/udyam-registration-in-ghaziabad"
+  },
+  {
+    "slug": "udyam-registration-in-gurgaon",
+    "title": "Udyam Registration in Gurgaon—Trusted MSME Growth Partner by Services Plus",
+    "category": "startup",
+    "metaDescription": "Get quick and hassle-free Udyam Registration in Gurgaon. Apply online for MSME registration, benefits, and government schemes with expert assistance.",
+    "href": "/service/udyam-registration-in-gurgaon"
+  },
+  {
+    "slug": "udyam-registration-in-haryana",
+    "title": "Udyam Registration in Haryana: Professional Service for Growing Businesses",
+    "category": "certification-licensing",
+    "metaDescription": "Get quick and affordable Udyam registration in Haryana. Apply online for MSME certificate, government benefits, and expert support with fast approval.",
+    "href": "/service/udyam-registration-in-haryana"
+  },
+  {
+    "slug": "udyam-registration-in-mumbai",
+    "title": "Udyam Registration in Mumbai – Fast, Reliable & 100% Online Support by Services Plus",
+    "category": "certification-licensing",
+    "metaDescription": "Apply for quick and affordable Udyam registration in Mumbai. Get MSME certificate, government benefits, and expert support with fast online processing.",
+    "href": "/service/udyam-registration-in-mumbai"
+  },
+  {
+    "slug": "usa-company-registration",
+    "title": "What Is USA Company Registration In India?",
+    "category": "startup",
+    "metaDescription": "Register your company in the USA with Services Plus. Quick process, expert assistance & complete compliance support for global business.",
+    "href": "/service/usa-company-registration"
+  },
+  {
+    "slug": "usa-trademark",
+    "title": "USA Trademark Company In India",
+    "category": "trademark",
+    "metaDescription": "Register your trademark in the USA with Services Plus. Quick process, expert assistance & full legal support for global brand protection.",
+    "href": "/service/usa-trademark"
+  },
+  {
+    "slug": "website-design-service",
+    "title": "Website Design Service",
+    "category": "startup",
+    "metaDescription": "Professional Website Design Service in India. Fast processing, 100% online documentation, and expert assistance by Services Plus.",
+    "href": "/service/website-design-service"
+  },
+  {
+    "slug": "winding-up-of-llp",
+    "title": "Winding Up Of LLP",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers LLP winding up in India. Get expert support for closure, ROC filing & legal compliance for smooth business shutdown.",
+    "href": "/service/winding-up-of-llp"
+  },
+  {
+    "slug": "winding-up-the-company",
+    "title": "Winding Up The Company",
+    "category": "compliance",
+    "metaDescription": "Services Plus offers company winding up in India. Get expert support for legal closure, ROC filing & hassle-free compliance process.",
+    "href": "/service/winding-up-the-company"
+  },
+  {
+    "slug": "google-adwords-services",
+    "title": "Google Adwords Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Google Adwords Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/google-adwords-services"
+  },
+  {
+    "slug": "content-writing-for-products",
+    "title": "Content Writing For Products",
+    "category": "startup",
+    "metaDescription": "Comprehensive Content Writing For Products solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/content-writing-for-products"
+  },
+  {
+    "slug": "content-writing-for-pr",
+    "title": "Content Writing For Pr",
+    "category": "startup",
+    "metaDescription": "Comprehensive Content Writing For Pr solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/content-writing-for-pr"
+  },
+  {
+    "slug": "content-writing-for-blogs",
+    "title": "Content Writing For Blogs",
+    "category": "startup",
+    "metaDescription": "Comprehensive Content Writing For Blogs solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/content-writing-for-blogs"
+  },
+  {
+    "slug": "content-writing-for-seo-services",
+    "title": "Content Writing For Seo Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Content Writing For Seo Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/content-writing-for-seo-services"
+  },
+  {
+    "slug": "content-writing-services",
+    "title": "Content Writing Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Content Writing Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/content-writing-services"
+  },
+  {
+    "slug": "digital-marketing",
+    "title": "Digital Marketing",
+    "category": "startup",
+    "metaDescription": "Comprehensive Digital Marketing solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/digital-marketing"
+  },
+  {
+    "slug": "content-writing-for-website",
+    "title": "Content Writing For Website",
+    "category": "startup",
+    "metaDescription": "Comprehensive Content Writing For Website solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/content-writing-for-website"
+  },
+  {
+    "slug": "custom-erp-software-2311071006-714",
+    "title": "Custom Erp Software 2311071006 714",
+    "category": "startup",
+    "metaDescription": "Comprehensive Custom Erp Software 2311071006 714 solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/custom-erp-software-2311071006-714"
+  },
+  {
+    "slug": "email-marketing-services",
+    "title": "Email Marketing Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Email Marketing Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/email-marketing-services"
+  },
+  {
+    "slug": "multi-e-commerce-website-development",
+    "title": "Multi E Commerce Website Development",
+    "category": "startup",
+    "metaDescription": "Comprehensive Multi E Commerce Website Development solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/multi-e-commerce-website-development"
+  },
+  {
+    "slug": "lead-generation-services",
+    "title": "Lead Generation Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Lead Generation Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/lead-generation-services"
+  },
+  {
+    "slug": "portal-website-development",
+    "title": "Portal Website Development",
+    "category": "startup",
+    "metaDescription": "Comprehensive Portal Website Development solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/portal-website-development"
+  },
+  {
+    "slug": "seo-services",
+    "title": "Seo Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Seo Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/seo-services"
+  },
+  {
+    "slug": "single-vendor-e-commerce-website-development",
+    "title": "Single Vendor E Commerce Website Development",
+    "category": "startup",
+    "metaDescription": "Comprehensive Single Vendor E Commerce Website Development solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/single-vendor-e-commerce-website-development"
+  },
+  {
+    "slug": "social-media-marketing-services",
+    "title": "Social Media Marketing Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Social Media Marketing Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/social-media-marketing-services"
+  },
+  {
+    "slug": "software-development",
+    "title": "Software Development",
+    "category": "startup",
+    "metaDescription": "Comprehensive Software Development solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/software-development"
+  },
+  {
+    "slug": "website-development-services",
+    "title": "Website Development Services",
+    "category": "startup",
+    "metaDescription": "Comprehensive Website Development Services solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/website-development-services"
+  },
+  {
+    "slug": "wordpress-website-development",
+    "title": "Wordpress Website Development",
+    "category": "startup",
+    "metaDescription": "Comprehensive Wordpress Website Development solutions by Services Plus. Expert business consulting, digital implementation, and continuous support.",
+    "href": "/service/wordpress-website-development"
+  }
+]
