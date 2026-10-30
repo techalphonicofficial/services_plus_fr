@@ -1,0 +1,417 @@
+[
+  {
+    "title": "Startup »",
+    "services": [
+      {
+        "title": "Proprietorship Registration",
+        "slug": "proprietorship-registration",
+        "href": "/service/proprietorship-registration"
+      },
+      {
+        "title": "Partnership Registration",
+        "slug": "partnership",
+        "href": "/service/partnership"
+      },
+      {
+        "title": "UDYAM Registration",
+        "slug": "udyam-registration",
+        "href": "/service/udyam-registration"
+      },
+      {
+        "title": "Indian Subsidiary",
+        "slug": "indian-subsidiary",
+        "href": "/service/indian-subsidiary"
+      },
+      {
+        "title": "One Person Company",
+        "slug": "one-person-company",
+        "href": "/service/one-person-company"
+      },
+      {
+        "title": "Limited Liability Partnership",
+        "slug": "limited-liability-partnership",
+        "href": "/service/limited-liability-partnership"
+      },
+      {
+        "title": "Private Limited Company",
+        "slug": "private-limited-company",
+        "href": "/service/private-limited-company"
+      },
+      {
+        "title": "Startup India Registration",
+        "slug": "startup-india-registration",
+        "href": "/service/startup-india-registration"
+      },
+      {
+        "title": "Nidhi Company",
+        "slug": "nidhi-company",
+        "href": "/service/nidhi-company"
+      },
+      {
+        "title": "Section 8 Company",
+        "slug": "section-8-company",
+        "href": "/service/section-8-company"
+      },
+      {
+        "title": "USA Company Registration",
+        "slug": "usa-company-registration",
+        "href": "/service/usa-company-registration"
+      },
+      {
+        "title": "Digital Signature",
+        "slug": "digital-signature",
+        "href": "/service/digital-signature"
+      },
+      {
+        "title": "Import Export Code",
+        "slug": "import-export-code",
+        "href": "/service/import-export-code"
+      },
+      {
+        "title": "FSSAI Registration",
+        "slug": "fssai-registration",
+        "href": "/service/fssai-registration"
+      },
+      {
+        "title": "Professional Tax",
+        "slug": "professional-tax",
+        "href": "/service/professional-tax"
+      },
+      {
+        "title": "CPWD Contractor",
+        "slug": "cpwd-contractor-registration",
+        "href": "/service/cpwd-contractor-registration"
+      },
+      {
+        "title": "Company Incorporation",
+        "slug": "company-incorporation",
+        "href": "/service/company-incorporation"
+      }
+    ]
+  },
+  {
+    "title": "Trademark »",
+    "services": [
+      {
+        "title": "Trademark Registration",
+        "slug": "trademark-registration",
+        "href": "/service/trademark-registration"
+      },
+      {
+        "title": "Trademark Renewal",
+        "slug": "trademark-renewal",
+        "href": "/service/trademark-renewal"
+      },
+      {
+        "title": "USA Trademark",
+        "slug": "usa-trademark",
+        "href": "/service/usa-trademark"
+      },
+      {
+        "title": "Copyright Registration",
+        "slug": "copyright-registration",
+        "href": "/service/copyright-registration"
+      },
+      {
+        "title": "UAE Trademark",
+        "slug": "uae-trademark",
+        "href": "/service/uae-trademark"
+      },
+      {
+        "title": "Trademark Objection",
+        "slug": "trademark-objection",
+        "href": "/service/trademark-objection"
+      },
+      {
+        "title": "Trademark Opposition",
+        "slug": "trademark-opposition",
+        "href": "/service/trademark-opposition"
+      },
+      {
+        "title": "Provisional Patent",
+        "slug": "provisional-patent",
+        "href": "/service/provisional-patent"
+      },
+      {
+        "title": "Design Registration",
+        "slug": "design-registration",
+        "href": "/service/design-registration"
+      },
+      {
+        "title": "Patent Registration",
+        "slug": "patent-registration",
+        "href": "/service/patent-registration"
+      }
+    ]
+  },
+  {
+    "title": "Taxes »",
+    "services": [
+      {
+        "title": "GST Registration",
+        "slug": "gst-registration",
+        "href": "/service/gst-registration"
+      },
+      {
+        "title": "GST Return Filing",
+        "slug": "gst-return-filing",
+        "href": "/service/gst-return-filing"
+      },
+      {
+        "title": "GST LUT Forms",
+        "slug": "gst-lut-forms",
+        "href": "/service/gst-lut-forms"
+      },
+      {
+        "title": "E-Way Bill",
+        "slug": "e-way-bill",
+        "href": "/service/e-way-bill"
+      },
+      {
+        "title": "GST Registration Cancellation",
+        "slug": "gst-registration-cancellation",
+        "href": "/service/gst-registration-cancellation"
+      },
+      {
+        "title": "Input Tax Credit",
+        "slug": "input-tax-credit",
+        "href": "/service/input-tax-credit"
+      },
+      {
+        "title": "GST Annual Return Filing",
+        "slug": "gst-annual-return-filing",
+        "href": "/service/gst-annual-return-filing"
+      },
+      {
+        "title": "Business Tax Return Filing",
+        "slug": "business-tax-return-filing",
+        "href": "/service/business-tax-return-filing"
+      },
+      {
+        "title": "Income Tax Notice Response",
+        "slug": "income-tax-notice-response",
+        "href": "/service/income-tax-notice-response"
+      },
+      {
+        "title": "ITR-3 Return Filing",
+        "slug": "itr-3-return-filing",
+        "href": "/service/itr-3-return-filing"
+      },
+      {
+        "title": "Personal Tax Return Filing",
+        "slug": "personal-tax-return-filing",
+        "href": "/service/personal-tax-return-filing"
+      },
+      {
+        "title": "TDS Return Filing",
+        "slug": "tds-return-filing",
+        "href": "/service/tds-return-filing"
+      },
+      {
+        "title": "ITR-5 Return Filing",
+        "slug": "itr-5-return-filing",
+        "href": "/service/itr-5-return-filing"
+      },
+      {
+        "title": "ITR-4 Return Filing",
+        "slug": "itr-4-return-filing",
+        "href": "/service/itr-4-return-filing"
+      },
+      {
+        "title": "ITR-7 Return Filing",
+        "slug": "itr-7-return-filing",
+        "href": "/service/itr-7-return-filing"
+      },
+      {
+        "title": "ITR-6 Return filing",
+        "slug": "itr-6-return-filing",
+        "href": "/service/itr-6-return-filing"
+      },
+      {
+        "title": "Form-16 Issuance",
+        "slug": "form-16-issuance",
+        "href": "/service/form-16-issuance"
+      },
+      {
+        "title": "GST Billing Software",
+        "slug": "gst-billing-software",
+        "href": "/service/gst-billing-software"
+      },
+      {
+        "title": "GST Invoicing",
+        "slug": "gst-invoicing",
+        "href": "/service/gst-invoicing"
+      },
+      {
+        "title": "GST E-Invoicing",
+        "slug": "gst-e-invoicing",
+        "href": "/service/gst-e-invoicing"
+      }
+    ]
+  },
+  {
+    "title": "Compliance »",
+    "services": [
+      {
+        "title": "Proprietorship Compliance",
+        "slug": "proprietorship-compliance",
+        "href": "/service/proprietorship-compliance"
+      },
+      {
+        "title": "Partnership Compliance",
+        "slug": "partnership-compliance",
+        "href": "/service/partnership-compliance"
+      },
+      {
+        "title": "Private Limited Company Compliance",
+        "slug": "private-limited-company-compliance",
+        "href": "/service/private-limited-company-compliance"
+      },
+      {
+        "title": "HR And Payroll Service",
+        "slug": "hr-and-payroll-service",
+        "href": "/service/hr-and-payroll-service"
+      },
+      {
+        "title": "LLP Compliance",
+        "slug": "llp-compliance",
+        "href": "/service/llp-compliance"
+      },
+      {
+        "title": "EPF Registration",
+        "slug": "epf-registration",
+        "href": "/service/epf-registration"
+      },
+      {
+        "title": "Share Transfer",
+        "slug": "share-transfer",
+        "href": "/service/share-transfer"
+      },
+      {
+        "title": "PF Return Filing",
+        "slug": "pf-return-filing",
+        "href": "/service/pf-return-filing"
+      },
+      {
+        "title": "Adding New Director",
+        "slug": "adding-new-director",
+        "href": "/service/adding-new-director"
+      },
+      {
+        "title": "Removal/ Resignation of Directors",
+        "slug": "removal-resignation-of-directors",
+        "href": "/service/removal-resignation-of-directors"
+      },
+      {
+        "title": "ESI Registration",
+        "slug": "esi-registration",
+        "href": "/service/esi-registration"
+      },
+      {
+        "title": "DIR-3 KYC",
+        "slug": "dir-3-kyc",
+        "href": "/service/dir-3-kyc"
+      },
+      {
+        "title": "Registered Office Change",
+        "slug": "registered-office-change",
+        "href": "/service/registered-office-change"
+      },
+      {
+        "title": "Authorized Capital Increase",
+        "slug": "authorized-capital-increase",
+        "href": "/service/authorized-capital-increase"
+      },
+      {
+        "title": "Winding Up The Company",
+        "slug": "winding-up-the-company",
+        "href": "/service/winding-up-the-company"
+      },
+      {
+        "title": "Winding Up Of LLP",
+        "slug": "winding-up-of-llp",
+        "href": "/service/winding-up-of-llp"
+      }
+    ]
+  },
+  {
+    "title": "Certification & Licensing »",
+    "services": [
+      {
+        "title": "AYUSH License",
+        "slug": "ayush-license",
+        "href": "/service/ayush-license"
+      },
+      {
+        "title": "CE certificate",
+        "slug": "ce-certificate",
+        "href": "/service/ce-certificate"
+      },
+      {
+        "title": "FDA license",
+        "slug": "fda-license",
+        "href": "/service/fda-license"
+      },
+      {
+        "title": "Liquor license",
+        "slug": "liquor-license",
+        "href": "/service/liquor-license"
+      },
+      {
+        "title": "Music License",
+        "slug": "music-license",
+        "href": "/service/music-license"
+      },
+      {
+        "title": "PSARA License",
+        "slug": "psara-license",
+        "href": "/service/psara-license"
+      },
+      {
+        "title": "Gem Registration",
+        "slug": "gem-registration",
+        "href": "/service/gem-registration"
+      },
+      {
+        "title": "Seed License",
+        "slug": "seed-license",
+        "href": "/service/seed-license"
+      },
+      {
+        "title": "Fertilizer License",
+        "slug": "fertilizer-license",
+        "href": "/service/fertilizer-license"
+      },
+      {
+        "title": "Trade License",
+        "slug": "trade-license",
+        "href": "/service/trade-license"
+      },
+      {
+        "title": "CDSCO License",
+        "slug": "cdsco-license",
+        "href": "/service/cdsco-license"
+      },
+      {
+        "title": "Spice Board License",
+        "slug": "spice-board-license",
+        "href": "/service/spice-board-license"
+      },
+      {
+        "title": "ISO Certification",
+        "slug": "iso-certification",
+        "href": "/service/iso-certification"
+      },
+      {
+        "title": "APEDA license",
+        "slug": "apeda-license",
+        "href": "/service/apeda-license"
+      },
+      {
+        "title": "Pesticides Licence",
+        "slug": "pesticides-licence",
+        "href": "/service/pesticides-licence"
+      }
+    ]
+  }
+]
