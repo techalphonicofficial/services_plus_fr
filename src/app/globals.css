@@ -3,98 +3,143 @@
 @tailwind utilities;
 
 :root {
-  --sp-primary: #173AD4;
-  --sp-primary-600: #1B40C3;
-  --sp-accent: #2574EA;
-  --sp-sky: #95BEFA;
-  --sp-tint: #D9E9FF;
-  --sp-bg: #F7FCFF;
-  --sp-deep-1: #042C9F;
-  --sp-deep-2: #072784;
-  --sp-navy: #001244;
-  --sp-ink: #040925;
-  --sp-slate: #365185;
+  --sp-primary: #1C4D8D;
+  --sp-primary-600: #0F2854;
+  --sp-accent: #4988C4;
+  --sp-sky: #BDE8F5;
+  --sp-tint: #BDE8F5;
+  --sp-bg: #F8F9FA;
+  --sp-deep-1: #1C4D8D;
+  --sp-deep-2: #0F2854;
+  --sp-navy: #0F2854;
+  --sp-ink: #0F2854;
+  --sp-slate: #4A5568;
   --sp-card: #FFFFFF;
+  --sp-border: rgba(15, 40, 84, 0.08);
+  --sp-border-strong: rgba(15, 40, 84, 0.15);
+}
+
+@view-transition {
+  navigation: auto;
 }
 
 @layer base {
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--sp-bg);
     color: var(--sp-ink);
+    font-family: var(--font-geist-sans), sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
-  /* Fluid headings */
+  /* Display headings: Bricolage Grotesque 600-700 only, tracking -0.02em */
   h1 {
-    @apply font-bold tracking-tight text-sp-ink;
-    font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
-    line-height: 1.15;
+    font-family: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--sp-ink);
+    line-height: 1.05;
   }
 
   h2 {
-    @apply font-bold tracking-tight text-sp-ink;
-    font-size: clamp(1.5rem, 2.5vw + 0.8rem, 2.5rem);
-    line-height: 1.25;
+    font-family: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--sp-ink);
+    line-height: 1.12;
   }
 
-  h3 {
-    @apply font-semibold tracking-tight text-sp-ink;
-    font-size: clamp(1.2rem, 1.8vw + 0.6rem, 1.75rem);
-    line-height: 1.35;
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-geist-sans), sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--sp-ink);
+    line-height: 1.3;
   }
 
-  /* Accessible focus ring */
+  /* Accessible 3px focus ring using #2574EA */
   *:focus-visible {
-    outline: 2px solid var(--sp-accent);
+    outline: 3px solid var(--sp-accent);
     outline-offset: 2px;
   }
 }
 
-/* The Plus Signature Grid Background */
+/* Tabular numerals helper */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Masked Plus-Grid ("Registration Marks" art direction) */
 .sp-plus-grid {
-  background-image: radial-gradient(circle, rgba(37, 116, 234, 0.15) 1px, transparent 1px),
-                    radial-gradient(circle, rgba(23, 58, 212, 0.1) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: 0 0, 16px 16px;
-}
-
-/* Distinct Plus-shaped marker pattern */
-.sp-plus-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 14V26M14 20H26' stroke='%232574EA' stroke-width='1.5' stroke-linecap='round' stroke-opacity='0.15'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-}
-
-/* Soft gradient glow behind hero */
-.sp-hero-glow {
-  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(37, 116, 234, 0.18), transparent 70%);
-}
-
-/* Navy section gradient */
-.sp-navy-gradient {
-  background: linear-gradient(135deg, var(--sp-deep-1) 0%, var(--sp-navy) 100%);
-}
-
-/* Primary CTA gradient */
-.sp-cta-gradient {
-  background: linear-gradient(135deg, var(--sp-primary) 0%, var(--sp-accent) 100%);
-}
-
-/* Plus shaped list bullets */
-.sp-plus-list li {
   position: relative;
-  padding-left: 1.5rem;
 }
 
-.sp-plus-list li::before {
-  content: "+";
+.sp-plus-grid::before {
+  content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--sp-primary);
-  font-weight: 700;
-  font-family: var(--font-geist-mono);
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 12.5V19.5M12.5 16H19.5' stroke='%230F2854' stroke-width='1' stroke-opacity='0.055'/%3E%3C/svg%3E");
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 85%);
+}
+
+/* Distinct Plus-shaped marker pattern for dark navy sections */
+.sp-plus-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 15V25M15 20H25' stroke='%23BDE8F5' stroke-width='1' stroke-opacity='0.09'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 20%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 20%, transparent 90%);
+}
+
+/* Fixed GPU-composited tactile grain overlay for zero-repaint buttery scrolling */
+.sp-grain-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  transform: translateZ(0);
+}
+
+.sp-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+/* Single soft radial glow per viewport */
+.sp-hero-glow {
+  background: radial-gradient(ellipse 55% 48% at 62% 28%, rgba(189, 232, 245, 0.28), transparent 72%);
+}
+
+/* Dark navy section surface */
+.sp-navy-gradient {
+  background: linear-gradient(180deg, #0F2854 0%, #091936 100%);
+}
+
+/* Hide scrollbars cleanly for horizontal tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Respect user motion preferences */

@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
 function Badge({
   children,
   className,
@@ -7,25 +8,31 @@ function Badge({
   size = "md",
   ...props
 }) {
-  const baseStyles = "inline-flex items-center font-medium rounded-full";
+  // Clean editorial tag — no pill badges with dots, no monospace micro-labels
+  const baseStyles =
+    "inline-flex items-center font-sans font-medium rounded-sp-sm whitespace-nowrap";
+
   const sizeStyles = {
-    sm: "text-[11px] px-2 py-0.5 gap-1 font-mono",
-    md: "text-xs px-3 py-1 gap-1.5 font-mono"
+    sm: "text-xs px-2.5 py-0.5 gap-1.5",
+    md: "text-xs px-3 py-1 gap-1.5"
   };
+
   const variantStyles = {
-    default: "bg-sp-primary/10 text-sp-primary border border-sp-primary/20",
-    tint: "bg-sp-tint text-sp-primary border border-sp-tint/80",
-    accent: "bg-sp-accent/15 text-sp-accent border border-sp-accent/30",
-    outline: "bg-white text-sp-slate border border-sp-tint shadow-2xs",
-    navy: "bg-sp-navy text-sp-sky border border-sp-sky/30"
+    default: "bg-sp-primary/8 text-sp-primary border border-sp-border",
+    tint: "bg-sp-tint/70 text-sp-primary border border-sp-border",
+    accent: "bg-sp-accent/10 text-sp-primary border border-sp-accent/25",
+    outline: "bg-white text-sp-slate border border-sp-border",
+    navy: "bg-sp-navy text-sp-sky border border-sp-sky/25"
   };
-  return <span
-    className={twMerge(clsx(baseStyles, sizeStyles[size], variantStyles[variant], className))}
-    {...props}
-  >
+
+  return (
+    <span
+      className={twMerge(clsx(baseStyles, sizeStyles[size], variantStyles[variant], className))}
+      {...props}
+    >
       {children}
-    </span>;
+    </span>
+  );
 }
-export {
-  Badge
-};
+
+export { Badge };

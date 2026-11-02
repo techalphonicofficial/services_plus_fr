@@ -1,52 +1,53 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Card } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
-import { Shield, MessageCircle } from 'lucide-react';
+import React, { useState } from "react";
+import Link from "next/link";
+import { Card } from "../../components/ui/Card";
+import { Button } from "../../components/ui/Button";
+import { ServicesPlusLogo } from "../../components/ui/Logo";
+import { MessageCircle } from "lucide-react";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    mobile: '',
-    company_name: '',
-    password: '',
-    password_confirmation: '',
+    first_name: "",
+    last_name: "",
+    email: "",
+    mobile: "",
+    company_name: "",
+    password: "",
+    password_confirmation: ""
   });
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.password_confirmation) {
-      setErrorMsg('Passwords do not match');
+      setErrorMsg("Passwords do not match");
       return;
     }
 
     setLoading(true);
-    setErrorMsg('');
+    setErrorMsg("");
 
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
         setErrorMsg(
-          data.error || 'Registration server unavailable. Connect with support on WhatsApp.'
+          data.error ||
+            "Registration server unavailable. Connect with support on WhatsApp."
         );
       } else {
         setSuccess(true);
       }
     } catch {
-      setErrorMsg('Network error. Connect with support on WhatsApp.');
+      setErrorMsg("Network error. Connect with support on WhatsApp.");
     } finally {
       setLoading(false);
     }
@@ -57,41 +58,37 @@ export default function RegisterPage() {
       <div className="max-w-lg w-full">
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block relative w-44 h-11 mb-4">
-            <Image
-              src="/assets/images/logo-h-390c5c1a.png"
-              alt="Services Plus"
-              fill
-              className="object-contain"
-            />
+          <Link href="/" className="inline-block mb-4">
+            <ServicesPlusLogo variant="light" />
           </Link>
-          <h1 className="text-2xl font-bold text-sp-ink">Create Client Account</h1>
-          <p className="text-xs text-sp-slate mt-1">
-            Join 42,800+ businesses powered by Services Plus
+          <h1 className="text-2xl sm:text-3xl font-display font-bold text-sp-ink">
+            Create Client Account
+          </h1>
+          <p className="text-sm text-sp-slate mt-1 tabular-nums">
+            Join 42,800+ businesses served by Services Plus
           </p>
         </div>
 
-        <Card className="p-8 bg-white border border-sp-tint shadow-sp-lift">
+        <Card hoverLift={false} className="p-8 bg-white">
           {success ? (
             <div className="text-center py-6 space-y-4">
-              <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-xl font-bold">
-                ✓
+              <div className="w-12 h-12 rounded-sp-sm bg-sp-tint text-sp-primary flex items-center justify-center mx-auto text-xl font-bold">
+                +
               </div>
-              <h2 className="text-lg font-bold text-sp-ink">Registration Submitted</h2>
+              <h2 className="text-lg font-semibold text-sp-ink">
+                Registration Submitted
+              </h2>
               <p className="text-xs text-sp-slate leading-relaxed">
                 Your account request has been received. Our team will verify and activate your dashboard access.
               </p>
-              <Link
-                href="/user-login"
-                className="inline-block px-5 py-2 rounded-xl bg-sp-primary text-white text-xs font-bold"
-              >
+              <Button href="/user-login" size="sm">
                 Go to Login &rarr;
-              </Link>
+              </Button>
             </div>
           ) : (
             <>
               {errorMsg && (
-                <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
+                <div className="mb-4 p-3.5 rounded-sp-sm bg-rose-50 border border-rose-200 text-rose-700 text-xs">
                   <p>{errorMsg}</p>
                   <a
                     href="https://wa.me/918800028794?text=Hi%2C%20I%20am%20having%20trouble%20registering%20on%20ServicesPlus."
@@ -108,120 +105,166 @@ export default function RegisterPage() {
               <form onSubmit={handleSubmit} className="space-y-3.5">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-sp-ink mb-1">
-                      First Name *
+                    <label
+                      htmlFor="reg-first"
+                      className="block text-xs font-semibold text-sp-ink mb-1.5"
+                    >
+                      First name *
                     </label>
                     <input
+                      id="reg-first"
                       type="text"
                       required
                       placeholder="e.g. Ramesh"
                       value={formData.first_name}
-                      onChange={e => setFormData({ ...formData, first_name: e.target.value })}
-                      className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                      onChange={(e) =>
+                        setFormData({ ...formData, first_name: e.target.value })
+                      }
+                      className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-sp-ink mb-1">
-                      Last Name *
+                    <label
+                      htmlFor="reg-last"
+                      className="block text-xs font-semibold text-sp-ink mb-1.5"
+                    >
+                      Last name *
                     </label>
                     <input
+                      id="reg-last"
                       type="text"
                       required
                       placeholder="e.g. Kumar"
                       value={formData.last_name}
-                      onChange={e => setFormData({ ...formData, last_name: e.target.value })}
-                      className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                      onChange={(e) =>
+                        setFormData({ ...formData, last_name: e.target.value })
+                      }
+                      className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-sp-ink mb-1">
-                    Email Address *
+                  <label
+                    htmlFor="reg-email"
+                    className="block text-xs font-semibold text-sp-ink mb-1.5"
+                  >
+                    Email address *
                   </label>
                   <input
+                    id="reg-email"
                     type="email"
                     required
                     placeholder="name@company.com"
                     value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-sp-ink mb-1">
-                    Mobile Number * (10 digits)
+                  <label
+                    htmlFor="reg-mobile"
+                    className="block text-xs font-semibold text-sp-ink mb-1.5"
+                  >
+                    Mobile number * (10 digits)
                   </label>
                   <input
+                    id="reg-mobile"
                     type="tel"
                     required
                     placeholder="9876543210"
                     maxLength={10}
                     value={formData.mobile}
-                    onChange={e => setFormData({ ...formData, mobile: e.target.value })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                    onChange={(e) =>
+                      setFormData({ ...formData, mobile: e.target.value })
+                    }
+                    className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink tabular-nums"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-sp-ink mb-1">
-                    Company Name (Optional)
+                  <label
+                    htmlFor="reg-company"
+                    className="block text-xs font-semibold text-sp-ink mb-1.5"
+                  >
+                    Company name (optional)
                   </label>
                   <input
+                    id="reg-company"
                     type="text"
                     placeholder="Your enterprise or startup name"
                     value={formData.company_name}
-                    onChange={e => setFormData({ ...formData, company_name: e.target.value })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                    onChange={(e) =>
+                      setFormData({ ...formData, company_name: e.target.value })
+                    }
+                    className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-sp-ink mb-1">
+                    <label
+                      htmlFor="reg-pass"
+                      className="block text-xs font-semibold text-sp-ink mb-1.5"
+                    >
                       Password *
                     </label>
                     <input
+                      id="reg-pass"
                       type="password"
                       required
                       placeholder="••••••••"
                       value={formData.password}
-                      onChange={e => setFormData({ ...formData, password: e.target.value })}
-                      className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                      onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
+                      className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-sp-ink mb-1">
+                    <label
+                      htmlFor="reg-confirm"
+                      className="block text-xs font-semibold text-sp-ink mb-1.5"
+                    >
                       Confirm *
                     </label>
                     <input
+                      id="reg-confirm"
                       type="password"
                       required
                       placeholder="••••••••"
                       value={formData.password_confirmation}
-                      onChange={e =>
-                        setFormData({ ...formData, password_confirmation: e.target.value })
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          password_confirmation: e.target.value
+                        })
                       }
-                      className="w-full px-3.5 py-2 text-xs rounded-xl border border-sp-tint bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sp-accent text-sp-ink"
+                      className="w-full h-11 px-3.5 text-sm rounded-sp-sm border border-sp-border-strong bg-sp-bg/50 focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-sp-accent text-sp-ink"
                     />
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full py-2.5 text-xs font-bold mt-2"
+                  className="w-full mt-2"
                   disabled={loading}
                   showPlus
                 >
-                  {loading ? 'Creating Account...' : 'Register'}
+                  {loading ? "Creating Account..." : "Register"}
                 </Button>
               </form>
 
-              <div className="mt-6 pt-6 border-t border-sp-tint/60 text-center">
+              <div className="mt-6 pt-6 border-t border-sp-border text-center">
                 <p className="text-xs text-sp-slate">
-                  Already registered?{' '}
-                  <Link href="/user-login" className="text-sp-primary font-bold hover:underline">
+                  Already registered?{" "}
+                  <Link
+                    href="/user-login"
+                    className="text-sp-primary font-semibold hover:underline"
+                  >
                     Login to your account &rarr;
                   </Link>
                 </p>

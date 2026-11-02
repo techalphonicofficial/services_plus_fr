@@ -9,34 +9,47 @@ const config = {
     extend: {
       colors: {
         sp: {
-          primary: "#173AD4",
-          "primary-600": "#1B40C3",
-          accent: "#2574EA",
-          sky: "#95BEFA",
-          tint: "#D9E9FF",
-          bg: "#F7FCFF",
-          "deep-1": "#042C9F",
-          "deep-2": "#072784",
-          navy: "#001244",
-          ink: "#040925",
-          slate: "#365185",
-          card: "#FFFFFF"
+          primary: "#1C4D8D",
+          "primary-600": "#0F2854",
+          accent: "#4988C4",
+          sky: "#BDE8F5",
+          tint: "#BDE8F5",
+          bg: "#F8F9FA",
+          "deep-1": "#1C4D8D",
+          "deep-2": "#0F2854",
+          navy: "#0F2854",
+          ink: "#0F2854",
+          slate: "#4A5568",
+          card: "#FFFFFF",
+          border: "rgba(15, 40, 84, 0.08)",
+          "border-strong": "rgba(15, 40, 84, 0.15)"
         }
       },
       fontFamily: {
+        display: ["var(--font-bricolage)", "var(--font-geist-sans)", "sans-serif"],
         sans: ["var(--font-geist-sans)", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"]
       },
+      borderRadius: {
+        "sp-sm": "10px",
+        "sp-btn": "12px",
+        "sp-md": "16px",
+        "sp-lg": "28px"
+      },
       boxShadow: {
-        "sp-soft": "0 4px 20px -2px rgba(23, 58, 212, 0.08), 0 2px 6px -1px rgba(0, 18, 68, 0.04)",
-        "sp-lift": "0 12px 30px -4px rgba(23, 58, 212, 0.12), 0 4px 10px -2px rgba(0, 18, 68, 0.06)",
-        "sp-glow": "0 0 40px -5px rgba(37, 116, 234, 0.25)"
+        "sp-soft":
+          "0 1px 2px rgba(15, 40, 84, 0.03), 0 4px 16px -2px rgba(15, 40, 84, 0.04), 0 12px 28px -6px rgba(15, 40, 84, 0.03)",
+        "sp-lift":
+          "0 2px 4px rgba(15, 40, 84, 0.04), 0 12px 28px -4px rgba(15, 40, 84, 0.08), 0 24px 48px -12px rgba(15, 40, 84, 0.06)",
+        "sp-glow": "0 0 40px -5px rgba(73, 136, 196, 0.16)",
+        "sp-btn-primary":
+          "inset 0 1px 0 0 rgba(255, 255, 255, 0.14), 0 2px 6px -1px rgba(15, 40, 84, 0.22), 0 8px 20px -4px rgba(15, 40, 84, 0.14)",
+        "sp-btn-outline":
+          "inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 1px 2px 0 rgba(15, 40, 84, 0.04)"
       }
     }
   },
   plugins: []
 };
-var stdin_default = config;
-export {
-  stdin_default as default
-};
+
+export default config;

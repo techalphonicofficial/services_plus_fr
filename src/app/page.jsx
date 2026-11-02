@@ -1,6 +1,4 @@
 import { Hero } from "../features/home/components/Hero";
-import { TrustStrip } from "../features/home/components/TrustStrip";
-import { ServicesTabs } from "../features/home/components/ServicesTabs";
 import { AboutSection } from "../features/home/components/AboutSection";
 import { ProcessSection } from "../features/home/components/ProcessSection";
 import { WhyUsSection } from "../features/home/components/WhyUsSection";
@@ -55,48 +53,38 @@ export default function HomePage() {
   />
 
       {
-    /* 1. Hero */
+    /* 1. Hero & Radial Category Explorer */
   }
       <Hero />
 
       {
-    /* 2. Trust Strip */
-  }
-      <TrustStrip />
-
-      {
-    /* 3. Services By Category (Interactive Tabs) */
-  }
-      <ServicesTabs />
-
-      {
-    /* 4. About & Statistics Counters */
+    /* 2. About & Statistics Counters */
   }
       <AboutSection />
 
       {
-    /* 5. Process (4 Steps Agile Roadmap) */
+    /* 3. Process (4 Steps Agile Roadmap) */
   }
       <ProcessSection />
 
       {
-    /* 6. Why Services Plus (Bento Grid) */
+    /* 4. Latest Insights & Compliance Guides (Blogs) */
+  }
+      <LatestBlogs />
+
+      {
+    /* 5. Why Services Plus (Stacked Card Deck) */
   }
       <WhyUsSection />
 
       {
-    /* 7. Dark Navy CTA Band */
+    /* 6. Dark Navy CTA Band */
   }
       <CtaBand />
 
       {
-    /* 8. FAQ Accordion & FAQPage Schema */
+    /* 7. FAQ Accordion & FAQPage Schema */
   }
       <FaqSection />
-
-      {
-    /* 9. Latest Blog Posts */
-  }
-      <LatestBlogs />
     </>;
 }

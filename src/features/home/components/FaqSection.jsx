@@ -1,31 +1,42 @@
 "use client";
+
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, MessageCircle } from "lucide-react";
 import { Card } from "../../../components/ui/Card";
+import { Button } from "../../../components/ui/Button";
+
 const HOMEPAGE_FAQS = [
   {
     question: "Maximize your results while minimizing constraints with our solutions",
-    answer: "No matter what your business needs, we can connect you with a creative expert to make your business look and feel professional."
+    answer:
+      "No matter what your business needs, we can connect you with a creative expert to make your business look and feel professional."
   },
   {
-    question: "What documents are required to register a Private Limited Company in India?",
-    answer: "To register a Private Limited Company, you typically require PAN cards, Aadhaar cards, identity proofs (Voter ID/Passport/Driving License), latest bank statements/utility bills for address proof of directors, and proof of registered office (electricity bill along with NOC from landlord)."
+    question:
+      "What documents are required to register a Private Limited Company in India?",
+    answer:
+      "To register a Private Limited Company, you typically require PAN cards, Aadhaar cards, identity proofs (Voter ID/Passport/Driving License), latest bank statements/utility bills for address proof of directors, and proof of registered office (electricity bill along with NOC from landlord)."
   },
   {
     question: "How long does GST registration take through Services Plus?",
-    answer: "GST registration typically takes 3 to 7 working days once all verified documents are submitted to the GST portal and Aadhaar OTP authentication is successfully completed."
+    answer:
+      "GST registration typically takes 3 to 7 working days once all verified documents are submitted to the GST portal and Aadhaar OTP authentication is successfully completed."
   },
   {
     question: "Why is Trademark Registration critical for my brand?",
-    answer: "Trademark registration grants exclusive legal ownership over your brand name, logo, or slogan across India under the Trade Marks Act, 1999. It prevents competitors from infringing or copying your identity."
+    answer:
+      "Trademark registration grants exclusive legal ownership over your brand name, logo, or slogan across India under the Trade Marks Act, 1999. It prevents competitors from infringing or copying your identity."
   },
   {
     question: "Can foreign nationals or NRIs incorporate an Indian Subsidiary?",
-    answer: "Yes, 100% Foreign Direct Investment (FDI) is permitted in most sectors under the automatic route. At least one resident director who stayed in India for 182 days in the previous financial year is required."
+    answer:
+      "Yes, 100% Foreign Direct Investment (FDI) is permitted in most sectors under the automatic route. At least one resident director who stayed in India for 120 days in the previous financial year is required."
   }
 ];
+
 function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -38,57 +49,87 @@ function FaqSection() {
       }
     }))
   };
-  return <section className="py-20 bg-sp-bg">
-      {
-    /* Inject FAQPage Schema */
-  }
+
+  return (
+    <section className="py-24 lg:py-32 bg-sp-bg">
+      {/* Inject FAQPage Schema */}
       <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-  />
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="inline-block text-xs font-mono font-bold uppercase tracking-wider text-sp-primary bg-sp-tint px-3 py-1 rounded-full mb-3">
-            Got Questions?
+      <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left 4 Columns: Section Header & Direct Question Prompt */}
+          <div className="lg:col-span-4 space-y-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary flex items-center gap-1.5">
+              <span className="text-sp-accent" aria-hidden="true">+</span>
+              <span>Statutory Clarifications</span>
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-sp-ink tracking-[-0.02em] leading-[1.1] max-w-[16ch]">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-base text-sp-slate leading-[1.6]">
+              Answers to common questions regarding company setup, taxation, licenses, and legal compliance.
+            </p>
+            <div className="pt-2">
+              <Button
+                href="https://wa.me/918800028794?text=Hi%2C%20I%20have%20a%20question%20regarding%20company%20registration%20or%20compliance."
+                variant="outline"
+                size="sm"
+                external
+              >
+                <MessageCircle className="w-4 h-4 text-sp-primary" />
+                <span>Ask an advisor on WhatsApp</span>
+              </Button>
+            </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-sp-ink mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-sm sm:text-base text-sp-slate">
-            Answers to common questions regarding company setup, taxation, licenses, and legal compliance.
-          </p>
-        </div>
 
-        <div className="space-y-4">
-          {HOMEPAGE_FAQS.map((faq, idx) => {
-    const isOpen = openIndex === idx;
-    return <Card
-      key={faq.question}
-      hoverLift={false}
-      className="overflow-hidden bg-white border border-sp-tint"
-    >
-                <button
-      onClick={() => setOpenIndex(isOpen ? null : idx)}
-      className="w-full flex items-center justify-between p-6 text-left transition-colors hover:bg-sp-bg/60"
-      aria-expanded={isOpen}
-    >
-                  <span className="font-semibold text-sp-ink text-base pr-4">
-                    {faq.question}
-                  </span>
-                  <ChevronDown
-      className={`w-5 h-5 text-sp-slate shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 text-sp-primary" : ""}`}
-    />
-                </button>
-                {isOpen && <div className="px-6 pb-6 pt-1 text-sm text-sp-slate leading-relaxed border-t border-sp-tint/40">
-                    {faq.answer}
-                  </div>}
-              </Card>;
-  })}
+          {/* Right 8 Columns: Indexed FAQ Ledger */}
+          <div className="lg:col-span-8 space-y-3.5">
+            {HOMEPAGE_FAQS.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <Card
+                  key={faq.question}
+                  hoverLift={false}
+                  className={`overflow-hidden bg-white transition-colors ${
+                    isOpen ? "border-sp-primary" : "border-sp-border"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : idx)}
+                    className="w-full flex items-start justify-between gap-4 p-5 sm:p-6 text-left transition-colors hover:bg-sp-bg/50"
+                    aria-expanded={isOpen}
+                  >
+                    <div className="flex items-baseline gap-3.5 pr-2">
+                      <span className="text-xs font-semibold text-sp-primary tabular-nums shrink-0">
+                        0{idx + 1}
+                      </span>
+                      <span className="font-semibold text-sp-ink text-base sm:text-[17px] leading-snug">
+                        {faq.question}
+                      </span>
+                    </div>
+                    <ChevronDown
+                      className={`w-5 h-5 text-sp-slate shrink-0 mt-0.5 transition-transform duration-200 ${
+                        isOpen ? "rotate-180 text-sp-primary" : ""
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 sm:px-6 pb-6 pl-12 pt-1 text-base text-sp-slate leading-[1.6] border-t border-sp-border/60 max-w-[65ch]">
+                      {faq.answer}
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 }
-export {
-  FaqSection
-};
+
+export { FaqSection };

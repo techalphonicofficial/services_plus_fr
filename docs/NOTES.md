@@ -142,3 +142,35 @@ The following 20 URLs exist in `sitemap.xml` or menus on the live site but throw
 - **GTM Container ID**: `GTM-KS8X8MJ5`
 - **WhatsApp Floating Link**: `https://wa.me/918800028794`
 - **Office Location**: Sector-18, Ocean Plaza, Noida
+
+
+---
+
+## 6. Design-Quality Pass: Removed Invented Claims & Non-Source Text
+
+In strict compliance with Defect #4 (*"Remove invented claims: 'Govt. Recognized...' and any announcement text not coming from the real /notification data. Do not add any claim that is not on the current site. List removals in /docs/NOTES.md"*), the following unverified or invented claims were removed from the UI:
+
+1. **`"Govt. Recognized Corporate Advisory"`** — Removed from the top announcement bar in `src/components/layout/TopNav.jsx`.
+2. **`"GST & ROC Annual Filing compliance dates active for FY 2026."`** — Removed from the top announcement bar in `src/components/layout/TopNav.jsx` and replaced with the exact real notification record from `/notification` (`"GST: The goods and services tax (GST) is a tax on goods and services sold domestically for consumption."`).
+3. **`"Govt. Recognized Corporate Filing Platform"`** — Removed from the hero eyebrow pill in `src/features/home/components/Hero.jsx`.
+4. **`"Govt. Verified"`** — Removed from the category eyebrow badge on service detail pages (`src/app/service/[slug]/page.jsx`).
+5. **`"DPIIT Recognized Advisory"` & `"Quality Management Assured"`** — Removed invented text claims in `src/features/home/components/TrustStrip.jsx` and `src/components/layout/Footer.jsx`; replaced with the actual monochrome certificate images (`certificate1-57e45752.png` and `certificate2-fd4642f9.png`) from the live site.
+6. **Invented Notification Rows (`#2 ROC Annual Compliance`, `#3 Trademark Renewal`, `#4 MSME / UDYAM Reclassification`, `#5 TDS Quarterly Return`)** — Removed from `src/app/notification/page.jsx` so `/notification` displays only the authentic notification entry present on the live site (`Sn 1: GST`).
+7. **`"99.8% On-Time Filing Rate"`** — Removed from `src/features/home/components/AboutSection.jsx` and replaced with the real site's `"12,000+ Happy Users"` metric.
+8. **`"Services Plus Corporate Desk, Connaught Place / Barakhamba Road, New Delhi — 110001"`** — Removed invented Delhi address from `src/components/layout/Footer.jsx` and `src/app/contact/page.jsx`; replaced with the real second office from the live site crawl (`Alphonic India Private Limited (India) — Plot No C-203, C Block Rd, Block C, Sector 63, Noida, Uttar Pradesh 201301`).
+9. **`"DPDP Act 2023 Compliant"` & `"Protected by DPDP Act 2023. Zero Spam Guarantee."`** — Removed invented compliance badges/captions from `src/app/policy/privacy-policy/page.jsx` and `src/features/enquiry/components/StickyEnquiryCard.jsx`.
+
+---
+
+## 7. Brand Logo & Legacy Archival (Owner Decision Recorded)
+
+- **Active Logo (Per Owner Direction)**: Retained the original Services Plus logos (`/assets/images/logo-h-390c5c1a.png` for light header surfaces and `/assets/images/logo-f-6b140866.png` for dark navy footer/drawer surfaces) in `src/components/ui/Logo.jsx`.
+- **Legacy Archival & Optional SVG Wordmark**: Copies of the original raster logos are also archived in `/brand/legacy/` and `/public/brand/legacy/`, and the vector SVG wordmark draft remains available in `/public/brand/services-plus-wordmark.svg` if ever needed.
+
+---
+
+## 8. Marked Photo Slots for Real Team / Office Photography
+
+No stock illustrations or AI-generated people are used. Where real photography is appropriate, clearly marked architectural/editorial slots are provided using existing site assets or structured placeholders:
+1. **Homepage About Section (`src/features/home/components/AboutSection.jsx`)**: Currently displays the existing crawled asset `/assets/images/about-us_avif-8aa54286.png` within a registration-marked frame, annotated with a slot caption for a verified Noida Sector-18 office / leadership team photograph.
+2. **About Us Page (`src/app/about/page.jsx`) & Contact Page (`src/app/contact/page.jsx`)**: Includes marked office verification slots for **Head Office (Ocean Plaza, Sector-18, Noida)** and **Alphonic India Private Limited (Sector-63, Noida)** awaiting owner-supplied high-resolution architectural photography.

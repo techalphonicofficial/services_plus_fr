@@ -74,7 +74,7 @@ const nextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.servicesplus.in https://img.icons8.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://www.servicesplus.in; frame-ancestors 'none'; object-src 'none'; base-uri 'self';"
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.servicesplus.in https://img.icons8.com https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://www.servicesplus.in; frame-ancestors 'none'; object-src 'none'; base-uri 'self';"
           }
         ]
       }

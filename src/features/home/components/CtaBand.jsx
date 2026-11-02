@@ -1,45 +1,55 @@
 import { Button } from "../../../components/ui/Button";
-import { MessageCircle, ShieldCheck } from "lucide-react";
+import { RegistrationMarks } from "../../../components/ui/Card";
+import { MessageCircle, Phone } from "lucide-react";
+
 function CtaBand() {
-  return <section className="py-20 sp-navy-gradient text-white relative overflow-hidden">
-      {
-    /* Decorative subtle plus pattern */
-  }
-      <div className="absolute inset-0 sp-plus-pattern opacity-10 pointer-events-none" />
+  return (
+    <section className="py-16 bg-sp-bg">
+      <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8">
+        <div className="relative rounded-sp-lg bg-sp-navy text-white border border-sp-primary/40 shadow-sp-lift p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center justify-between gap-8 overflow-hidden">
+          <div className="absolute inset-0 sp-plus-pattern pointer-events-none opacity-40" />
+          <RegistrationMarks variant="navy" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sp-sky text-xs font-mono mb-6">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Prompt Legal Assistance Guaranteed</span>
-        </div>
+          <div className="max-w-2xl space-y-2.5 relative z-10">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-sky flex items-center gap-1.5">
+              <span className="text-sp-accent" aria-hidden="true">+</span>
+              <span>Direct Advisory Dispatch</span>
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-display font-semibold text-white tracking-[-0.02em] leading-[1.12]">
+              Not sure which business structure or license applies to you?
+            </h2>
+            <p className="text-base text-white/75 leading-[1.6] max-w-[58ch]">
+              Speak directly with our Noida advisory desk for a clear breakdown of statutory requirements, timelines, and government fees.
+            </p>
+          </div>
 
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-          Maximize your results while minimizing constraints with our solutions
-        </h2>
-
-        <p className="text-base sm:text-lg text-sp-sky max-w-2xl mx-auto mb-10 leading-relaxed">
-          No matter what your business needs, we connect you with verified legal, tax, and intellectual property experts to make your enterprise compliant and ready to scale.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button href="/user-register" size="lg" showPlus className="bg-white text-sp-primary hover:bg-sp-bg">
-            Get Started Now
-          </Button>
-
-          <Button
-    href="https://wa.me/918800028794?text=Hi%2C%20I%20am%20looking%20for%20assistance%20with%20company%20registration%20or%20tax%20filing."
-    variant="outline"
-    size="lg"
-    external
-    className="border-sp-sky/40 text-white hover:bg-white/10 bg-transparent"
-  >
-            <MessageCircle className="w-4 h-4 text-emerald-400 mr-2" />
-            Talk on WhatsApp (+91 88000 28794)
-          </Button>
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0 relative z-10">
+            <Button
+              href="/contact"
+              size="md"
+              showPlus
+              className="bg-white text-sp-navy hover:bg-sp-sky border-white"
+            >
+              Request Callback
+            </Button>
+            <Button
+              href="https://wa.me/918800028794?text=Hi%2C%20I%20am%20looking%20for%20assistance%20with%20company%20registration%20or%20tax%20filing."
+              variant="navy"
+              size="md"
+              external
+            >
+              <MessageCircle className="w-4 h-4 text-sp-sky" />
+              <span>WhatsApp Desk</span>
+            </Button>
+            <Button href="tel:+918800028794" variant="navy" size="md">
+              <Phone className="w-4 h-4 text-sp-sky" />
+              <span className="tabular-nums">(+91) 88000 28794</span>
+            </Button>
+          </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 }
-export {
-  CtaBand
-};
+
+export { CtaBand };

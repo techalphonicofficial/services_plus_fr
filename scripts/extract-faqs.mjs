@@ -17,3 +17,4 @@ async function extractFAQs() {
 }
 
 extractFAQs().catch(console.error);
+

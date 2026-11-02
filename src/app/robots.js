@@ -13,3 +13,4 @@ export default function robots() {
     sitemap: 'https://www.servicesplus.in/sitemap.xml',
   };
 }
+

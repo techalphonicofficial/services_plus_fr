@@ -13,3 +13,4 @@ async function extractFaqHTML() {
 }
 
 extractFaqHTML().catch(console.error);
+
