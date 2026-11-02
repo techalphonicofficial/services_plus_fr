@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, X, ArrowRight, MessageCircle, Clock, CornerDownLeft } from "lucide-react";
-import { NAV_CATEGORIES } from "../../content/navigation";
 import serviceCatalog from "../../content/services/catalog.json";
 
 const RECENT_STORAGE_KEY = "sp_recent_searches_v1";
@@ -79,7 +78,8 @@ function readSavedRecentSearches() {
   return DEFAULT_RECENT;
 }
 
-function CommandPalette({ isOpen: propIsOpen, open, onClose, onOpen }) {
+// categories: the CMS header menu categories (service/headerService.js) via TopNav.
+function CommandPalette({ isOpen: propIsOpen, open, onClose, onOpen, categories = [] }) {
   const isOpen = propIsOpen ?? open ?? false;
   const router = useRouter();
   const shortcutLabel = usePlatformShortcut();
@@ -100,17 +100,18 @@ function CommandPalette({ isOpen: propIsOpen, open, onClose, onOpen }) {
     }
   };
 
-  // Combine curated topServices + full catalog (100 services)
+  // The CMS header menu services first, then the local catalog (pages not in the CMS yet).
   const allServices = useMemo(() => {
     const map = new Map();
-    NAV_CATEGORIES.forEach((cat) => {
+    categories.forEach((cat) => {
       cat.topServices.forEach((s) => {
-        map.set(s.slug, {
-          title: s.title,
+        const slug = s.href.split("/").filter(Boolean).pop() || s.href;
+        map.set(slug, {
+          title: s.label,
           category: cat.title,
           categorySlug: cat.slug,
           href: s.href,
-          slug: s.slug
+          slug
         });
       });
     });
@@ -126,7 +127,7 @@ function CommandPalette({ isOpen: propIsOpen, open, onClose, onOpen }) {
       }
     });
     return Array.from(map.values());
-  }, []);
+  }, [categories]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

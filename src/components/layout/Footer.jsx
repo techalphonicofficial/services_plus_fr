@@ -1,11 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_CATEGORIES } from "../../content/navigation";
 import { ServicesPlusLogo } from "../ui/Logo";
 import { Button } from "../ui/Button";
 import { MapPin, Phone, Mail, Star, ArrowRight, MessageCircle } from "lucide-react";
 
-function Footer() {
+// Link columns, bottom-bar links and social buttons come from the CMS footer menu
+// (service/footerService.js): menu = { columns: [{ title, href, links }], links, socials }.
+const EMPTY_MENU = { columns: [], links: [], socials: [] };
+
+// "All Startup" / "+12 more" links close a column with an arrow.
+const isMoreLink = (label) => /^(all\b|\+|view all|see all)/i.test(String(label || "").trim());
+
+function Footer({ menu = EMPTY_MENU }) {
+  const { columns = [], links = [], socials = [] } = menu;
   return (
     <footer className="bg-sp-navy text-white pt-20 pb-24 lg:pb-14 border-t border-sp-deep-1 relative overflow-hidden">
       {/* Subtle masked plus pattern on dark navy */}
@@ -113,43 +120,51 @@ function Footer() {
           </div>
         </div>
 
-        {/* 5 Category Link Columns */}
-        <div className="py-12 border-b border-white/10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {NAV_CATEGORIES.map((category, idx) => (
-            <div key={category.slug} className="space-y-3.5">
-              <h3 className="font-semibold text-sm text-white flex items-center gap-2">
-                <span className="text-sp-sky text-xs tabular-nums">0{idx + 1}</span>
-                <Link
-                  href={category.href}
-                  className="hover:text-sp-sky transition-colors whitespace-nowrap"
-                >
-                  {category.title}
-                </Link>
-              </h3>
-              <ul className="space-y-2 text-xs text-white/70">
-                {category.topServices.slice(0, 7).map((s) => (
-                  <li key={s.slug}>
+        {/* Link Columns (CMS footer menu) */}
+        {columns.length > 0 && (
+          <div className="py-12 border-b border-white/10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {columns.map((column, idx) => (
+              <div key={column.id || column.title} className="space-y-3.5">
+                <h3 className="font-semibold text-sm text-white flex items-center gap-2">
+                  <span className="text-sp-sky text-xs tabular-nums">{String(idx + 1).padStart(2, "0")}</span>
+                  {column.href ? (
                     <Link
-                      href={s.href}
-                      className="hover:text-white transition-colors block py-0.5 leading-snug"
+                      href={column.href}
+                      className="hover:text-sp-sky transition-colors whitespace-nowrap"
                     >
-                      {s.title}
+                      {column.title}
                     </Link>
-                  </li>
-                ))}
-                <li className="pt-1">
-                  <Link
-                    href={category.href}
-                    className="inline-flex items-center gap-1 text-white hover:text-sp-sky text-xs font-medium transition-colors whitespace-nowrap"
-                  >
-                    <span>All {category.title}</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          ))}
-        </div>
+                  ) : (
+                    <span className="whitespace-nowrap">{column.title}</span>
+                  )}
+                </h3>
+                <ul className="space-y-2 text-xs text-white/70">
+                  {column.links.map((item) => (
+                    <li key={item.id || item.href} className={isMoreLink(item.label) ? "pt-1" : undefined}>
+                      {isMoreLink(item.label) ? (
+                        <Link
+                          href={item.href}
+                          className="inline-flex items-center gap-1 text-white hover:text-sp-sky text-xs font-medium transition-colors whitespace-nowrap"
+                        >
+                          <span>{item.label}</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          target={item.target === "_blank" ? "_blank" : undefined}
+                          className="hover:text-white transition-colors block py-0.5 leading-snug"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Both Real Offices & Direct Helplines */}
         <div className="py-12 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -214,79 +229,36 @@ function Footer() {
             <span className="tabular-nums">
               &copy; {new Date().getFullYear()} Services Plus. All rights reserved.
             </span>
-            <span>&middot;</span>
-            <Link href="/policy/privacy-policy" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <span>&middot;</span>
-            <Link href="/policy/terms-and-condition" className="hover:text-white transition-colors">
-              Terms &amp; Conditions
-            </Link>
-            <span>&middot;</span>
-            <Link href="/about" className="hover:text-white transition-colors">
-              About Us
-            </Link>
-            <span>&middot;</span>
-            <Link href="/contact" className="hover:text-white transition-colors">
-              Contact
-            </Link>
-            <span>&middot;</span>
-            <Link href="/payment" className="hover:text-white transition-colors">
-              Payment
-            </Link>
-            <span>&middot;</span>
-            <Link href="/notification" className="hover:text-white transition-colors">
-              Notifications
-            </Link>
+            {links.map((item) => (
+              <span key={item.id || item.href} className="contents">
+                <span>&middot;</span>
+                <Link
+                  href={item.href}
+                  target={item.target === "_blank" ? "_blank" : undefined}
+                  className="hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </span>
+            ))}
           </div>
 
-          <div className="flex items-center gap-2 flex-wrap justify-center">
-            <a
-              href="https://www.linkedin.com/company/78746155/admin/dashboard/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-sp-sm bg-white/5 hover:bg-white/10 text-sp-sky hover:text-white transition-colors whitespace-nowrap"
-              aria-label="LinkedIn"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://x.com/servicesplusin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-sp-sm bg-white/5 hover:bg-white/10 text-sp-sky hover:text-white transition-colors whitespace-nowrap"
-              aria-label="X (Twitter)"
-            >
-              X (Twitter)
-            </a>
-            <a
-              href="https://www.facebook.com/Inservicesplus"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-sp-sm bg-white/5 hover:bg-white/10 text-sp-sky hover:text-white transition-colors whitespace-nowrap"
-              aria-label="Facebook"
-            >
-              Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/servicesplusin/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-sp-sm bg-white/5 hover:bg-white/10 text-sp-sky hover:text-white transition-colors whitespace-nowrap"
-              aria-label="Instagram"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.youtube.com/@servicesplus7003"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-sp-sm bg-white/5 hover:bg-white/10 text-sp-sky hover:text-white transition-colors whitespace-nowrap"
-              aria-label="YouTube"
-            >
-              YouTube
-            </a>
-          </div>
+          {socials.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              {socials.map((item) => (
+                <a
+                  key={item.id || item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 rounded-sp-sm bg-white/5 hover:bg-white/10 text-sp-sky hover:text-white transition-colors whitespace-nowrap"
+                  aria-label={item.label}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </footer>
