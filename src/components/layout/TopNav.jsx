@@ -11,48 +11,15 @@ import {
   X,
   CreditCard,
   User,
-  ArrowRight,
-  PhoneCall
+  ArrowRight
 } from "lucide-react";
-import { NAV_CATEGORIES } from "../../content/navigation";
 import { CommandPalette } from "./CommandPalette";
 import { Button } from "../ui/Button";
 import { ServicesPlusLogo } from "../ui/Logo";
 import { CATEGORY_DUOTONE_ICONS, StartupDuotoneIcon } from "../ui/DuotoneIcons";
 
-// Featured highlight per category for the Mega Menu right panel (using real services only)
-const FEATURED_BY_CATEGORY = {
-  startup: {
-    title: "Private Limited Company",
-    href: "/service/private-limited-company",
-    summary:
-      "Register a Private Limited Company online with expert help for documents, incorporation, MCA filing and registration process."
-  },
-  trademark: {
-    title: "Trademark Registration",
-    href: "/service/trademark-registration",
-    summary:
-      "Safeguard your brand name, logo, and intellectual property across all 45 trademark classes in India."
-  },
-  taxes: {
-    title: "GST Registration & Filings",
-    href: "/service/gst-registration",
-    summary:
-      "Complete GSTIN registration, monthly and annual return reconciliation, and input tax credit compliance."
-  },
-  compliance: {
-    title: "Private Limited Compliance",
-    href: "/service/private-limited-company-compliance",
-    summary:
-      "Statutory ROC annual filings (AOC-4, MGT-7), board resolutions, and director KYC maintenance."
-  },
-  "certification-licensing": {
-    title: "FSSAI Food License",
-    href: "/service/fssai-registration",
-    summary:
-      "Basic, State, and Central FSSAI FoSCoS licensing with complete dossier verification."
-  }
-};
+// Links come from the CMS header menu (service/headerService.js):
+// navigation = { categories: [{ slug, title, href, icon, topServices, featured }], links, account, cta }.
 
 const NAV_SPRING = {
   type: "spring",
@@ -61,16 +28,42 @@ const NAV_SPRING = {
   mass: 0.6
 };
 
-function TopNav() {
+const EMPTY_NAVIGATION = { categories: [], links: [], account: null, cta: null };
+
+// Icon of an account menu link, by where it goes.
+function accountIcon(href) {
+  if (/notification/i.test(href)) return Bell;
+  if (/pay/i.test(href)) return CreditCard;
+  return User;
+}
+
+/** A menu item's own icon (admin: emoji or image) or the category's duotone icon. */
+function CategoryIcon({ category, className }) {
+  if (category.icon) {
+    return /^(https?:|\/)/.test(category.icon) ? (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={category.icon} alt="" className={`${className} object-contain`} />
+    ) : (
+      <span className="text-base leading-none" aria-hidden="true">{category.icon}</span>
+    );
+  }
+  const Icon = CATEGORY_DUOTONE_ICONS[category.slug] || StartupDuotoneIcon;
+  return <Icon className={className} />;
+}
+
+const isActive = (pathname, href) => Boolean(href && href !== "#" && href !== "/" && pathname?.startsWith(href));
+
+function TopNav({ navigation = EMPTY_NAVIGATION }) {
+  const { categories = [], links = [], account, cta } = navigation;
   const pathname = usePathname();
+  const headerRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [hoveredNav, setHoveredNav] = useState(null);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileExpandedCat, setMobileExpandedCat] = useState("startup");
+  const [mobileExpandedCat, setMobileExpandedCat] = useState(categories[0]?.slug || null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [announcementDismissed, setAnnouncementDismissed] = useState(true);
   const accountRef = useRef(null);
 
   useEffect(() => {
@@ -81,6 +74,17 @@ function TopNav() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // The CMS blocks keep sticky sidebars and #anchor jumps below the header (--ta-header-h).
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header || typeof ResizeObserver === "undefined") return undefined;
+    const write = () => document.documentElement.style.setProperty("--ta-header-h", `${header.offsetHeight}px`);
+    write();
+    const observer = new ResizeObserver(write);
+    observer.observe(header);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -95,51 +99,9 @@ function TopNav() {
 
   return (
     <>
-      {/* Dismissible Announcement Bar — shows ONLY real /notification data in regular type */}
-      {!announcementDismissed && (
-        <div className="bg-sp-navy text-white text-xs py-2 px-4 sm:px-6 lg:px-6 xl:px-8 border-b border-sp-sky/15 relative z-40">
-          <div className="w-full flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <span className="text-sp-sky font-semibold whitespace-nowrap">
-                Notification:
-              </span>
-              <Link
-                href="/notification"
-                className="text-white/90 hover:text-white truncate transition-colors"
-              >
-                GST — The goods and services tax (GST) is a tax on goods and services sold domestically for consumption.
-              </Link>
-              <Link
-                href="/notification"
-                className="hidden sm:inline-flex items-center gap-1 text-sp-sky hover:text-white font-medium whitespace-nowrap shrink-0 underline underline-offset-2"
-              >
-                <span>View notice</span>
-                <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-
-            <div className="flex items-center gap-4 shrink-0">
-              <a
-                href="tel:+918800028794"
-                className="hidden md:inline-flex items-center gap-1.5 text-sp-sky hover:text-white whitespace-nowrap tabular-nums transition-colors"
-              >
-                <PhoneCall className="w-3 h-3" />
-                <span>(+91) 88000 28794</span>
-              </a>
-              <button
-                onClick={() => setAnnouncementDismissed(true)}
-                className="p-0.5 rounded text-sp-sky hover:text-white transition-colors"
-                aria-label="Dismiss notification bar"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Main Header: Clean surface at top (80px / h-20), frosted + shadow + 64px (h-16) after 8px scroll */}
       <header
+        ref={headerRef}
         className={`sticky top-0 z-40 transition-all duration-200 ${
           scrolled
             ? "bg-white/95 backdrop-blur-md border-b border-sp-border shadow-sp-soft h-16"
@@ -162,17 +124,15 @@ function TopNav() {
                 setHoveredNav(null);
               }}
             >
-              {NAV_CATEGORIES.map((category, catIdx) => {
-                const Icon = CATEGORY_DUOTONE_ICONS[category.slug] || StartupDuotoneIcon;
-                const featured =
-                  FEATURED_BY_CATEGORY[category.slug] || FEATURED_BY_CATEGORY.startup;
+              {categories.map((category, catIdx) => {
+                const featured = category.featured;
                 const isOpen = activeCategory === category.slug;
                 const isHovered = hoveredNav === category.slug || isOpen;
-                const isActiveRoute = pathname?.startsWith(category.href);
+                const isActiveRoute = isActive(pathname, category.href);
 
                 return (
                   <div
-                    key={category.slug}
+                    key={category.id || category.slug}
                     className="relative"
                     onMouseEnter={() => {
                       setActiveCategory(category.slug);
@@ -241,30 +201,30 @@ function TopNav() {
                               +
                             </span>
 
-                            {/* Left 7 cols: Category description + Popular services */}
+                            {/* Left 7 cols: Category + its services */}
                             <motion.div
                               key={`left-${category.slug}`}
                               initial={{ opacity: 0, y: 8 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="col-span-7 flex flex-col justify-between"
+                              className={`${featured ? "col-span-7" : "col-span-12"} flex flex-col justify-between`}
                             >
                               <div>
                                 <div className="flex items-start gap-3 pb-3 mb-3 border-b border-sp-border">
                                   <div className="w-9 h-9 rounded-sp-sm bg-sp-bg border border-sp-border flex items-center justify-center shrink-0">
-                                    <Icon className="w-5 h-5" />
+                                    <CategoryIcon category={category} className="w-5 h-5" />
                                   </div>
                                   <div className="min-w-0">
                                     <div className="flex items-center gap-2">
                                       <span className="text-xs font-semibold text-sp-primary tabular-nums">
-                                        0{catIdx + 1}
+                                        {String(catIdx + 1).padStart(2, "0")}
                                       </span>
                                       <p className="font-semibold text-sp-ink text-sm">
                                         {category.title}
                                       </p>
                                     </div>
                                     <p className="text-xs text-sp-slate line-clamp-1 mt-0.5">
-                                      {category.description}
+                                      {category.topServices.length} services
                                     </p>
                                   </div>
                                 </div>
@@ -272,13 +232,14 @@ function TopNav() {
                                 <div className="grid grid-cols-2 gap-1">
                                   {category.topServices.slice(0, 8).map((service) => (
                                     <Link
-                                      key={service.slug}
+                                      key={service.id || service.href}
                                       href={service.href}
+                                      target={service.target === "_blank" ? "_blank" : undefined}
                                       onClick={() => setActiveCategory(null)}
                                       className="group/item flex items-center justify-between px-2.5 py-2 rounded-sp-sm hover:bg-sp-bg transition-colors text-xs"
                                     >
                                       <span className="text-sp-ink group-hover/item:text-sp-primary font-medium truncate pr-2">
-                                        {service.title}
+                                        {service.label}
                                       </span>
                                       <ArrowRight className="w-3 h-3 text-sp-slate opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:text-sp-primary transition-all shrink-0" />
                                     </Link>
@@ -286,57 +247,61 @@ function TopNav() {
                                 </div>
                               </div>
 
-                              <div className="pt-3 mt-3 border-t border-sp-border flex items-center justify-between">
-                                <Link
-                                  href={category.href}
-                                  onClick={() => setActiveCategory(null)}
-                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-sp-primary hover:underline whitespace-nowrap"
-                                >
-                                  <span>Explore all {category.title} services</span>
-                                  <ArrowRight className="w-3.5 h-3.5" />
-                                </Link>
-                              </div>
-                            </motion.div>
-
-                            {/* Right 5 cols: Featured Service Panel */}
-                            <motion.div
-                              key={`right-${category.slug}`}
-                              initial={{ opacity: 0, x: 8 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                              className="col-span-5 bg-sp-bg rounded-sp-sm border border-sp-border p-4 flex flex-col justify-between"
-                            >
-                              <div>
-                                <div className="text-[11px] font-semibold text-sp-primary mb-2 flex items-center justify-between">
-                                  <span>Featured filing</span>
-                                  <span className="tabular-nums text-sp-slate">0{catIdx + 1}.A</span>
+                              {category.href !== "#" && (
+                                <div className="pt-3 mt-3 border-t border-sp-border flex items-center justify-between">
+                                  <Link
+                                    href={category.href}
+                                    onClick={() => setActiveCategory(null)}
+                                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-sp-primary hover:underline whitespace-nowrap"
+                                  >
+                                    <span>Explore all {category.title} services</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                  </Link>
                                 </div>
-                                <h4 className="text-sm font-semibold text-sp-ink mb-2">
-                                  {featured.title}
-                                </h4>
-                                <p className="text-xs text-sp-slate leading-relaxed mb-4">
-                                  {featured.summary}
-                                </p>
-                              </div>
-
-                              <div className="space-y-2 pt-3 border-t border-sp-border">
-                                <Link
-                                  href={featured.href}
-                                  onClick={() => setActiveCategory(null)}
-                                  className="flex items-center justify-between w-full px-3 py-2 rounded-sp-sm bg-white border border-sp-border hover:border-sp-primary text-xs font-semibold text-sp-primary transition-colors whitespace-nowrap"
-                                >
-                                  <span>View requirements</span>
-                                  <ArrowRight className="w-3.5 h-3.5" />
-                                </Link>
-                                <Link
-                                  href="/contact"
-                                  onClick={() => setActiveCategory(null)}
-                                  className="block text-center text-xs text-sp-slate hover:text-sp-primary font-medium py-1 whitespace-nowrap"
-                                >
-                                  Get a quote &rarr;
-                                </Link>
-                              </div>
+                              )}
                             </motion.div>
+
+                            {/* Right 5 cols: Featured service (the category's first link) */}
+                            {featured && (
+                              <motion.div
+                                key={`right-${category.slug}`}
+                                initial={{ opacity: 0, x: 8 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                                className="col-span-5 bg-sp-bg rounded-sp-sm border border-sp-border p-4 flex flex-col justify-between"
+                              >
+                                <div>
+                                  <div className="text-[11px] font-semibold text-sp-primary mb-2 flex items-center justify-between">
+                                    <span>Featured filing</span>
+                                    <span className="tabular-nums text-sp-slate">{String(catIdx + 1).padStart(2, "0")}.A</span>
+                                  </div>
+                                  <h4 className="text-sm font-semibold text-sp-ink mb-2">
+                                    {featured.label}
+                                  </h4>
+                                  <p className="text-xs text-sp-slate leading-relaxed mb-4">
+                                    Expert-led, fully online {category.title.toLowerCase()} service with transparent pricing.
+                                  </p>
+                                </div>
+
+                                <div className="space-y-2 pt-3 border-t border-sp-border">
+                                  <Link
+                                    href={featured.href}
+                                    onClick={() => setActiveCategory(null)}
+                                    className="flex items-center justify-between w-full px-3 py-2 rounded-sp-sm bg-white border border-sp-border hover:border-sp-primary text-xs font-semibold text-sp-primary transition-colors whitespace-nowrap"
+                                  >
+                                    <span>View requirements</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                  </Link>
+                                  <Link
+                                    href="/contact"
+                                    onClick={() => setActiveCategory(null)}
+                                    className="block text-center text-xs text-sp-slate hover:text-sp-primary font-medium py-1 whitespace-nowrap"
+                                  >
+                                    Get a quote &rarr;
+                                  </Link>
+                                </div>
+                              </motion.div>
+                            )}
                           </div>
                         </motion.div>
                       )}
@@ -345,140 +310,99 @@ function TopNav() {
                 );
               })}
 
-              <Link
-                href="/blog"
-                onMouseEnter={() => {
-                  setActiveCategory(null);
-                  setHoveredNav("blog");
-                }}
-                className={`relative px-2 xl:px-2.5 py-2 text-xs xl:text-sm rounded-sp-sm transition-colors whitespace-nowrap z-10 ${
-                  pathname?.startsWith("/blog")
-                    ? "font-semibold text-sp-navy"
-                    : "font-medium text-sp-ink hover:text-sp-primary"
-                }`}
-              >
-                {hoveredNav === "blog" && (
-                  <motion.span
-                    layoutId="topnav-hover-pill"
-                    transition={NAV_SPRING}
-                    className="absolute inset-0 rounded-sp-sm bg-[#EAE0CF]/55 -z-10"
-                    aria-hidden="true"
-                  />
-                )}
-                {pathname?.startsWith("/blog") && (
-                  <motion.span
-                    layoutId="topnav-active-bar"
-                    transition={NAV_SPRING}
-                    className="absolute inset-x-2 -bottom-0.5 h-[2px] rounded-full bg-sp-navy"
-                    aria-hidden="true"
-                  />
-                )}
-                <span>Blogs</span>
-              </Link>
-
-              <Link
-                href="/contact"
-                onMouseEnter={() => {
-                  setActiveCategory(null);
-                  setHoveredNav("contact");
-                }}
-                className={`relative px-2 xl:px-2.5 py-2 text-xs xl:text-sm rounded-sp-sm transition-colors whitespace-nowrap z-10 ${
-                  pathname?.startsWith("/contact")
-                    ? "font-semibold text-sp-navy"
-                    : "font-medium text-sp-ink hover:text-sp-primary"
-                }`}
-              >
-                {hoveredNav === "contact" && (
-                  <motion.span
-                    layoutId="topnav-hover-pill"
-                    transition={NAV_SPRING}
-                    className="absolute inset-0 rounded-sp-sm bg-[#EAE0CF]/55 -z-10"
-                    aria-hidden="true"
-                  />
-                )}
-                {pathname?.startsWith("/contact") && (
-                  <motion.span
-                    layoutId="topnav-active-bar"
-                    transition={NAV_SPRING}
-                    className="absolute inset-x-2 -bottom-0.5 h-[2px] rounded-full bg-sp-navy"
-                    aria-hidden="true"
-                  />
-                )}
-                <span>Contact</span>
-              </Link>
+              {links.map((item) => {
+                const key = item.id || item.href;
+                const active = isActive(pathname, item.href);
+                return (
+                  <Link
+                    key={key}
+                    href={item.href}
+                    target={item.target === "_blank" ? "_blank" : undefined}
+                    onMouseEnter={() => {
+                      setActiveCategory(null);
+                      setHoveredNav(key);
+                    }}
+                    className={`relative px-2 xl:px-2.5 py-2 text-xs xl:text-sm rounded-sp-sm transition-colors whitespace-nowrap z-10 ${
+                      active
+                        ? "font-semibold text-sp-navy"
+                        : "font-medium text-sp-ink hover:text-sp-primary"
+                    }`}
+                  >
+                    {hoveredNav === key && (
+                      <motion.span
+                        layoutId="topnav-hover-pill"
+                        transition={NAV_SPRING}
+                        className="absolute inset-0 rounded-sp-sm bg-[#EAE0CF]/55 -z-10"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {active && (
+                      <motion.span
+                        layoutId="topnav-active-bar"
+                        transition={NAV_SPRING}
+                        className="absolute inset-x-2 -bottom-0.5 h-[2px] rounded-full bg-sp-navy"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* Right Action Controls: Account Menu (Login, Bell, Pay) | Primary Get Started */}
+            {/* Right Action Controls: Account Menu | Primary button */}
             <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0">
-              {/* Account Menu (houses Login, Notifications Bell, and Pay) */}
-              <div className="relative" ref={accountRef}>
-                <button
-                  onClick={() => setAccountMenuOpen((prev) => !prev)}
-                  className="inline-flex items-center gap-1 xl:gap-1.5 h-9 xl:h-10 px-2 xl:px-3 rounded-sp-btn text-xs xl:text-sm font-medium text-sp-ink hover:text-sp-primary hover:bg-sp-tint/35 border border-transparent hover:border-sp-border transition-colors whitespace-nowrap"
-                  aria-expanded={accountMenuOpen}
-                  aria-haspopup="true"
+              {account && (
+                <div className="relative" ref={accountRef}>
+                  <button
+                    onClick={() => setAccountMenuOpen((prev) => !prev)}
+                    className="inline-flex items-center gap-1 xl:gap-1.5 h-9 xl:h-10 px-2 xl:px-3 rounded-sp-btn text-xs xl:text-sm font-medium text-sp-ink hover:text-sp-primary hover:bg-sp-tint/35 border border-transparent hover:border-sp-border transition-colors whitespace-nowrap"
+                    aria-expanded={accountMenuOpen}
+                    aria-haspopup="true"
+                  >
+                    <User className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-sp-primary shrink-0" />
+                    <span>{account.label}</span>
+                    <ChevronDown
+                      className={`w-3 h-3 xl:w-3.5 xl:h-3.5 text-sp-slate transition-transform duration-200 ${
+                        accountMenuOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {accountMenuOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-sp-md shadow-sp-lift border border-sp-border-strong p-2 z-50">
+                      {account.items.map((item) => {
+                        const Icon = accountIcon(item.href);
+                        return (
+                          <Link
+                            key={item.id || item.href}
+                            href={item.href}
+                            onClick={() => setAccountMenuOpen(false)}
+                            className="flex items-center justify-between px-3 py-2.5 rounded-sp-sm hover:bg-sp-bg text-xs font-medium text-sp-ink hover:text-sp-primary transition-colors whitespace-nowrap"
+                          >
+                            <span className="inline-flex items-center gap-2">
+                              <Icon className="w-4 h-4 text-sp-primary" />
+                              {item.label}
+                            </span>
+                            <ArrowRight className="w-3.5 h-3.5 text-sp-slate" />
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {cta && (
+                <Button
+                  href={cta.href}
+                  size="sm"
+                  showPlus
+                  className="h-9 xl:h-10 px-3 xl:px-4 text-xs xl:text-sm"
                 >
-                  <User className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-sp-primary shrink-0" />
-                  <span>Login</span>
-                  <ChevronDown
-                    className={`w-3 h-3 xl:w-3.5 xl:h-3.5 text-sp-slate transition-transform duration-200 ${
-                      accountMenuOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {accountMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-sp-md shadow-sp-lift border border-sp-border-strong p-2 z-50">
-                    <Link
-                      href="/user-login"
-                      onClick={() => setAccountMenuOpen(false)}
-                      className="flex items-center justify-between px-3 py-2.5 rounded-sp-sm hover:bg-sp-bg text-xs font-medium text-sp-ink hover:text-sp-primary transition-colors whitespace-nowrap"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <User className="w-4 h-4 text-sp-primary" />
-                        Client Login
-                      </span>
-                      <ArrowRight className="w-3.5 h-3.5 text-sp-slate" />
-                    </Link>
-
-                    <Link
-                      href="/notification"
-                      onClick={() => setAccountMenuOpen(false)}
-                      className="flex items-center justify-between px-3 py-2.5 rounded-sp-sm hover:bg-sp-bg text-xs font-medium text-sp-ink hover:text-sp-primary transition-colors whitespace-nowrap"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <Bell className="w-4 h-4 text-sp-primary" />
-                        Notifications
-                      </span>
-                      <span className="text-[11px] tabular-nums bg-sp-tint text-sp-primary px-1.5 py-0.5 rounded font-semibold">
-                        1
-                      </span>
-                    </Link>
-
-                    <Link
-                      href="/payment"
-                      onClick={() => setAccountMenuOpen(false)}
-                      className="flex items-center justify-between px-3 py-2.5 rounded-sp-sm hover:bg-sp-bg text-xs font-medium text-sp-ink hover:text-sp-primary transition-colors whitespace-nowrap"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <CreditCard className="w-4 h-4 text-sp-primary" />
-                        Online Payment
-                      </span>
-                      <ArrowRight className="w-3.5 h-3.5 text-sp-slate" />
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Single Primary CTA */}
-              <Button
-                href="/user-register"
-                size="sm"
-                showPlus
-                className="h-9 xl:h-10 px-3 xl:px-4 text-xs xl:text-sm"
-              >
-                Get Started
-              </Button>
+                  {cta.label}
+                </Button>
+              )}
             </div>
 
             {/* Mobile Controls */}
@@ -519,118 +443,107 @@ function TopNav() {
 
           {/* Drawer Accordion Content */}
           <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
-            <div className="space-y-2">
-              <p className="text-xs font-semibold text-sp-slate px-1">
-                Service categories
-              </p>
-              <div className="divide-y divide-sp-border border-y border-sp-border">
-                {NAV_CATEGORIES.map((category, idx) => {
-                  const isExpanded = mobileExpandedCat === category.slug;
-                  return (
-                    <div key={category.slug} className="py-2">
-                      <button
-                        onClick={() =>
-                          setMobileExpandedCat(isExpanded ? null : category.slug)
-                        }
-                        className="w-full flex items-center justify-between py-2.5 px-1 text-left font-semibold text-base text-sp-ink hover:text-sp-primary transition-colors"
-                        aria-expanded={isExpanded}
-                      >
-                        <span className="inline-flex items-center gap-2.5">
-                          <span className="text-xs text-sp-primary tabular-nums font-semibold">
-                            0{idx + 1}
+            {categories.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-sp-slate px-1">
+                  Service categories
+                </p>
+                <div className="divide-y divide-sp-border border-y border-sp-border">
+                  {categories.map((category, idx) => {
+                    const isExpanded = mobileExpandedCat === category.slug;
+                    return (
+                      <div key={category.id || category.slug} className="py-2">
+                        <button
+                          onClick={() =>
+                            setMobileExpandedCat(isExpanded ? null : category.slug)
+                          }
+                          className="w-full flex items-center justify-between py-2.5 px-1 text-left font-semibold text-base text-sp-ink hover:text-sp-primary transition-colors"
+                          aria-expanded={isExpanded}
+                        >
+                          <span className="inline-flex items-center gap-2.5">
+                            <span className="text-xs text-sp-primary tabular-nums font-semibold">
+                              {String(idx + 1).padStart(2, "0")}
+                            </span>
+                            <span>{category.title}</span>
                           </span>
-                          <span>{category.title}</span>
-                        </span>
-                        <ChevronDown
-                          className={`w-4 h-4 text-sp-slate transition-transform duration-200 ${
-                            isExpanded ? "rotate-180 text-sp-primary" : ""
-                          }`}
-                        />
-                      </button>
+                          <ChevronDown
+                            className={`w-4 h-4 text-sp-slate transition-transform duration-200 ${
+                              isExpanded ? "rotate-180 text-sp-primary" : ""
+                            }`}
+                          />
+                        </button>
 
-                      {isExpanded && (
-                        <div className="pl-7 pr-2 pb-3 pt-1 space-y-1.5">
-                          <p className="text-xs text-sp-slate mb-2">
-                            {category.description}
-                          </p>
-                          {category.topServices.map((s) => (
-                            <Link
-                              key={s.slug}
-                              href={s.href}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="flex items-center justify-between py-1.5 text-sm text-sp-ink hover:text-sp-primary"
-                            >
-                              <span>{s.title}</span>
-                              <ArrowRight className="w-3.5 h-3.5 text-sp-slate" />
-                            </Link>
-                          ))}
-                          <Link
-                            href={category.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="inline-flex items-center gap-1 pt-2 text-xs font-semibold text-sp-primary"
-                          >
-                            <span>View all {category.title} services</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                        {isExpanded && (
+                          <div className="pl-7 pr-2 pb-3 pt-1 space-y-1.5">
+                            {category.topServices.map((s) => (
+                              <Link
+                                key={s.id || s.href}
+                                href={s.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="flex items-center justify-between py-1.5 text-sm text-sp-ink hover:text-sp-primary"
+                              >
+                                <span>{s.label}</span>
+                                <ArrowRight className="w-3.5 h-3.5 text-sp-slate" />
+                              </Link>
+                            ))}
+                            {category.href !== "#" && (
+                              <Link
+                                href={category.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="inline-flex items-center gap-1 pt-2 text-xs font-semibold text-sp-primary"
+                              >
+                                <span>View all {category.title} services</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Direct Links */}
             <div className="grid grid-cols-2 gap-2.5">
-              <Link
-                href="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 rounded-sp-sm bg-sp-bg border border-sp-border text-sm font-semibold text-sp-ink hover:text-sp-primary"
-              >
-                Blogs &amp; Guides
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 rounded-sp-sm bg-sp-bg border border-sp-border text-sm font-semibold text-sp-ink hover:text-sp-primary"
-              >
-                Contact Desk
-              </Link>
-              <Link
-                href="/notification"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 rounded-sp-sm bg-sp-bg border border-sp-border text-sm font-semibold text-sp-ink hover:text-sp-primary flex items-center justify-between"
-              >
-                <span>Notifications</span>
-                <Bell className="w-4 h-4 text-sp-primary" />
-              </Link>
-              <Link
-                href="/payment"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 rounded-sp-sm bg-sp-bg border border-sp-border text-sm font-semibold text-sp-ink hover:text-sp-primary flex items-center justify-between"
-              >
-                <span>Online Payment</span>
-                <CreditCard className="w-4 h-4 text-sp-primary" />
-              </Link>
+              {[...links, ...(account?.items || []).filter((item) => !/login/i.test(item.href))].map((item) => {
+                const Icon = account?.items.includes(item) ? accountIcon(item.href) : null;
+                return (
+                  <Link
+                    key={item.id || item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-3 rounded-sp-sm bg-sp-bg border border-sp-border text-sm font-semibold text-sp-ink hover:text-sp-primary flex items-center justify-between"
+                  >
+                    <span>{item.label}</span>
+                    {Icon && <Icon className="w-4 h-4 text-sp-primary" />}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           {/* Drawer Footer */}
           <div className="p-4 border-t border-sp-border bg-sp-bg grid grid-cols-2 gap-3 shrink-0">
-            <Button
-              href="/user-login"
-              variant="outline"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Client Login
-            </Button>
-            <Button
-              href="/user-register"
-              showPlus
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Get Started
-            </Button>
+            {account && (
+              <Button
+                href={account.items.find((item) => /login/i.test(item.href))?.href || account.href}
+                variant="outline"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {account.items.find((item) => /login/i.test(item.href))?.label || account.label}
+              </Button>
+            )}
+            {cta && (
+              <Button
+                href={cta.href}
+                showPlus
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {cta.label}
+              </Button>
+            )}
           </div>
         </div>
       )}
@@ -640,6 +553,7 @@ function TopNav() {
         isOpen={searchOpen}
         onClose={() => setSearchOpen(false)}
         onOpen={() => setSearchOpen(true)}
+        categories={categories}
       />
     </>
   );

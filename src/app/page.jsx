@@ -1,90 +1,47 @@
-import { Hero } from "../features/home/components/Hero";
-import { AboutSection } from "../features/home/components/AboutSection";
-import { ProcessSection } from "../features/home/components/ProcessSection";
-import { WhyUsSection } from "../features/home/components/WhyUsSection";
-import { CtaBand } from "../features/home/components/CtaBand";
-import { FaqSection } from "../features/home/components/FaqSection";
-import { LatestBlogs } from "../features/home/components/LatestBlogs";
-export const metadata = {
-  title: "Servicesplus - Company registration, GST, Trademark filing, Tax Services",
-  description: "One Stop Platform for company registration, trademark filing, GST registration, TDS filing, Payroll, MSME registration and income tax filing in India.",
-  alternates: {
-    canonical: "https://www.servicesplus.in"
-  },
-  openGraph: {
-    title: "Servicesplus - Company registration, GST, Trademark filing, Tax Services",
-    description: "One Stop Platform for company registration, trademark filing, GST registration, TDS filing, Payroll, MSME registration and income tax filing in India.",
-    url: "https://www.servicesplus.in",
-    siteName: "Services Plus",
-    type: "website"
-  }
-};
-export default function HomePage() {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: "Services Plus",
-    url: "https://www.servicesplus.in",
-    logo: "https://www.servicesplus.in/assets/images/logo-h-390c5c1a.png",
-    telephone: "+91-8800028794",
-    email: "info@servicesplus.in",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Office No-418, 4th Floor, Ocean Plaza, Sector-18",
-      addressLocality: "Noida",
-      addressRegion: "Uttar Pradesh",
-      postalCode: "201301",
-      addressCountry: "IN"
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "42800"
-    },
-    priceRange: "\u20B9\u20B9"
-  };
-  return <>
-      {
-    /* Inject Structured Data Schema */
-  }
-      <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-  />
+import HomeSections from "@/components/tax-alphonic/home/HomeSections";
+import { getHomePage } from "@/service/homePageService";
+import { attachModuleContent } from "@/service/homeContentService";
+import { applySeoConfig, getSeoConfig } from "@/service/seoConfigService";
+import { createMetadata } from "@/lib/seoMetadata";
+import { SITE_URL } from "@/lib/siteConfig";
+import JsonLd from "@/components/seo/JsonLd";
+import LegacyHomePage, { metadata as legacyMetadata } from "@/features/legacy/LegacyHomePage";
 
-      {
-    /* 1. Hero & Radial Category Explorer */
-  }
-      <Hero />
+// Homepage = the published CMS page with slug "home" (admin: Home Page Builder), one Home* block per
+// section. Blocks such as Testimonials or Team read their records from the CMS modules. Until that
+// page is published with blocks, the old Services Plus homepage is shown.
 
-      {
-    /* 2. About & Statistics Counters */
-  }
-      <AboutSection />
+/** Homepage SEO: the home page's own fields, with the SEO Config "Homepage" (admin) on top. */
+async function getHomeSeo(page) {
+  const own = { title: "", metaTitle: page?.metaTitle || "", metaDescription: page?.metaDescription || "", canonicalUrl: `${SITE_URL}/` };
+  return applySeoConfig(own, await getSeoConfig("static", "home", "/"));
+}
 
-      {
-    /* 3. Process (4 Steps Agile Roadmap) */
-  }
-      <ProcessSection />
+export async function generateMetadata() {
+  const page = await getHomePage();
+  if (!page?.sections?.length) return legacyMetadata;
 
-      {
-    /* 4. Latest Insights & Compliance Guides (Blogs) */
+  // Unset title / description keep the site defaults from app/layout.jsx.
+  const metadata = createMetadata(await getHomeSeo(page));
+  for (const key of ["title", "description"]) {
+    if (!metadata[key]) {
+      delete metadata[key];
+      delete metadata.openGraph[key];
+      delete metadata.twitter[key];
+    }
   }
-      <LatestBlogs />
+  return metadata;
+}
 
-      {
-    /* 5. Why Services Plus (Stacked Card Deck) */
-  }
-      <WhyUsSection />
+export default async function Home() {
+  const page = await getHomePage();
+  if (!page?.sections?.length) return <LegacyHomePage />;
 
-      {
-    /* 6. Dark Navy CTA Band */
-  }
-      <CtaBand />
-
-      {
-    /* 7. FAQ Accordion & FAQPage Schema */
-  }
-      <FaqSection />
-    </>;
+  const [sections, seo] = await Promise.all([attachModuleContent(page.sections), getHomeSeo(page)]);
+  return (
+    <>
+      <JsonLd value={seo.schemaMarkup} />
+      <HomeSections sections={sections} />
+    </>
+  );
 }
