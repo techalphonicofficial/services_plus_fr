@@ -1,7 +1,5 @@
 import { apiClient } from "@/service/apiClient";
 import { SITE_URL, blogPostPath, servicePath } from "@/lib/siteConfig";
-import { getAllServices } from "@/content/services";
-import { getAllBlogs } from "@/content/blogs";
 
 // Dynamic sitemap: /sitemap.xml is an index of /sitemaps/pages.xml, /sitemaps/services.xml, /sitemaps/blog.xml and
 // /sitemaps/seo-pages-<n>.xml (pSEO pages, split every PER_FILE URLs; Google's limit is 50,000).
@@ -10,16 +8,17 @@ import { getAllBlogs } from "@/content/blogs";
 // the pages render with: published only, no "noindex" robots, no canonical pointing elsewhere,
 // with any SEO Config (admin) override of robots / canonical applied.
 // Services Plus addresses: services /service/<slug>, posts /blog-detail/<slug> (lib/siteConfig.js).
-// Its own pages (contact, payment, ...) and the local content not yet in the CMS (features/legacy)
-// are listed too, so no URL drops out of the sitemap while content moves to the CMS.
+// Besides the CMS records only the site's own contact and policy pages are listed (an SEO Config
+// with noindex / another canonical for their URL keeps them out too). Local content not in the CMS
+// (src/content, features/legacy) and the login, payment and notification pages are never listed.
 
 export { SITE_URL };
 export const PER_FILE = 45000;
 
 const EMPTY = { pages: [], services: [], seoPages: [], blogs: [] };
 
-// Pages this website serves itself (not from the CMS).
-const STATIC_PAGES = ["/contact", "/blog", "/payment", "/notification", "/policy/privacy-policy", "/policy/terms-and-condition", "/user-login", "/user-register"];
+// Pages this website serves itself (not from the CMS) that may be indexed.
+const STATIC_PAGES = ["/contact", "/policy/privacy-policy", "/policy/terms-and-condition"];
 
 /** "/india/seo services" → "https://www.servicesplus.in/india/seo%20services". */
 export function absoluteUrl(path) {
@@ -58,30 +57,10 @@ async function fetchEntries() {
   }
 }
 
-/** Local content (src/content) not in the CMS yet: still served by the legacy pages. */
-function legacyEntries(groups, cmsServiceSlugs, cmsBlogSlugs) {
-  const listed = new Set([...groups.pages, ...groups.services, ...groups.blogs].map((e) => e.loc));
-  const add = (list, path) => {
-    const loc = absoluteUrl(path);
-    if (!listed.has(loc)) {
-      listed.add(loc);
-      list.push({ loc });
-    }
-  };
-  const pages = [...groups.pages];
-  const services = [...groups.services];
-  const blogs = [...groups.blogs];
-  add(pages, "/");
-  ["/about", ...STATIC_PAGES].forEach((path) => add(pages, path));
-  getAllServices().filter((s) => !cmsServiceSlugs.has(s.slug)).forEach((s) => add(services, servicePath(s.slug)));
-  getAllBlogs().filter((b) => !cmsBlogSlugs.has(b.slug)).forEach((b) => add(blogs, blogPostPath(b.slug)));
-  return { ...groups, pages, services, blogs };
-}
-
 /** { pages, services, seoPages, blogs }: each [{ loc, lastmod }]. */
 export async function getSitemapGroups() {
   const data = await fetchEntries();
-  if (!data) return legacyEntries(EMPTY, new Set(), new Set());
+  if (!data) return EMPTY;
 
   const configs = new Map((data.seoConfigs || []).map((config) => [`${config.targetType}:${config.targetId}`, config]));
   const configOf = (type, id) => configs.get(`${type}:${id}`);
@@ -106,6 +85,10 @@ export async function getSitemapGroups() {
     ...cmsPages
       .filter((page) => page !== homePage)
       .map((page) => entry(`/${slugOf(page.slug)}`, page, configOf("page", page.id))),
+    // A CMS page with the same URL already covers it.
+    ...STATIC_PAGES
+      .filter((path) => !pageSlugs.has(slugOf(path).toLowerCase()))
+      .map((path) => entry(path, {}, configOfRoute(path))),
   ].filter(Boolean);
 
   const serviceEntries = services
@@ -131,11 +114,7 @@ export async function getSitemapGroups() {
     ...blogs.map((blog) => entry(blogPostPath(slugOf(blog.slug)), blog, configOfRoute(blogPostPath(slugOf(blog.slug))))),
   ].filter(Boolean) : [];
 
-  return legacyEntries(
-    { pages, services: serviceEntries, seoPages, blogs: blogEntries },
-    new Set(services.map((service) => slugOf(service.slug))),
-    new Set(blogs.map((blog) => slugOf(blog.slug)))
-  );
+  return { pages, services: serviceEntries, seoPages, blogs: blogEntries };
 }
 
 const escapeXml = (value) => String(value)

@@ -157,7 +157,7 @@ async function attachTools(sections) {
     : s));
 }
 
-// Where a blog post opens on this website (Tax Alphonic: /blog/<slug>, Services Plus: /blog-detail/<slug>).
+// Where a blog post opens on this website (/blog-detail/<slug>, lib/siteConfig.js).
 export const BLOG_POST_BASE = "/blog-detail/";
 
 /**

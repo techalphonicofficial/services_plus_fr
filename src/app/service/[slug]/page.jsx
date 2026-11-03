@@ -5,8 +5,8 @@ import CmsRecordPage from "@/components/tax-alphonic/pages/CmsRecordPage";
 import LegacyServicePage, { generateMetadata as legacyMetadata } from "@/features/legacy/LegacyServicePage";
 
 /*
- * /service/<slug>: the CMS service (admin: Services, Page Builder blocks) through the same renderer
- * as the Tax Alphonic website. A slug the CMS doesn't have yet still shows the old Services Plus
+ * /service/<slug>: the CMS service (admin: Services, Page Builder blocks) through the shared CMS block
+ * renderers (components/tax-alphonic). A slug the CMS doesn't have yet still shows the old Services Plus
  * page from src/content (features/legacy), until that service is added in the CMS.
  */
 

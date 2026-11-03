@@ -1123,6 +1123,12 @@
 .ta-svc .side .ta-cb .cb-stat b,
 .home-split .home-side .ta-cb .cb-stat b { font-size: 22px; }
 
+/* Text and media blocks in a column: the column has its own side spacing; galleries two per row
+   in a sidebar. */
+.home-split .ta-cb .cb-wrap { padding: 0; }
+.ta-svc .side .ta-cb .cb-gallery,
+.home-split .home-side .ta-cb .cb-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
 /* Explore links grid (CommonExploreHub; reference .xhub): 4 compact cards per row at 100%. */
 .ta-cb .cb-xhub-grid {
   display: grid;

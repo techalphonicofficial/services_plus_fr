@@ -1071,6 +1071,24 @@ const PLACEMENT_RULES = {
   // Carousel / Latest Blog Posts size themselves to their column.
   CommonCarousel: { default: "full", options: ANY },
   CommonBlogPosts: { default: "full", options: ANY },
+  // Text and media blocks size themselves to any column (sidebar styles in blocks.css).
+  CommonText: { default: "full", options: ANY },
+  CommonImage: { default: "full", options: ANY },
+  CommonVideo: { default: "full", options: ANY },
+  CommonGallery: { default: "full", options: ANY },
+  CommonLogos: { default: "full", options: ANY },
+  CommonEmbed: { default: "full", options: ANY },
+  CommonSpacer: { default: "full", options: ANY },
+  // Two-column and wide layouts: full width or main content, too wide for a sidebar.
+  CommonImageText: { default: "full", options: WIDE },
+  CommonTextSide: { default: "full", options: WIDE },
+  CommonCaseStudy: { default: "full", options: WIDE },
+  CommonAwards: { default: "full", options: WIDE },
+  CommonTimeline: { default: "full", options: WIDE },
+  CommonTabs: { default: "full", options: WIDE },
+  CommonStory: { default: "full", options: WIDE },
+  CommonQna: { default: "full", options: WIDE },
+  CommonExploreHub: { default: "full", options: WIDE },
 };
 
 function placementOf(section) {

@@ -6,7 +6,7 @@ import { getLandingPage, getLandingThankYou } from "@/service/landingPageService
 import { getSiteSettings } from "@/service/siteSettingsService";
 
 /*
- * Thank-you page after a landing form: services.taxalphonic.com/lp/thank-you?from=<label>
+ * Thank-you page after a landing form: services.servicesplus.in/lp/thank-you?from=<label>
  * (CmsForm goes here on a landing page when it is switched on; a static segment, so it wins over
  * app/lp/[label], and "thank-you" can never be a landing label). One page for every landing page,
  * edited in the admin (Landing Pages → Thank-you page & tracking); ?from= only picks the colour
