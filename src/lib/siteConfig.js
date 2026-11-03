@@ -1,5 +1,5 @@
-// This website's name, origin and URL rules for CMS records. The CMS block renderers came from
-// the Tax Alphonic website, which serves services at /<slug> and posts at /blog/<slug>; Services
+// This website's name, origin and URL rules for CMS records. The shared CMS block renderers
+// use /<slug> for services and /blog/<slug> for posts; Services
 // Plus keeps its own (already indexed) addresses, so every link and sitemap entry is built here.
 
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "Services Plus";

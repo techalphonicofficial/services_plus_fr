@@ -6,7 +6,7 @@ import LegacyCategoryPage, { generateMetadata as legacyMetadata } from "@/featur
 
 /*
  * /service-by-categories/<slug>: every link under the header menu item that points here (admin:
- * Menus & Navigation → "Services Plus Header"), shown like the Tax Alphonic explore pages. A
+ * Menus & Navigation → "Services Plus Header"), shown like the /explore pages. A
  * category the menu doesn't link to still shows the old page from src/content.
  */
 

@@ -17,9 +17,9 @@ import { getSiteSettings } from "@/service/siteSettingsService";
 import { withSeoConfig } from "@/service/seoConfigService";
 
 /*
- * A landing page at /lp/<label> on the landing host (services.taxalphonic.com/lp/cbdt). proxy.js
+ * A landing page at /lp/<label> on the landing host (services.servicesplus.in/lp/cbdt). proxy.js
  * passes that request on with the x-ta-landing header (no rewrite; /lp/<label> on the main site and
- * old <label>.taxalphonic.com addresses are redirected to the landing host); without that header
+ * old <label>.servicesplus.in addresses are redirected to the landing host); without that header
  * or without a published page for the label, it is a 404.
  * Only the published version is ever loaded (service/landingPageService.js).
  * SEO: the page's own SEO (Settings & SEO tab); an active SEO Config for this landing page
@@ -70,7 +70,7 @@ export default async function LandingHostPage({ params }) {
   ]);
 
   const seo = await seoOf(page);
-  // Thank-you page as a full services.taxalphonic.com URL (LANDING_SITE_URL overrides), never the
+  // Thank-you page as a full services.servicesplus.in URL (LANDING_SITE_URL overrides), never the
   // main site: no website header / footer there, and the ad tracking runs on the landing host.
   const h = await headers();
   const host = (h.get("x-forwarded-host") || h.get("host") || "").split(",")[0].trim();

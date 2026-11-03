@@ -6,7 +6,7 @@ import { attachModuleContent } from "@/service/homeContentService";
 import { needsModuleContent } from "@/components/tax-alphonic/blocks/commonBlockTypes";
 
 /**
- * Which CMS record a URL shows (same rules as the Tax Alphonic website):
+ * Which CMS record a URL shows (same rules as the CMS Live Preview):
  * - a path with several segments ("/india/seo-services-noida") is first a pSEO page (its full slug),
  *   then a CMS page with that full slug (Journey Stage pages: "/journey/idea");
  * - else the LAST segment is a service, then a CMS page;

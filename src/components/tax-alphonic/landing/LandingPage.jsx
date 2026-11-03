@@ -9,7 +9,7 @@ import "./landing.css";
 import "./landing-themes.css";
 
 /**
- * A landing page (taxalphonic.com/lp/<label>): Header region, the body blocks rendered exactly like a CMS
+ * A landing page (services.servicesplus.in/lp/<label>): Header region, the body blocks rendered exactly like a CMS
  * page with blocks (ApiPage → ApiServicePage: hero, main | sidebar, Form, Packages, ...), and
  * the Footer region. Used by the live route (app/lp/[label]) and the admin preview.
  *

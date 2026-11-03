@@ -35,7 +35,7 @@ export function landingHref(href) {
 }
 
 /**
- * In the browser: the in-page form of a link to this very page ("https://taxalphonic.com/lp/cbdt#faq",
+ * In the browser: the in-page form of a link to this very page ("https://services.servicesplus.in/lp/cbdt#faq",
  * "/lp/cbdt#faq" → "#faq"; no hash → "#top"), else null.
  */
 export function samePageHref(href) {

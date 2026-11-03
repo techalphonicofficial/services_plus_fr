@@ -58,7 +58,7 @@ export function proxy(request) {
   // /lp/thank-you: thank-you page after every landing form (app/lp/thank-you), on the landing host.
   const thankYou = isLandingThankYouPath(pathname);
 
-  // 1. Landing host: services.taxalphonic.com
+  // 1. Landing host: services.servicesplus.in
   if (isLandingSiteHost(host)) {
     if (thankYou) {
       // Header set: app/layout.js leaves out the website header / footer, as on landing pages.
