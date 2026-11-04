@@ -8,6 +8,7 @@ import { TopNav } from "../components/layout/TopNav";
 import { Footer } from "../components/layout/Footer";
 import { FloatingWhatsApp } from "../components/layout/FloatingWhatsApp";
 import { SmoothScroll } from "../components/providers/SmoothScroll";
+import { ScrollReveal } from "../components/providers/ScrollReveal";
 import FormPopupHost from "@/components/tax-alphonic/forms/FormPopupHost";
 import { getHeaderNavigation } from "@/service/headerService";
 import { getFooterNavigation } from "@/service/footerService";
@@ -126,6 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
 
         <SmoothScroll>
+          <ScrollReveal />
           <TopNav navigation={navigation} />
           <main className="flex-1 pb-16 md:pb-0">{children}</main>
           <Footer menu={footerMenu} />
