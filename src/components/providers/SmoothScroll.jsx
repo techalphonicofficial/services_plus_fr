@@ -15,15 +15,23 @@ export function SmoothScroll({ children }) {
 
     if (prefersReducedMotion) return;
 
+    // Phones and tablets keep the browser's native momentum scrolling: it runs on the
+    // compositor thread and is always smoother than a JS-driven scroll on touch screens.
+    const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isTouchDevice) return;
+
+    // lerp mode follows the wheel closely (no fixed-duration easing tail), which removes
+    // the "page trails behind the wheel" lag of the old duration-based setup.
     const lenis = new Lenis({
-      duration: 0.9,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.12,
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
+      syncTouch: false,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
-      infinite: false
+      touchMultiplier: 1.0,
+      infinite: false,
+      autoRaf: false
     });
 
     lenisRef.current = lenis;
@@ -46,10 +54,15 @@ export function SmoothScroll({ children }) {
       const hashIndex = href.indexOf("#");
       const hash = href.slice(hashIndex);
       if (hash.length > 1) {
-        const targetElement = document.querySelector(hash);
+        let targetElement = null;
+        try {
+          targetElement = document.querySelector(hash);
+        } catch {
+          return;
+        }
         if (targetElement) {
           e.preventDefault();
-          lenis.scrollTo(targetElement, { offset: -80, duration: 1.2 });
+          lenis.scrollTo(targetElement, { offset: -80, duration: 1.0 });
         }
       }
     };
@@ -66,4 +79,3 @@ export function SmoothScroll({ children }) {
 
   return <>{children}</>;
 }
-

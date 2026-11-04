@@ -364,7 +364,10 @@ function AnchorNav({ p }) {
   }, [givenKey]);
 
   useEffect(() => {
-    const onScroll = () => {
+    // Layout reads run at most once per frame (rAF), not on every scroll event.
+    let frame = 0;
+    const update = () => {
+      frame = 0;
       const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ta-header-h")) || 0;
       const holder = holderRef.current;
       if (holder) {
@@ -381,10 +384,14 @@ function AnchorNav({ p }) {
       });
       setActive(current);
     };
-    onScroll();
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
+      if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };

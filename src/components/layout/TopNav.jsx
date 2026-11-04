@@ -203,8 +203,8 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
         ref={headerRef}
         className={`sticky top-0 z-40 h-[72px] transition-shadow duration-200 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-sp-border shadow-sp-soft"
-            : "bg-white/95 backdrop-blur-sm border-b border-sp-border/70"
+            ? "bg-white/[0.98] lg:bg-white/95 lg:backdrop-blur-md border-b border-sp-border shadow-sp-soft"
+            : "bg-white/[0.98] lg:bg-white/95 lg:backdrop-blur-sm border-b border-sp-border/70"
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8 h-full">

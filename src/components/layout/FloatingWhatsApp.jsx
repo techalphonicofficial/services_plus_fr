@@ -39,7 +39,7 @@ function FloatingWhatsApp() {
       {/* Mobile Sticky Bottom Action Bar (Call, WhatsApp, Get Started) */}
       <aside
         aria-label="Mobile quick actions"
-        className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-sp-border-strong px-2 sm:px-3 py-2 sm:py-2.5 shadow-sp-lift"
+        className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/[0.98] border-t border-sp-border-strong px-2 sm:px-3 py-2 sm:py-2.5 shadow-sp-lift"
       >
         <div className="grid grid-cols-3 gap-1.5 sm:gap-2 max-w-md mx-auto">
           <a

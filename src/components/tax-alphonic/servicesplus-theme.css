@@ -575,7 +575,9 @@
     position: relative !important;
     background-color: #061325 !important;
     min-height: calc(100vh - var(--ta-header-h, 68px)) !important;
-    min-height: calc(100dvh - var(--ta-header-h, 68px)) !important;
+    /* svh, not dvh: dvh changes while the mobile URL bar hides/shows during scroll,
+       which re-lays out the whole page mid-scroll and causes visible stutter. */
+    min-height: calc(100svh - var(--ta-header-h, 68px)) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;

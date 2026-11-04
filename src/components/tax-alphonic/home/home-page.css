@@ -3826,3 +3826,18 @@
     grid-template-columns: 1.2fr .8fr .8fr .8fr 120px;
   }
 }
+
+/* ---------- Mobile scroll performance ----------
+   Backdrop blurs are re-rendered on every scroll frame and are the main cause of
+   scroll jank on phones. The cards keep their translucent glass gradient; only the
+   live blur behind them is dropped on small screens. Desktop is unchanged. */
+@media (max-width: 767px) {
+  html .ta-home .ej-head-stats,
+  html .ta-home .ej-stage,
+  html .ta-home .ej-stage .ej-ic,
+  html .ta-home .ej-stage-step-pill,
+  html .ta-home .hm-feat-icon {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
