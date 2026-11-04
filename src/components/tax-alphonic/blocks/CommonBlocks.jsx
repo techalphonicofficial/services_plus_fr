@@ -777,7 +777,114 @@ function Qna({ p }) {
   );
 }
 
+/**
+ * FAQ section (old homepage FaqSection): kicker, heading, text and a button on one side, numbered
+ * questions on the other. Closed answers stay in the page (hidden) so search engines read them.
+ */
+function FaqSplit({ p }) {
+  const items = list(p.items).filter((x) => has(x.question) && has(x.answer));
+  const [open, setOpen] = useState(p.firstOpen === "no" ? null : 0);
+  if (!items.length) return null;
+  const head = has(p.kicker) || has(p.heading) || has(p.text) || hasButton(p.button);
+  return (
+    <Section type="faqsplit" p={p}>
+      <div className={`cb-fqs${p.headSide === "right" ? " cb-fqs-rev" : ""}${head ? "" : " cb-fqs-solo"}`}>
+        {head && (
+          <div className="cb-fqs-head">
+            {has(p.kicker) && <span className="cb-plus-kicker">{p.kicker}</span>}
+            {has(p.heading) && <h2>{p.heading}</h2>}
+            <Paragraphs text={p.text} />
+            {hasButton(p.button) && <div className="cb-buttons"><Button button={p.button} ghost={p.buttonStyle !== "solid"} /></div>}
+          </div>
+        )}
+        <div className="cb-fqs-list">
+          {items.map((x, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i} className={`cb-fqs-item${isOpen ? " is-open" : ""}`}>
+                <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : i)}>
+                  <span className="cb-fqs-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="cb-fqs-q">{x.question}</span>
+                  <span className="cb-fqs-chev" aria-hidden="true" />
+                </button>
+                <div className="cb-fqs-a" hidden={!isOpen}><Paragraphs text={x.answer} /></div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/** One card of SplitCards; the only card on its side is the larger "featured" design. */
+function SplitCard({ c, featured }) {
+  const top = has(c.number) || has(c.tag) || has(c.date) || has(c.icon);
+  const link = has(c.url) && has(c.linkText);
+  return (
+    <article className={`cb-sc-card${featured ? " cb-sc-featured" : ""}`}>
+      <div className="cb-sc-body">
+        {top && (
+          <div className="cb-sc-top">
+            <div className="cb-sc-tags">
+              {has(c.number) && <span className="cb-sc-num">{c.number}</span>}
+              {has(c.tag) && <span className="cb-sc-tag">{c.tag}</span>}
+              {has(c.date) && <span className="cb-sc-date">{c.date}</span>}
+            </div>
+            {has(c.icon) && <span className="cb-sc-icon"><Icon value={c.icon} /></span>}
+          </div>
+        )}
+        {has(c.meta) && <p className="cb-sc-meta">{c.meta}</p>}
+        {has(c.title) && <h3>{has(c.url) ? <A url={c.url}>{c.title}</A> : c.title}</h3>}
+        <Paragraphs text={c.text} />
+      </div>
+      {(has(c.note) || link) && (
+        <div className="cb-sc-foot">
+          <span>{c.note}</span>
+          {link && <A url={c.url} className="cb-sc-link">{c.linkText} →</A>}
+        </div>
+      )}
+    </article>
+  );
+}
+
+/**
+ * Cards on two sides (old homepage LatestBlogs): any number of cards on the left and on the right,
+ * the side widths chosen in the admin. The sides are centred vertically against each other, so a
+ * single card sits in the middle; "stretch" makes it as tall as the other side, content centred.
+ */
+function SplitCards({ p }) {
+  const isCard = (x) => has(x.title) || has(x.text);
+  const sides = [list(p.left).filter(isCard), list(p.right).filter(isCard)].filter((side) => side.length);
+  if (!sides.length) return null;
+  const head = has(p.kicker) || has(p.heading) || has(p.sub) || hasButton(p.link);
+  const ratio = ["60", "40"].includes(p.ratio) ? p.ratio : "50";
+  return (
+    <Section type="splitcards" p={p}>
+      {head && (
+        <div className="cb-sc-head">
+          <div>
+            {has(p.kicker) && <span className="cb-plus-kicker">{p.kicker}</span>}
+            {has(p.heading) && <h2>{p.heading}</h2>}
+            {has(p.sub) && <p className="cb-sub">{p.sub}</p>}
+          </div>
+          {hasButton(p.link) && <A url={p.link.url} className="cb-sc-headlink"><ButtonLabel button={p.link} /></A>}
+        </div>
+      )}
+      <div className={`cb-sc cb-sc-r${ratio}${sides.length === 1 ? " cb-sc-one" : ""}${p.fit === "center" ? " cb-sc-center" : ""}`}>
+        {sides.map((side, s) => (
+          <div key={s} className="cb-sc-col">
+            {side.map((c, i) => <SplitCard key={i} c={c} featured={side.length === 1 && sides.length > 1} />)}
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 const BLOCKS = {
+  CommonFaqSplit: FaqSplit,
+  CommonSplitCards: SplitCards,
   CommonExploreHub: ExploreHub,
   CommonQna: Qna,
   CommonFormHero: FormHero,
