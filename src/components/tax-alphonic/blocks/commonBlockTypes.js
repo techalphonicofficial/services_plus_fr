@@ -11,6 +11,8 @@ export const COMMON_BLOCK_TYPES = [
   "CommonExploreHub", "CommonQna",
   // Carousel / slider, latest blog posts and sticky section tabs (ExtraBlocks.jsx).
   "CommonCarousel", "CommonBlogPosts", "CommonAnchorNav",
+  // FAQ with a side heading and cards on two sides (old homepage FaqSection / LatestBlogs designs).
+  "CommonFaqSplit", "CommonSplitCards",
 ];
 
 export const isCommonSection = (section) => COMMON_BLOCK_TYPES.includes(section?.type);

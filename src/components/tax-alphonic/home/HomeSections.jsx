@@ -1415,6 +1415,8 @@ const PLACEMENT_RULES = {
   CommonStory: { default: "full", options: WIDE },
   CommonQna: { default: "full", options: WIDE },
   CommonExploreHub: { default: "full", options: WIDE },
+  CommonFaqSplit: { default: "full", options: WIDE },
+  CommonSplitCards: { default: "full", options: WIDE },
 };
 
 function placementOf(section) {
