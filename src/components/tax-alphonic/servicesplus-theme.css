@@ -79,8 +79,8 @@
 .ta-svc .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
+  gap: 7px;
+  font-size: 13.5px;
   font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -97,7 +97,7 @@
 .ta-home .ej-eyebrow::before,
 .ta-svc .eyebrow::before {
   content: "+";
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0;
@@ -230,6 +230,80 @@
   min-height: 46px;
   font-family: "Geist", sans-serif;
   font-weight: 500;
+}
+
+/* ---------- Hero Search Bar: Clean Hover Effect ---------- */
+.ta-home .hero-search {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ta-home .hero-search:hover {
+  border-color: var(--sp-primary, #1C4D8D) !important;
+  box-shadow: 0 10px 28px -6px rgba(15, 40, 84, 0.14), 0 0 0 1px var(--sp-primary, #1C4D8D) !important;
+}
+
+.ta-home .hero-search:focus-within {
+  border-color: var(--sp-primary, #1C4D8D) !important;
+  box-shadow: 0 12px 32px -4px rgba(15, 40, 84, 0.18), 0 0 0 2px rgba(28, 77, 141, 0.25) !important;
+}
+
+/* ---------- Hero "Explore Our Services" Underlined Text Link with Arrow ---------- */
+.ta-home .hh-explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  background: transparent !important;
+  color: var(--sp-navy, #0F2854) !important;
+  padding: 6px 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-family: inherit;
+  font-size: 17.5px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: auto !important;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ta-home .hh-explore-link .hh-explore-text {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--sp-navy, #0F2854);
+  color: var(--sp-navy, #0F2854);
+  line-height: 1.25;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.ta-home .hh-explore-link .hh-explore-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sp-navy, #0F2854);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.ta-home .hh-explore-link:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.ta-home .hh-explore-link:hover .hh-explore-text {
+  color: var(--sp-primary, #1C4D8D);
+  border-bottom-color: var(--sp-primary, #1C4D8D);
+}
+
+.ta-home .hh-explore-link:hover .hh-explore-arrow {
+  transform: translateX(6px);
+  color: var(--sp-primary, #1C4D8D);
+}
+
+.ta-home .hh-explore-link:active {
+  transform: translateY(1px) !important;
 }
 
 /* ---------- Cards: radius 16, hairline border, soft navy shadow, 2px lift, "+" corner marks ---------- */
@@ -377,17 +451,27 @@
   align-self: center;
 }
 
+@media (min-width: 821px) {
+  .ta-home .hh-wave .hero-text .hh-cta {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 710px;
+    padding-right: 12px;
+    margin-top: 14px;
+  }
+}
+
 .ta-svc .svc-hero-img-left.svc-hero-wave .sp-wave-img { order: -1; }
 
 /* The S-curve is a mask on the photo: transparent left of the inner curve, a half-transparent glass band
    between the two curves, opaque after it. Nothing is painted, so any hero background shows through. */
 .sp-wave-img {
-  --sp-wave-w: clamp(120px, 26%, 200px);
+  --sp-wave-w: clamp(140px, 28%, 230px);
   --sp-wave-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 800' preserveAspectRatio='none'%3E%3Cpath fill-opacity='.52' d='M 138,0 C 175,130 160,230 78,360 C 5,490 10,640 190,800 L 340,800 L 340,0 Z'/%3E%3Cpath d='M 165,0 C 200,130 185,230 105,360 C 25,490 35,640 220,800 L 340,800 L 340,0 Z'/%3E%3C/svg%3E");
   position: relative;
-  min-height: 460px;
+  min-height: 530px;
   overflow: hidden;
-  border-radius: 0 28px 28px 0;
+  border-radius: 0 32px 32px 0;
   -webkit-mask-image: var(--sp-wave-mask), linear-gradient(#000 0 0);
   mask-image: var(--sp-wave-mask), linear-gradient(#000 0 0);
   -webkit-mask-position: left top, right top;
@@ -398,10 +482,10 @@
   mask-repeat: no-repeat;
 }
 
-.ta-home .hh-wave .hero-size-sm .sp-wave-img { min-height: 360px; }
-.ta-home .hh-wave .hero-size-md .sp-wave-img { min-height: 420px; }
-.ta-home .hh-wave .hero-size-lg .sp-wave-img { min-height: 500px; }
-.ta-home .hh-wave .hero-size-xl .sp-wave-img { min-height: 580px; }
+.ta-home .hh-wave .hero-size-sm .sp-wave-img { min-height: 415px; }
+.ta-home .hh-wave .hero-size-md .sp-wave-img { min-height: 485px; }
+.ta-home .hh-wave .hero-size-lg .sp-wave-img { min-height: 575px; }
+.ta-home .hh-wave .hero-size-xl .sp-wave-img { min-height: 670px; }
 
 .ta-svc .svc-hero-wave.svc-hero-tall .sp-wave-img { min-height: 100%; }
 

@@ -13,6 +13,14 @@ import CommonBlock from "../blocks/CommonBlocks";
 import { isCommonSection } from "../blocks/commonBlockTypes";
 import ButtonLabel from "../blocks/ButtonLabel";
 import WaveImage from "../blocks/WaveImage";
+import { openCommandPalette } from "@/components/layout/CommandPalette";
+import {
+  StartupDuotoneIcon,
+  TrademarkDuotoneIcon,
+  TaxesDuotoneIcon,
+  ComplianceDuotoneIcon,
+  LicensingDuotoneIcon
+} from "@/components/ui/DuotoneIcons";
 
 /*
  * Homepage blocks from the CMS Page Builder (page slug "home"), or DEFAULT_HOME_SECTIONS.
@@ -29,6 +37,13 @@ const pad = (index) => String(index + 1).padStart(2, "0");
 const isExternal = (url) => /^(?:https?:)?\/\//i.test(url) || /^(mailto|tel):/i.test(url);
 
 function scrollToHash(url) {
+  if (typeof window !== "undefined" && window.__lenis) {
+    const el = document.getElementById(url.slice(1));
+    if (el) {
+      window.__lenis.scrollTo(el, { offset: -70, duration: 0.9 });
+      return;
+    }
+  }
   document.getElementById(url.slice(1))?.scrollIntoView({ behavior: "smooth" });
 }
 
@@ -74,10 +89,22 @@ function Card({ url, className, style, children }) {
   );
 }
 
-function Button({ button, className = "btn-primary", style }) {
+function Button({ button, className = "btn-primary", style, showArrow = false }) {
   const go = useGo();
   if (!hasButton(button)) return null;
-  return <button type="button" className={className} style={style} onClick={() => go(button.url, button.text)}><ButtonLabel button={button} /></button>;
+  return (
+    <button type="button" className={className} style={style} onClick={() => go(button.url, button.text)}>
+      <span className={showArrow ? "hh-explore-text" : undefined}><ButtonLabel button={button} /></span>
+      {showArrow && (
+        <span className="hh-explore-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      )}
+    </button>
+  );
 }
 
 /** Emoji/text icon, or an image when the CMS stores a URL. */
@@ -243,26 +270,53 @@ function Hero({ p }) {
             </div>
           )}
           {showSearch && (
-            <div className="hero-search">
+            <div
+              className="hero-search"
+              onClick={() => openCommandPalette(search)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openCommandPalette(search);
+                }
+              }}
+              style={{ cursor: "pointer" }}
+            >
               <span className="hs-ic">🔍</span>
               <input
                 value={search}
                 placeholder={p.searchPlaceholder || ""}
                 aria-label={p.searchPlaceholder || "Search"}
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && submitSearch()}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  openCommandPalette(e.target.value);
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openCommandPalette(search);
+                }}
+                onFocus={() => openCommandPalette(search)}
+                readOnly
+                style={{ cursor: "pointer" }}
               />
-              {has(p.searchButtonText) && <button type="button" className="hs-btn" onClick={submitSearch}>{p.searchButtonText}</button>}
-              <div className={`results${search.trim() ? " show" : ""}`}>
-                {search.trim() && (results.length ? results.map((r, i) => (
-                  <a key={`${r.url}-${i}`} onMouseDown={() => go(r.url)}><span><Icon value={r.icon} /></span> {r.label}{has(r.desc) && <span className="cat">{r.desc}</span>}</a>
-                )) : has(p.searchEmptyText) && <div className="empty">{p.searchEmptyText}</div>)}
-              </div>
+              {has(p.searchButtonText) && (
+                <button
+                  type="button"
+                  className="hs-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openCommandPalette(search);
+                  }}
+                >
+                  {p.searchButtonText}
+                </button>
+              )}
             </div>
           )}
           {(hasButton(p.primaryButton) || hasButton(p.secondaryButton)) && (
             <div className="hh-cta">
-              <Button button={p.primaryButton} />
+              <Button button={p.primaryButton} className="hh-explore-link" showArrow />
               <Button button={p.secondaryButton} className="btn-ghost" />
             </div>
           )}
@@ -284,13 +338,96 @@ function Hero({ p }) {
   );
 }
 
-function TrustBar({ p }) {
-  const items = list(p.items).filter((item) => has(item.text));
-  if (!items.length) return null;
+function StatCounter({ target, suffix = "", prefix = "" }) {
+  const [val, setVal] = useState(target ? Math.floor(target * 0.65) : 0);
+  const ref = useRef(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (!target) return;
+    const el = ref.current;
+    if (!el) return;
+
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+      setVal(target);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started.current) {
+          started.current = true;
+          const duration = 650;
+          const startVal = Math.floor(target * 0.65);
+          const startTime = performance.now();
+
+          const update = (now) => {
+            const elapsed = Math.min(now - startTime, duration);
+            const progress = elapsed / duration;
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setVal(Math.floor(startVal + (target - startVal) * eased));
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            } else {
+              setVal(target);
+            }
+          };
+          requestAnimationFrame(update);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target]);
+
   return (
-    <div className="trustbar">
-      {items.map((item, i) => <span key={i}>{has(item.icon) && <><Icon value={item.icon} /> </>}{item.text}</span>)}
-    </div>
+    <span ref={ref} className="tabular-nums">
+      {prefix}
+      {val.toLocaleString("en-IN")}
+      {suffix}
+    </span>
+  );
+}
+
+const TRUST_LEDGER_ITEMS = [
+  { target: 42800, suffix: "+", label: "Customers globally rated at 4.9/5", primary: true },
+  { target: 12000, suffix: "+", label: "Happy business users across India" },
+  { target: 100, suffix: "+", label: "Registration, tax & licensing services" },
+  { value: "Since 2017", label: "13+ years of domain standing" },
+];
+
+function TrustBar({ p }) {
+  const stats = list(p?.stats).length > 0 ? list(p.stats) : TRUST_LEDGER_ITEMS;
+
+  return (
+    <section className="stat-ledger-band" aria-label="Services Plus key metrics">
+      <div className="wrap">
+        <div className="stat-ledger-grid">
+          {stats.map((stat, i) => {
+            const isPrimary = stat.primary || i === 0;
+            return (
+              <div
+                key={i}
+                className={`stat-ledger-col ${isPrimary ? "stat-ledger-primary" : ""}`}
+              >
+                <div className="stat-ledger-val">
+                  {stat.target ? (
+                    <StatCounter target={stat.target} suffix={stat.suffix || ""} prefix={stat.prefix || ""} />
+                  ) : (
+                    <span>{stat.value || stat.text || "Since 2017"}</span>
+                  )}
+                </div>
+                <p className="stat-ledger-label">
+                  {stat.label || stat.sub || stat.text || ""}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -322,20 +459,32 @@ function Stages({ p }) {
             {items.map((st, i) => (
               <A key={i} url={st.url} className="ej-stage" style={{ "--ejc": st.color || "#1C4D8D" }}>
                 <div className="ej-stage-accent" />
-                <div className="ej-stage-top">
-                  <div className="ej-num">{pad(i)}<span className="ej-num-total">/{String(items.length).padStart(2, "0")}</span></div>
-                  <div className="ej-ic"><span><Icon value={st.icon} /></span></div>
+                <div className="ej-stage-header">
+                  <div className="ej-stage-header-left">
+                    <div className="ej-stage-badge-row">
+                      <span className="ej-num">{pad(i)}</span>
+                      <span className="ej-num-total">/ {String(items.length).padStart(2, "0")} STAGE</span>
+                    </div>
+                    <h3 className="ej-stage-title">{st.title}</h3>
+                  </div>
+                  <div className="ej-ic">
+                    <span><Icon value={st.icon} /></span>
+                  </div>
                 </div>
-                <h3>{st.title}</h3>
-                {has(st.text) && <p>{st.text}</p>}
-                {has(st.tag) && <span className="ej-tag">{st.tag}</span>}
-                {(has(st.step) || has(p.linkText)) && (
-                  <div className="ej-reveal">
-                    {has(st.step) && <div className="ej-reveal-row">✓ {st.step}</div>}
-                    {has(p.linkText) && <span className="ej-go">{p.linkText}</span>}
+
+                {has(st.text) && <p className="ej-stage-desc">{st.text}</p>}
+
+                {has(st.step) && (
+                  <div className="ej-stage-step-pill">
+                    <span className="ej-step-check">✓</span>
+                    <span className="ej-step-text">{st.step}</span>
                   </div>
                 )}
-                {i < items.length - 1 && <div className="ej-connector" />}
+
+                <div className="ej-stage-footer">
+                  {has(st.tag) && <span className="ej-stage-cta">{st.tag}</span>}
+                  <span className="ej-stage-link">{p.linkText || "See full process →"}</span>
+                </div>
               </A>
             ))}
           </div>
@@ -394,24 +543,201 @@ function Knowledge({ p }) {
   );
 }
 
+const FAN_CATEGORIES = [
+  {
+    num: "01",
+    tag: "/ 05 CATEGORY",
+    title: "Startup",
+    slug: "startup",
+    href: "/service-by-categories/startup",
+    description: "Incorporate your business in India or globally with end-to-end legal support.",
+    theme: "white",
+    icon: StartupDuotoneIcon,
+    services: [
+      { num: "01", title: "Private Limited Com...", href: "/service/private-limited-company" },
+      { num: "02", title: "Limited Liability Part...", href: "/service/limited-liability-partnership" },
+      { num: "03", title: "One Person Company", href: "/service/one-person-company" },
+      { num: "04", title: "Startup India Registr...", href: "/service/startup-india-registration" },
+      { num: "05", title: "UDYAM / MSME Regi...", href: "/service/udyam-registration" },
+      { num: "06", title: "Proprietorship Regis...", href: "/service/proprietorship-registration" },
+    ],
+    ctaText: "Get a quote +",
+    linkText: "All Startup →"
+  },
+  {
+    num: "02",
+    tag: "/ 05 CATEGORY",
+    title: "Trademark",
+    slug: "trademark",
+    href: "/service-by-categories/trademark",
+    description: "Safeguard your brand name, logo, slogan, and intellectual property.",
+    theme: "navy",
+    icon: TrademarkDuotoneIcon,
+    services: [
+      { num: "01", title: "Trademark Registrati...", href: "/service/trademark-registration" },
+      { num: "02", title: "Trademark Objectio...", href: "/service/trademark-objection" },
+      { num: "03", title: "Trademark Opposition", href: "/service/trademark-opposition" },
+      { num: "04", title: "Trademark Renewal", href: "/service/trademark-renewal" },
+      { num: "05", title: "Copyright Registrati...", href: "/service/copyright-registration" },
+      { num: "06", title: "USA Trademark Filing", href: "/service/usa-trademark" },
+    ],
+    ctaText: "Get a quote +",
+    linkText: "All Trademark →"
+  },
+  {
+    num: "03",
+    tag: "/ 05 CATEGORY",
+    title: "Taxes",
+    slug: "taxes",
+    href: "/service-by-categories/taxes",
+    description: "Streamlined GST filing, corporate income tax, and regulatory tax compliance.",
+    theme: "beige",
+    icon: TaxesDuotoneIcon,
+    services: [
+      { num: "01", title: "GST Registration", href: "/service/gst-registration" },
+      { num: "02", title: "GST Return Filing", href: "/service/gst-return-filing" },
+      { num: "03", title: "Business Tax Return...", href: "/service/business-tax-return-filing" },
+      { num: "04", title: "TDS Return Filing", href: "/service/tds-return-filing" },
+      { num: "05", title: "ITR-3 Return Filing", href: "/service/itr-3-return-filing" },
+      { num: "06", title: "ITR-4 Sugam Filing", href: "/service/itr-4-return-filing" },
+    ],
+    ctaText: "Get a quote +",
+    linkText: "All Taxes →"
+  },
+  {
+    num: "04",
+    tag: "/ 05 CATEGORY",
+    title: "Compliance",
+    slug: "compliance",
+    href: "/service-by-categories/compliance",
+    description: "Annual ROC filings, director appointments, shares transfer, and legal maintenance.",
+    theme: "royal",
+    icon: ComplianceDuotoneIcon,
+    services: [
+      { num: "01", title: "Private Limited Com...", href: "/service/private-limited-company-compliance" },
+      { num: "02", title: "LLP Annual Complia...", href: "/service/llp-compliance" },
+      { num: "03", title: "Proprietorship Com...", href: "/service/proprietorship-compliance" },
+      { num: "04", title: "Partnership Complia...", href: "/service/partnership-compliance" },
+      { num: "05", title: "HR and Payroll Serv...", href: "/service/hr-and-payroll-service" },
+      { num: "06", title: "EPF Registration", href: "/service/epf-registration" },
+    ],
+    ctaText: "Get a quote +",
+    linkText: "All Compliance →"
+  },
+  {
+    num: "05",
+    tag: "/ 05 CATEGORY",
+    title: "Certification & Licensing",
+    slug: "certification-licensing",
+    href: "/service-by-categories/certification-licensing",
+    description: "Government licenses, industry certifications, and regulatory accreditations.",
+    theme: "white",
+    icon: LicensingDuotoneIcon,
+    services: [
+      { num: "01", title: "FSSAI Food License", href: "/service/fssai-registration" },
+      { num: "02", title: "Import Export Code...", href: "/service/import-export-code" },
+      { num: "03", title: "PSARA Security Ag...", href: "/service/psara-license" },
+      { num: "04", title: "Gem Portal Registra...", href: "/service/gem-registration" },
+      { num: "05", title: "Trade License", href: "/service/trade-license" },
+      { num: "06", title: "AYUSH License", href: "/service/ayush-license" },
+    ],
+    ctaText: "Get a quote +",
+    linkText: "All Licensing →"
+  }
+];
+
 function Services({ p }) {
-  const items = list(p.items);
-  if (!items.length && !has(p.heading)) return null;
+  const go = useGo();
+  const heading = p.heading || "Start, run & grow your business";
+  const sub = p.sub || "8 categories · 116 core services — pick what you need";
+
   return (
-    <div className="cats" id={p.anchorId || undefined}>
-      <div className="wrap">
-        <SecHead heading={p.heading} sub={p.sub} />
-        {items.length > 0 && (
-          <div className="catgrid">
-            {items.map((item, i) => (
-              <Card key={i} url={item.url} className="catcard">
-                <div className="ci"><Icon value={item.icon} /></div>
-                <h3>{item.title}</h3>{has(item.text) && <p>{item.text}</p>}
-                {has(item.countText) && <span className="cn">{item.countText}</span>}
-              </Card>
-            ))}
+    <div className="cats cats-fan-wrap" id={p.anchorId || "home-services"}>
+      <div className="cats-fan-container">
+        {/* Giant editorial watermark behind the cards */}
+        <div className="fan-watermark" aria-hidden="true">
+          <span>NEVER ONE &amp; DONE</span>
+        </div>
+
+        <div className="wrap relative z-10">
+          <SecHead heading={heading} sub={sub} />
+
+          {/* 5 Uneven Arc / Fan Tilted Cards */}
+          <div className="fan-cards-track">
+            {FAN_CATEGORIES.map((cat, idx) => {
+              const IconComponent = cat.icon;
+              return (
+                <div
+                  key={cat.slug}
+                  className={`fan-card-wrapper fan-card-pos-${idx + 1}`}
+                >
+                  <article className={`fan-card fan-card-${cat.theme}`}>
+                    {/* Header: Index + Category tag + Duotone Icon Badge */}
+                    <div className="fan-card-header">
+                      <div className="fan-card-header-left">
+                        <div className="fan-card-badge-row">
+                          <span className="fan-card-num">{cat.num}</span>
+                          <span className="fan-card-tag">{cat.tag}</span>
+                        </div>
+                        <h3 className="fan-card-title">{cat.title}</h3>
+                      </div>
+                      <div className="fan-card-icon-badge">
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                    </div>
+
+                    {/* Subcopy */}
+                    <p className="fan-card-desc">{cat.description}</p>
+
+                    {/* 6 Top Services in 2 Columns */}
+                    <div className="fan-card-services-grid">
+                      {cat.services.map((s, sIdx) => (
+                        <a
+                          key={sIdx}
+                          href={s.href}
+                          className="fan-service-pill"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            go(s.href);
+                          }}
+                        >
+                          <div className="fan-pill-left">
+                            <span className="fan-pill-num">{s.num}</span>
+                            <span className="fan-pill-title" title={s.title}>
+                              {s.title}
+                            </span>
+                          </div>
+                          <span className="fan-pill-arrow">→</span>
+                        </a>
+                      ))}
+                    </div>
+
+                    {/* Footer: Get a quote + All [Category] */}
+                    <div className="fan-card-footer">
+                      <button
+                        type="button"
+                        className="fan-card-cta"
+                        onClick={() => openFormPopup("#form-lead", "Get a Quote")}
+                      >
+                        {cat.ctaText}
+                      </button>
+                      <a
+                        href={cat.href}
+                        className="fan-card-link"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          go(cat.href);
+                        }}
+                      >
+                        {cat.linkText}
+                      </a>
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

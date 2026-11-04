@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
@@ -17,6 +17,7 @@ import { CommandPalette } from "./CommandPalette";
 import { Button } from "../ui/Button";
 import { ServicesPlusLogo } from "../ui/Logo";
 import { CATEGORY_DUOTONE_ICONS, StartupDuotoneIcon } from "../ui/DuotoneIcons";
+import { NAV_CATEGORIES } from "../../content/navigation";
 
 // Links come from the CMS header menu (service/headerService.js):
 // navigation = { categories: [{ slug, title, href, icon, topServices, featured }], links, account, cta }.
@@ -28,7 +29,87 @@ const NAV_SPRING = {
   mass: 0.6
 };
 
+const DEFAULT_NAVIGATION = {
+  categories: NAV_CATEGORIES.map((cat) => {
+    const services = cat.topServices.map((s) => ({
+      id: s.slug,
+      label: s.title,
+      href: s.href
+    }));
+    return {
+      id: cat.slug,
+      slug: cat.slug,
+      title: cat.title,
+      href: cat.href,
+      icon: "",
+      topServices: services,
+      featured: services[0] || null
+    };
+  }),
+  links: [
+    { id: "blogs", label: "Blogs", href: "/blog" },
+    { id: "contact", label: "Contact", href: "/contact" }
+  ],
+  account: {
+    label: "Login",
+    href: "/login",
+    items: [
+      { id: "login", label: "Client Login", href: "/login" },
+      { id: "register", label: "Create Account", href: "/user-register" }
+    ]
+  },
+  cta: {
+    id: "get-started",
+    label: "Get Started",
+    href: "/user-register"
+  }
+};
+
 const EMPTY_NAVIGATION = { categories: [], links: [], account: null, cta: null };
+
+// Enrich CMS categories with additional curated services from NAV_CATEGORIES so the mega menu shows more options
+function enrichCategories(cmsCategories) {
+  if (!Array.isArray(cmsCategories) || cmsCategories.length === 0) {
+    return DEFAULT_NAVIGATION.categories;
+  }
+  return cmsCategories.map((cat) => {
+    const fallbackCat = NAV_CATEGORIES.find(
+      (fc) =>
+        fc.slug === cat.slug ||
+        fc.title.toLowerCase() === String(cat.title || "").toLowerCase()
+    );
+    if (!fallbackCat) return cat;
+
+    const existingSlugs = new Set(
+      (cat.topServices || []).map(
+        (s) => String(s.href || "").split("/").filter(Boolean).pop() || s.label
+      )
+    );
+    const extraServices = fallbackCat.topServices
+      .filter((s) => !existingSlugs.has(s.slug))
+      .map((s) => ({
+        id: s.slug,
+        label: s.title,
+        href: s.href
+      }));
+
+    const merged = [...(cat.topServices || []), ...extraServices];
+    return {
+      ...cat,
+      topServices: merged,
+      featured: cat.featured || merged[0] || null
+    };
+  });
+}
+
+// Horizontal alignment offset per category index so the 40% larger mega-menu panel stays cleanly within the viewport
+function megaMenuPositionClass(catIdx) {
+  if (catIdx === 0) return "left-0";
+  if (catIdx === 1) return "-left-16";
+  if (catIdx === 2) return "-left-36";
+  if (catIdx === 3) return "-left-56";
+  return "-left-80";
+}
 
 // Icon of an account menu link, by where it goes.
 function accountIcon(href) {
@@ -54,7 +135,15 @@ function CategoryIcon({ category, className }) {
 const isActive = (pathname, href) => Boolean(href && href !== "#" && href !== "/" && pathname?.startsWith(href));
 
 function TopNav({ navigation = EMPTY_NAVIGATION }) {
-  const { categories = [], links = [], account, cta } = navigation;
+  const hasCmsNav = Array.isArray(navigation?.categories) && navigation.categories.length > 0;
+  const categories = useMemo(
+    () => enrichCategories(navigation?.categories),
+    [navigation?.categories]
+  );
+  const links = hasCmsNav ? navigation.links || [] : DEFAULT_NAVIGATION.links;
+  const account = hasCmsNav ? navigation.account : DEFAULT_NAVIGATION.account;
+  const cta = hasCmsNav ? navigation.cta : DEFAULT_NAVIGATION.cta;
+
   const pathname = usePathname();
   const headerRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState(null);
@@ -79,12 +168,11 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
   // The CMS blocks keep sticky sidebars and #anchor jumps below the header (--ta-header-h).
   useEffect(() => {
     const header = headerRef.current;
-    if (!header || typeof ResizeObserver === "undefined") return undefined;
+    if (!header) return undefined;
     const write = () => document.documentElement.style.setProperty("--ta-header-h", `${header.offsetHeight}px`);
     write();
-    const observer = new ResizeObserver(write);
-    observer.observe(header);
-    return () => observer.disconnect();
+    window.addEventListener("resize", write, { passive: true });
+    return () => window.removeEventListener("resize", write);
   }, []);
 
   useEffect(() => {
@@ -99,13 +187,13 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
 
   return (
     <>
-      {/* Main Header: Clean surface at top (80px / h-20), frosted + shadow + 64px (h-16) after 8px scroll */}
+      {/* Main Header: Clean surface at top with smooth shadow elevation without layout shifts */}
       <header
         ref={headerRef}
-        className={`sticky top-0 z-40 transition-all duration-200 ${
+        className={`sticky top-0 z-40 h-[72px] transition-shadow duration-200 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-sp-border shadow-sp-soft h-16"
-            : "bg-white/95 backdrop-blur-sm border-b border-sp-border/70 h-20"
+            ? "bg-white/95 backdrop-blur-md border-b border-sp-border shadow-sp-soft"
+            : "bg-white/95 backdrop-blur-sm border-b border-sp-border/70"
         }`}
       >
         <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8 h-full">
@@ -173,134 +261,123 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
                       />
                     </Link>
 
-                    {/* Mega Menu Dropdown — smooth morphing & directional content reveal when switching headings */}
+                    {/* Mega Menu Dropdown — 40% bigger panel with expanded service options */}
                     <AnimatePresence>
                       {isOpen && (
                         <motion.div
-                          layoutId="topnav-mega-panel"
-                          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                          initial={{ opacity: 0, y: 8, scale: 0.98 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                          transition={NAV_SPRING}
-                          className={`absolute top-full pt-2 w-[620px] xl:w-[640px] z-50 ${
-                            catIdx >= 3 ? "right-0" : "left-0"
-                          }`}
+                          exit={{ opacity: 0, y: 4, scale: 0.99, transition: { duration: 0.1 } }}
+                          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                          className={`absolute top-full pt-2.5 w-[860px] xl:w-[900px] max-w-[calc(100vw-2rem)] z-50 ${megaMenuPositionClass(catIdx)}`}
                         >
-                          <div className="bg-white rounded-sp-md shadow-sp-lift border border-sp-border-strong p-5 grid grid-cols-12 gap-5 relative overflow-hidden">
+                          <div className="bg-white rounded-sp-md shadow-sp-lift border border-sp-border-strong p-7 grid grid-cols-12 gap-7 relative overflow-hidden">
                             {/* Corner Registration Marks */}
                             <span
-                              className="absolute top-2 left-2.5 text-[10px] text-sp-primary/40 pointer-events-none"
+                              className="absolute top-2.5 left-3 text-xs text-sp-primary/40 pointer-events-none"
                               aria-hidden="true"
                             >
                               +
                             </span>
                             <span
-                              className="absolute top-2 right-2.5 text-[10px] text-sp-primary/40 pointer-events-none"
+                              className="absolute top-2.5 right-3 text-xs text-sp-primary/40 pointer-events-none"
                               aria-hidden="true"
                             >
                               +
                             </span>
 
-                            {/* Left 7 cols: Category + its services */}
-                            <motion.div
-                              key={`left-${category.slug}`}
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className={`${featured ? "col-span-7" : "col-span-12"} flex flex-col justify-between`}
+                            {/* Left 8 cols: Category + expanded services grid */}
+                            <div
+                              className={`${featured ? "col-span-8" : "col-span-12"} flex flex-col justify-between`}
                             >
                               <div>
-                                <div className="flex items-start gap-3 pb-3 mb-3 border-b border-sp-border">
-                                  <div className="w-9 h-9 rounded-sp-sm bg-sp-bg border border-sp-border flex items-center justify-center shrink-0">
-                                    <CategoryIcon category={category} className="w-5 h-5" />
+                                <div className="flex items-start gap-3.5 pb-4 mb-3.5 border-b border-sp-border">
+                                  <div className="w-11 h-11 rounded-sp-sm bg-sp-bg border border-sp-border flex items-center justify-center shrink-0">
+                                    <CategoryIcon category={category} className="w-6 h-6" />
                                   </div>
                                   <div className="min-w-0">
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-xs font-semibold text-sp-primary tabular-nums">
+                                    <div className="flex items-center gap-2.5">
+                                      <span className="text-sm font-semibold text-sp-primary tabular-nums">
                                         {String(catIdx + 1).padStart(2, "0")}
                                       </span>
-                                      <p className="font-semibold text-sp-ink text-sm">
+                                      <p className="font-bold text-sp-ink text-base">
                                         {category.title}
                                       </p>
                                     </div>
-                                    <p className="text-xs text-sp-slate line-clamp-1 mt-0.5">
+                                    <p className="text-[13px] text-sp-slate line-clamp-1 mt-0.5">
                                       {category.topServices.length} services
                                     </p>
                                   </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-1">
-                                  {category.topServices.slice(0, 8).map((service) => (
+                                <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                                  {category.topServices.slice(0, 16).map((service) => (
                                     <Link
                                       key={service.id || service.href}
                                       href={service.href}
                                       target={service.target === "_blank" ? "_blank" : undefined}
                                       onClick={() => setActiveCategory(null)}
-                                      className="group/item flex items-center justify-between px-2.5 py-2 rounded-sp-sm hover:bg-sp-bg transition-colors text-xs"
+                                      className="group/item flex items-center justify-between px-3 py-2 rounded-sp-sm hover:bg-sp-bg transition-colors text-[13.5px]"
                                     >
                                       <span className="text-sp-ink group-hover/item:text-sp-primary font-medium truncate pr-2">
                                         {service.label}
                                       </span>
-                                      <ArrowRight className="w-3 h-3 text-sp-slate opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:text-sp-primary transition-all shrink-0" />
+                                      <ArrowRight className="w-3.5 h-3.5 text-sp-slate opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:text-sp-primary transition-all shrink-0" />
                                     </Link>
                                   ))}
                                 </div>
                               </div>
 
                               {category.href !== "#" && (
-                                <div className="pt-3 mt-3 border-t border-sp-border flex items-center justify-between">
+                                <div className="pt-3.5 mt-3.5 border-t border-sp-border flex items-center justify-between">
                                   <Link
                                     href={category.href}
                                     onClick={() => setActiveCategory(null)}
-                                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-sp-primary hover:underline whitespace-nowrap"
+                                    className="inline-flex items-center gap-2 text-[13.5px] font-semibold text-sp-primary hover:underline whitespace-nowrap"
                                   >
                                     <span>Explore all {category.title} services</span>
-                                    <ArrowRight className="w-3.5 h-3.5" />
+                                    <ArrowRight className="w-4 h-4" />
                                   </Link>
                                 </div>
                               )}
-                            </motion.div>
+                            </div>
 
-                            {/* Right 5 cols: Featured service (the category's first link) */}
+                            {/* Right 4 cols: Featured service (the category's first link) */}
                             {featured && (
-                              <motion.div
-                                key={`right-${category.slug}`}
-                                initial={{ opacity: 0, x: 8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                                className="col-span-5 bg-sp-bg rounded-sp-sm border border-sp-border p-4 flex flex-col justify-between"
+                              <div
+                                className="col-span-4 bg-sp-bg rounded-sp-sm border border-sp-border p-5 flex flex-col justify-between"
                               >
                                 <div>
-                                  <div className="text-[11px] font-semibold text-sp-primary mb-2 flex items-center justify-between">
+                                  <div className="text-xs font-semibold text-sp-primary mb-2.5 flex items-center justify-between">
                                     <span>Featured filing</span>
                                     <span className="tabular-nums text-sp-slate">{String(catIdx + 1).padStart(2, "0")}.A</span>
                                   </div>
-                                  <h4 className="text-sm font-semibold text-sp-ink mb-2">
+                                  <h4 className="text-base font-bold text-sp-ink mb-2.5">
                                     {featured.label}
                                   </h4>
-                                  <p className="text-xs text-sp-slate leading-relaxed mb-4">
+                                  <p className="text-[13px] text-sp-slate leading-relaxed mb-5">
                                     Expert-led, fully online {category.title.toLowerCase()} service with transparent pricing.
                                   </p>
                                 </div>
 
-                                <div className="space-y-2 pt-3 border-t border-sp-border">
+                                <div className="space-y-2.5 pt-4 border-t border-sp-border">
                                   <Link
                                     href={featured.href}
                                     onClick={() => setActiveCategory(null)}
-                                    className="flex items-center justify-between w-full px-3 py-2 rounded-sp-sm bg-white border border-sp-border hover:border-sp-primary text-xs font-semibold text-sp-primary transition-colors whitespace-nowrap"
+                                    className="flex items-center justify-between w-full px-3.5 py-2.5 rounded-sp-sm bg-white border border-sp-border hover:border-sp-primary text-[13px] font-semibold text-sp-primary transition-colors whitespace-nowrap"
                                   >
                                     <span>View requirements</span>
-                                    <ArrowRight className="w-3.5 h-3.5" />
+                                    <ArrowRight className="w-4 h-4" />
                                   </Link>
                                   <Link
                                     href="/contact"
                                     onClick={() => setActiveCategory(null)}
-                                    className="block text-center text-xs text-sp-slate hover:text-sp-primary font-medium py-1 whitespace-nowrap"
+                                    className="block text-center text-[13px] text-sp-slate hover:text-sp-primary font-medium py-1.5 whitespace-nowrap"
                                   >
                                     Get a quote &rarr;
                                   </Link>
                                 </div>
-                              </motion.div>
+                              </div>
                             )}
                           </div>
                         </motion.div>

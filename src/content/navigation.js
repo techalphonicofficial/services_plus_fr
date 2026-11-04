@@ -14,7 +14,13 @@ const NAV_CATEGORIES = [
       { title: "Partnership Registration", slug: "partnership", href: "/service/partnership" },
       { title: "Indian Subsidiary", slug: "indian-subsidiary", href: "/service/indian-subsidiary" },
       { title: "Section 8 NGO Company", slug: "section-8-company", href: "/service/section-8-company" },
-      { title: "USA Company Registration", slug: "usa-company-registration", href: "/service/usa-company-registration" }
+      { title: "USA Company Registration", slug: "usa-company-registration", href: "/service/usa-company-registration" },
+      { title: "Nidhi Company Registration", slug: "nidhi-company", href: "/service/nidhi-company" },
+      { title: "Company Incorporation", slug: "company-incorporation", href: "/service/company-incorporation" },
+      { title: "Digital Signature (DSC)", slug: "digital-signature", href: "/service/digital-signature" },
+      { title: "Import Export Code (IEC)", slug: "import-export-code", href: "/service/import-export-code" },
+      { title: "Professional Tax Registration", slug: "professional-tax", href: "/service/professional-tax" },
+      { title: "CPWD Contractor Registration", slug: "cpwd-contractor-registration", href: "/service/cpwd-contractor-registration" }
     ]
   },
   {
@@ -29,7 +35,10 @@ const NAV_CATEGORIES = [
       { title: "Trademark Renewal", slug: "trademark-renewal", href: "/service/trademark-renewal" },
       { title: "Copyright Registration", slug: "copyright-registration", href: "/service/copyright-registration" },
       { title: "USA Trademark Filing", slug: "usa-trademark", href: "/service/usa-trademark" },
-      { title: "UAE Trademark Registration", slug: "uae-trademark", href: "/service/uae-trademark" }
+      { title: "UAE Trademark Registration", slug: "uae-trademark", href: "/service/uae-trademark" },
+      { title: "Patent Registration", slug: "patent-registration", href: "/service/patent-registration" },
+      { title: "Provisional Patent Filing", slug: "provisional-patent", href: "/service/provisional-patent" },
+      { title: "Design Registration", slug: "design-registration", href: "/service/design-registration" }
     ]
   },
   {
@@ -47,7 +56,13 @@ const NAV_CATEGORIES = [
       { title: "ITR-5 Return Filing", slug: "itr-5-return-filing", href: "/service/itr-5-return-filing" },
       { title: "Income Tax Notice Response", slug: "income-tax-notice-response", href: "/service/income-tax-notice-response", isPopular: true },
       { title: "GST LUT Export Forms", slug: "gst-lut-forms", href: "/service/gst-lut-forms" },
-      { title: "GST Registration Cancellation", slug: "gst-registration-cancellation", href: "/service/gst-registration-cancellation" }
+      { title: "GST Registration Cancellation", slug: "gst-registration-cancellation", href: "/service/gst-registration-cancellation" },
+      { title: "Personal Tax Return Filing", slug: "personal-tax-return-filing", href: "/service/personal-tax-return-filing" },
+      { title: "GST Annual Return Filing", slug: "gst-annual-return-filing", href: "/service/gst-annual-return-filing" },
+      { title: "E-Way Bill Registration", slug: "e-way-bill", href: "/service/e-way-bill" },
+      { title: "Input Tax Credit (ITC)", slug: "input-tax-credit", href: "/service/input-tax-credit" },
+      { title: "ITR-6 Return Filing", slug: "itr-6-return-filing", href: "/service/itr-6-return-filing" },
+      { title: "ITR-7 Return Filing", slug: "itr-7-return-filing", href: "/service/itr-7-return-filing" }
     ]
   },
   {
@@ -65,7 +80,13 @@ const NAV_CATEGORIES = [
       { title: "Share Transfer Filing", slug: "share-transfer", href: "/service/share-transfer" },
       { title: "Director Removal / Resignation", slug: "removal-resignation-of-directors", href: "/service/removal-resignation-of-directors" },
       { title: "Registered Office Change", slug: "registered-office-change", href: "/service/registered-office-change" },
-      { title: "Winding Up of Company", slug: "winding-up-the-company", href: "/service/winding-up-the-company" }
+      { title: "Winding Up of Company", slug: "winding-up-the-company", href: "/service/winding-up-the-company" },
+      { title: "PF Return Filing", slug: "pf-return-filing", href: "/service/pf-return-filing" },
+      { title: "Adding New Director", slug: "adding-new-director", href: "/service/adding-new-director" },
+      { title: "ESI Registration", slug: "esi-registration", href: "/service/esi-registration" },
+      { title: "DIR-3 KYC Filing", slug: "dir-3-kyc", href: "/service/dir-3-kyc" },
+      { title: "Authorized Capital Increase", slug: "authorized-capital-increase", href: "/service/authorized-capital-increase" },
+      { title: "Winding Up of LLP", slug: "winding-up-of-llp", href: "/service/winding-up-of-llp" }
     ]
   },
   {
@@ -83,7 +104,13 @@ const NAV_CATEGORIES = [
       { title: "FDA Cosmetic/Drug License", slug: "fda-license", href: "/service/fda-license" },
       { title: "CE Marking Certificate", slug: "ce-certificate", href: "/service/ce-certificate" },
       { title: "Liquor License", slug: "liquor-license", href: "/service/liquor-license" },
-      { title: "Music License", slug: "music-license", href: "/service/music-license" }
+      { title: "Music License", slug: "music-license", href: "/service/music-license" },
+      { title: "ISO Certification", slug: "iso-certification", href: "/service/iso-certification" },
+      { title: "CDSCO Drug/Device License", slug: "cdsco-license", href: "/service/cdsco-license" },
+      { title: "APEDA Export License", slug: "apeda-license", href: "/service/apeda-license" },
+      { title: "Seed License Registration", slug: "seed-license", href: "/service/seed-license" },
+      { title: "Fertilizer License", slug: "fertilizer-license", href: "/service/fertilizer-license" },
+      { title: "Spice Board License", slug: "spice-board-license", href: "/service/spice-board-license" }
     ]
   }
 ];

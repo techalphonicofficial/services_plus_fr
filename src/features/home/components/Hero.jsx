@@ -148,9 +148,9 @@ function Hero() {
               {/* LEFT COLUMN: Eyebrow + 3-Line H1 + Supporting Line + Single-Row Search/CTAs + Bottom Trust Row */}
               <div className="lg:col-span-7 space-y-5">
                 {/* Plain-text Eyebrow with real rating (4.9/5 + 42,800+ customers globally) */}
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-sp-slate">
+                <div className="flex items-center gap-2 text-sm sm:text-base text-sp-slate">
                   <span className="inline-flex items-center gap-1.5 font-bold text-sp-ink tabular-nums">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                    <Star className="w-4.5 h-4.5 fill-amber-400 text-amber-400 shrink-0" />
                     <span>4.9/5</span>
                   </span>
                   <span className="text-sp-primary font-semibold" aria-hidden="true">
@@ -162,7 +162,7 @@ function Hero() {
                 </div>
 
                 {/* Full SEO H1 in at most 3 tight lines (line-height ~1.05), zero gap */}
-                <h1 className="font-display font-bold text-sp-ink tracking-[-0.02em] leading-[1.05] text-[1.72rem] sm:text-[2.35rem] lg:text-[2.45rem] xl:text-[2.85rem]">
+                <h1 className="font-display font-bold text-sp-ink tracking-[-0.02em] leading-[1.05] text-[1.6rem] sm:text-[2.16rem] lg:text-[2.28rem] xl:text-[2.62rem]">
                   <span className="block">Empower Your Business</span>{" "}
                   <span className="block text-sp-primary">
                     Compliance &amp; Management
@@ -171,26 +171,26 @@ function Hero() {
                 </h1>
 
                 {/* Single concrete supporting line (existing meta description) */}
-                <p className="text-base sm:text-[17px] text-sp-slate leading-[1.6] max-w-[49ch]">
+                <p className="text-lg sm:text-[19.5px] text-sp-slate leading-[1.6] max-w-[52ch]">
                   One Stop Platform for company registration, trademark filing, GST registration, TDS filing, Payroll, MSME registration and income tax filing in India.
                 </p>
 
                 {/* Search field + Get Started + WhatsApp on ONE row */}
-                <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 max-w-xl">
+                <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-2xl">
                   <button
                     type="button"
                     onClick={openCommandPalette}
-                    className="w-full sm:w-auto sm:flex-1 min-w-0 h-12 shrink-0 px-3.5 bg-white hover:bg-sp-bg rounded-sp-btn border border-sp-border-strong hover:border-sp-primary shadow-sp-btn-outline flex items-center justify-between gap-2 text-left transition-colors group cursor-pointer"
+                    className="w-full sm:w-auto sm:flex-1 min-w-0 h-14 shrink-0 px-4 bg-white hover:bg-sp-bg rounded-sp-btn border border-sp-border-strong hover:border-sp-primary shadow-sp-btn-outline flex items-center justify-between gap-2.5 text-left transition-colors group cursor-pointer"
                   >
-                    <span className="flex items-center gap-2 min-w-0">
-                      <Search className="w-4 h-4 text-sp-primary shrink-0" />
-                      <span className="text-sm text-sp-slate group-hover:text-sp-ink whitespace-nowrap">
+                    <span className="flex items-center gap-2.5 min-w-0">
+                      <Search className="w-5 h-5 text-sp-primary shrink-0" />
+                      <span className="text-base text-sp-slate group-hover:text-sp-ink whitespace-nowrap">
                         Search 100+ services...
                       </span>
                     </span>
                     <kbd
                       aria-hidden="true"
-                      className="hidden sm:inline-flex items-center px-2 py-0.5 text-[11px] font-mono bg-sp-bg rounded border border-sp-border text-sp-slate whitespace-nowrap shrink-0"
+                      className="hidden sm:inline-flex items-center px-2 py-0.5 text-xs font-mono bg-sp-bg rounded border border-sp-border text-sp-slate whitespace-nowrap shrink-0"
                     >
                       {shortcutLabel}
                     </kbd>
@@ -200,7 +200,7 @@ function Hero() {
                     href="/user-register"
                     size="md"
                     showPlus
-                    className="w-full sm:w-auto lg:px-5 xl:px-6"
+                    className="w-full sm:w-auto lg:px-6 xl:px-7 h-14 text-base"
                   >
                     Get Started
                   </Button>

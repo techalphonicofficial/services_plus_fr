@@ -56,9 +56,13 @@ export function usePlatformShortcut() {
   );
 }
 
-export function openCommandPalette() {
+export function openCommandPalette(initialQuery = "") {
   if (typeof window !== "undefined") {
-    window.dispatchEvent(new CustomEvent("sp:open-command-palette"));
+    window.dispatchEvent(
+      new CustomEvent("sp:open-command-palette", {
+        detail: { query: initialQuery }
+      })
+    );
   }
 }
 
@@ -165,7 +169,11 @@ function CommandPalette({ isOpen: propIsOpen, open, onClose, onOpen, categories 
   }, [groupedResults]);
 
   useEffect(() => {
-    const handleCustomOpen = () => {
+    const handleCustomOpen = (e) => {
+      if (e?.detail?.query !== undefined) {
+        setQuery(String(e.detail.query));
+        setSelectedIndex(0);
+      }
       if (onOpen) onOpen();
     };
     window.addEventListener("sp:open-command-palette", handleCustomOpen);
