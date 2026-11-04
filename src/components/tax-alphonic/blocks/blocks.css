@@ -507,6 +507,47 @@
   .ta-cb .cb-split-rev .cb-split-media {
     order: 0;
   }
+  .ta-cb.cb-imagetext .cb-split-body {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ta-cb.cb-imagetext .cb-head {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ta-cb.cb-imagetext .cb-points {
+    text-align: left;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 6px auto 0;
+  }
+  .ta-cb.cb-imagetext .cb-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ta-cb.cb-imagetext .cb-buttons .cb-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 12px 10px;
+    font-size: 13.5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    justify-content: center;
+  }
   .ta-cb .cb-gallery,
   .ta-cb .cb-cards,
   .ta-cb .cb-stats {
@@ -1471,7 +1512,34 @@
   .ta-cb .cb-sc-r60,
   .ta-cb .cb-sc-r40 { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .ta-cb .cb-fqs-rev .cb-fqs-head { order: 0; }
-  .ta-cb .cb-sc-head { flex-direction: column; align-items: flex-start; }
+  .ta-cb .cb-fqs-head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ta-cb .cb-fqs-head h2 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ta-cb .cb-fqs-head .cb-buttons {
+    justify-content: center;
+    width: 100%;
+  }
+  .ta-cb .cb-sc-head {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .ta-cb .cb-sc-head > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .ta-cb .cb-sc-headlink {
+    margin-top: 4px;
+  }
   .ta-cb .cb-sc-featured { padding: 26px 24px; }
   .ta-cb .cb-fqs-item button { padding: 18px; }
   .ta-cb .cb-fqs-a { padding: 4px 18px 18px; }

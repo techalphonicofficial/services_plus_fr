@@ -75,8 +75,8 @@ function AboutSection() {
           </div>
 
           {/* Right 7 Columns: Copy & Key Pillars */}
-          <div className="lg:col-span-7 space-y-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary flex items-center gap-1.5">
+          <div className="lg:col-span-7 space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary flex items-center justify-center lg:justify-start gap-1.5">
               <span className="text-sp-accent" aria-hidden="true">+</span>
               <span>About Services Plus</span>
             </p>
@@ -89,7 +89,7 @@ function AboutSection() {
               With thirteen-plus years&apos; standing as a business process management, digital innovation, and technology solutions partner, Services Plus aims to bring change in the lives of its clients in a number of industry domains through their solutions and services. Shape the future of your business with conviction and clarity.
             </p>
 
-            <ul className="space-y-3 pt-2 text-base text-sp-ink">
+            <ul className="space-y-3 pt-2 text-base text-sp-ink text-left inline-flex flex-col">
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-sp-sm bg-sp-tint/35 border border-sp-accent/25 text-sp-navy flex items-center justify-center shrink-0 mt-1">
                   <Check className="w-3.5 h-3.5" />
@@ -116,11 +116,11 @@ function AboutSection() {
               </li>
             </ul>
 
-            <div className="pt-3 flex flex-wrap items-center gap-3">
-              <Button href="/about" size="md" showPlus>
+            <div className="pt-3 flex flex-row flex-nowrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 w-full max-w-[440px] lg:max-w-none">
+              <Button href="/about" size="md" showPlus className="flex-1 lg:flex-none text-xs sm:text-sm px-3 sm:px-5">
                 About Our Practice
               </Button>
-              <Button href="/contact" variant="outline" size="md">
+              <Button href="/contact" variant="outline" size="md" className="flex-1 lg:flex-none text-xs sm:text-sm px-3 sm:px-5">
                 Contact Advisory Desk
               </Button>
             </div>

@@ -255,20 +255,35 @@ function Hero({ p }) {
   return (
     <div className={`hh${wave ? " hh-wave" : ""}`}>
       <div className="hh-bg" />
+      {Boolean(image) && (
+        <div className="hero-mobile-bg" aria-hidden="true">
+          {/* CMS images come from arbitrary hosts, so next/image remotePatterns can't cover them. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={image} alt="" />
+          <div className="hero-mobile-overlay" />
+        </div>
+      )}
       <div className={`wrap hero-grid hero-size-${size}`} style={showVisual ? undefined : { gridTemplateColumns: "1fr" }}>
         <div className="hero-text">
-          {has(p.eyebrow) && <span className="eyebrow">{p.eyebrow}</span>}
-          {(has(p.heading) || has(p.highlight)) && (
-            <h1>{p.heading}{has(p.heading) && has(p.highlight) && " "}{has(p.highlight) && <em>{p.highlight}</em>}</h1>
-          )}
-          {has(p.subHeading) && <p className="lede">{p.subHeading}</p>}
-          {statCards.length > 0 && (
-            <div className="hero-stats">
-              {statCards.map((card, i) => (
-                <Card key={i} url={card.url} className="hstat"><b>{card.value}</b><span>{card.label}</span></Card>
-              ))}
-            </div>
-          )}
+          <div className="hero-text-content">
+            {has(p.eyebrow) && (
+              <span className="eyebrow">
+                <span className="eyebrow-desktop">{p.eyebrow}</span>
+                <span className="eyebrow-mobile">{p.eyebrow.replace(/^[•●·\s]+/, "")}</span>
+              </span>
+            )}
+            {(has(p.heading) || has(p.highlight)) && (
+              <h1>{p.heading}{has(p.heading) && has(p.highlight) && " "}{has(p.highlight) && <em>{p.highlight}</em>}</h1>
+            )}
+            {has(p.subHeading) && <p className="lede">{p.subHeading}</p>}
+            {statCards.length > 0 && (
+              <div className="hero-stats">
+                {statCards.map((card, i) => (
+                  <Card key={i} url={card.url} className="hstat"><b>{card.value}</b><span>{card.label}</span></Card>
+                ))}
+              </div>
+            )}
+          </div>
           {showSearch && (
             <div
               className="hero-search"
@@ -284,22 +299,28 @@ function Hero({ p }) {
               style={{ cursor: "pointer" }}
             >
               <span className="hs-ic">🔍</span>
-              <input
-                value={search}
-                placeholder={p.searchPlaceholder || ""}
-                aria-label={p.searchPlaceholder || "Search"}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  openCommandPalette(e.target.value);
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openCommandPalette(search);
-                }}
-                onFocus={() => openCommandPalette(search)}
-                readOnly
-                style={{ cursor: "pointer" }}
-              />
+              <div className="hs-input-wrap">
+                <span className="hs-placeholder-mobile" aria-hidden="true">
+                  <span>What do you need? Try</span>
+                  <span className="hs-placeholder-sub">&apos;GST&apos;, &apos;Pvt Ltd&apos;, &apos;trademark&apos;...</span>
+                </span>
+                <input
+                  value={search}
+                  placeholder={p.searchPlaceholder || ""}
+                  aria-label={p.searchPlaceholder || "Search"}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    openCommandPalette(e.target.value);
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openCommandPalette(search);
+                  }}
+                  onFocus={() => openCommandPalette(search)}
+                  readOnly
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
               {has(p.searchButtonText) && (
                 <button
                   type="button"
@@ -308,8 +329,13 @@ function Hero({ p }) {
                     e.stopPropagation();
                     openCommandPalette(search);
                   }}
+                  aria-label="Search"
                 >
-                  {p.searchButtonText}
+                  <span className="hs-btn-text">{p.searchButtonText}</span>
+                  <svg className="hs-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
                 </button>
               )}
             </div>
@@ -648,8 +674,23 @@ const FAN_CATEGORIES = [
 
 function Services({ p }) {
   const go = useGo();
+  const trackRef = useRef(null);
   const heading = p.heading || "Start, run & grow your business";
   const sub = p.sub || "8 categories · 116 core services — pick what you need";
+
+  const scrollPrev = () => {
+    if (trackRef.current) {
+      const cardWidth = trackRef.current.querySelector(".fan-card-wrapper")?.offsetWidth || 300;
+      trackRef.current.scrollBy({ left: -(cardWidth + 16), behavior: "smooth" });
+    }
+  };
+
+  const scrollNext = () => {
+    if (trackRef.current) {
+      const cardWidth = trackRef.current.querySelector(".fan-card-wrapper")?.offsetWidth || 300;
+      trackRef.current.scrollBy({ left: cardWidth + 16, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="cats cats-fan-wrap" id={p.anchorId || "home-services"}>
@@ -662,8 +703,33 @@ function Services({ p }) {
         <div className="wrap relative z-10">
           <SecHead heading={heading} sub={sub} />
 
+          {/* Mobile navigation arrow controls */}
+          <div className="fan-mobile-nav" aria-label="Card navigation">
+            <button
+              type="button"
+              className="fan-nav-btn fan-nav-prev"
+              onClick={scrollPrev}
+              aria-label="Previous card"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <span className="fan-nav-hint">Swipe or tap arrows</span>
+            <button
+              type="button"
+              className="fan-nav-btn fan-nav-next"
+              onClick={scrollNext}
+              aria-label="Next card"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+
           {/* 5 Uneven Arc / Fan Tilted Cards */}
-          <div className="fan-cards-track">
+          <div className="fan-cards-track" ref={trackRef}>
             {FAN_CATEGORIES.map((cat, idx) => {
               const IconComponent = cat.icon;
               return (
@@ -1037,18 +1103,7 @@ function Security({ p }) {
 }
 
 function Faq({ p }) {
-  const items = list(p.items).filter((item) => has(item.question));
-  if (!items.length) return null;
-  return (
-    <div className="home-faq">
-      <div className="wrap">
-        <SecHead heading={p.heading} sub={p.sub} />
-        <div className="faq-wrap">
-          {items.map((item, i) => <details key={i} className="faq" open={i === 0}><summary>{item.question}</summary><TextOrHtml value={item.answer} /></details>)}
-        </div>
-      </div>
-    </div>
-  );
+  return <CommonBlock section={{ type: "CommonFaqSplit", config: {}, data: { payload: p } }} />;
 }
 
 function Newsletter({ p }) {

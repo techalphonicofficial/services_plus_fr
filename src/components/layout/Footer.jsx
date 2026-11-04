@@ -20,8 +20,8 @@ function Footer({ menu = EMPTY_MENU }) {
 
       <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8 relative z-10">
         {/* Large Closing CTA Band inside Footer */}
-        <div className="pb-16 border-b border-white/10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <div className="max-w-2xl">
+        <div className="pb-16 border-b border-white/10 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 text-center lg:text-left">
+          <div className="max-w-2xl flex flex-col items-center lg:items-start">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-sky mb-3">
               + Corporate Registration &amp; Statutory Filing Desk
             </p>
@@ -33,12 +33,12 @@ function Footer({ menu = EMPTY_MENU }) {
             </p>
           </div>
 
-          <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+          <div className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-3 shrink-0 w-full sm:w-auto">
             <Button
               href="/user-register"
               size="lg"
               showPlus
-              className="bg-white text-sp-navy hover:bg-sp-tint border-white"
+              className="bg-white text-sp-navy hover:bg-sp-tint border-white w-full sm:w-auto"
             >
               Get Started
             </Button>
@@ -47,7 +47,7 @@ function Footer({ menu = EMPTY_MENU }) {
               variant="navy"
               size="lg"
               external
-              className="border-sp-sky/35 hover:border-sp-sky"
+              className="border-sp-sky/35 hover:border-sp-sky w-full sm:w-auto"
             >
               <MessageCircle className="w-4 h-4 text-sp-sky" />
               <span>WhatsApp (+91 88000 28794)</span>
@@ -56,18 +56,18 @@ function Footer({ menu = EMPTY_MENU }) {
         </div>
 
         {/* Brand Row + Real Rating + Monochrome Certificates */}
-        <div className="py-10 border-b border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-5 flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="py-10 border-b border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-center lg:text-left">
+          <div className="lg:col-span-5 flex flex-col items-center sm:flex-row sm:items-center justify-center lg:justify-start gap-4">
             <Link href="/" className="shrink-0">
               <ServicesPlusLogo variant="dark" />
             </Link>
-            <p className="text-xs text-white/70 leading-relaxed max-w-xs sm:border-l sm:border-white/15 sm:pl-4">
+            <p className="text-xs text-white/70 leading-relaxed max-w-xs sm:border-l sm:border-white/15 sm:pl-4 text-center sm:text-left">
               Online platform for business registration, trademark registration, GST, tax services, and legal compliance across India.
             </p>
           </div>
 
           {/* Google Rating (tabular numerals) */}
-          <div className="lg:col-span-4 flex items-center gap-3.5">
+          <div className="lg:col-span-4 flex items-center justify-center lg:justify-start gap-3.5">
             <div className="relative w-9 h-9 shrink-0 grayscale contrast-125 opacity-90">
               <Image
                 src="/assets/images/google-rating-c9b95b9d.png"
@@ -76,7 +76,7 @@ function Footer({ menu = EMPTY_MENU }) {
                 className="object-contain"
               />
             </div>
-            <div>
+            <div className="text-left">
               <div className="flex items-center gap-1 text-white/80">
                 <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
                 <span className="text-white font-semibold text-sm tabular-nums">
@@ -93,7 +93,7 @@ function Footer({ menu = EMPTY_MENU }) {
           </div>
 
           {/* Existing Certificates in Monochrome */}
-          <div className="lg:col-span-3 flex items-center gap-4 lg:justify-end">
+          <div className="lg:col-span-3 flex items-center justify-center lg:justify-end gap-4">
             <div className="flex items-center gap-3 px-3.5 py-2 rounded-sp-sm bg-white/5 border border-white/10">
               <div className="relative w-12 h-9 shrink-0 grayscale brightness-125 contrast-125">
                 <Image
@@ -111,7 +111,7 @@ function Footer({ menu = EMPTY_MENU }) {
                   className="object-contain"
                 />
               </div>
-              <span className="text-[11px] text-white/70 leading-tight">
+              <span className="text-[11px] text-white/70 leading-tight text-left">
                 Verified
                 <br />
                 Certificates
@@ -124,8 +124,8 @@ function Footer({ menu = EMPTY_MENU }) {
         {columns.length > 0 && (
           <div className="py-12 border-b border-white/10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {columns.map((column, idx) => (
-              <div key={column.id || column.title} className="space-y-3.5">
-                <h3 className="font-semibold text-sm text-white flex items-center gap-2">
+              <div key={column.id || column.title} className="space-y-3.5 flex flex-col items-center text-center sm:items-start sm:text-left">
+                <h3 className="font-semibold text-sm text-white flex items-center justify-center sm:justify-start gap-2">
                   <span className="text-sp-sky text-xs tabular-nums">{String(idx + 1).padStart(2, "0")}</span>
                   {column.href ? (
                     <Link
@@ -138,7 +138,7 @@ function Footer({ menu = EMPTY_MENU }) {
                     <span className="whitespace-nowrap">{column.title}</span>
                   )}
                 </h3>
-                <ul className="space-y-2 text-xs text-white/70">
+                <ul className="space-y-2 text-xs text-white/70 flex flex-col items-center sm:items-start">
                   {column.links.map((item) => (
                     <li key={item.id || item.href} className={isMoreLink(item.label) ? "pt-1" : undefined}>
                       {isMoreLink(item.label) ? (
@@ -167,36 +167,36 @@ function Footer({ menu = EMPTY_MENU }) {
         )}
 
         {/* Both Real Offices & Direct Helplines */}
-        <div className="py-12 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="py-12 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Office 1: Head Office (India) */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs font-semibold text-white">
+          <div className="space-y-2 flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-semibold text-white">
               <MapPin className="w-3.5 h-3.5 text-sp-sky shrink-0" />
               <span>Head Office (India)</span>
             </div>
-            <p className="text-xs text-white/70 leading-relaxed">
+            <p className="text-xs text-white/70 leading-relaxed max-w-sm md:max-w-none">
               Office No-418, 4th Floor, Ocean Plaza, Sector-18, Noida, Gautam Buddha Nagar, Uttar Pradesh — 201301
             </p>
           </div>
 
           {/* Office 2: Alphonic India Private Limited (India) */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs font-semibold text-white">
+          <div className="space-y-2 flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-semibold text-white">
               <MapPin className="w-3.5 h-3.5 text-sp-sky shrink-0" />
               <span>Alphonic India Private Limited (India)</span>
             </div>
-            <p className="text-xs text-white/70 leading-relaxed">
+            <p className="text-xs text-white/70 leading-relaxed max-w-sm md:max-w-none">
               Plot No C-203, C Block Rd, Block C, Sector 63, Noida, Uttar Pradesh — 201301
             </p>
           </div>
 
           {/* Direct Helplines & Emails */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs font-semibold text-white">
+          <div className="space-y-2 flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-semibold text-white">
               <Phone className="w-3.5 h-3.5 text-sp-sky shrink-0" />
               <span>Direct Helplines &amp; Desk</span>
             </div>
-            <div className="space-y-1.5 text-xs text-white/70 tabular-nums">
+            <div className="space-y-1.5 text-xs text-white/70 tabular-nums flex flex-col items-center md:items-start">
               <div className="flex items-center gap-2">
                 <span className="text-white font-medium">Sales:</span>
                 <a href="tel:+918800028794" className="hover:text-white">
@@ -209,7 +209,7 @@ function Footer({ menu = EMPTY_MENU }) {
                   (+91) 9899184918
                 </a>
               </div>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start">
                 <Mail className="w-3.5 h-3.5 text-sp-sky shrink-0" />
                 <a href="mailto:info@servicesplus.in" className="hover:text-white">
                   info@servicesplus.in

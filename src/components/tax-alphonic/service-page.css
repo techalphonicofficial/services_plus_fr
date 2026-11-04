@@ -1002,9 +1002,9 @@
   }
 
   .ta-svc .mt-hero-visual {
-    order: -1;
-    max-width: 300px;
-    margin: 0 auto;
+    order: 2;
+    max-width: 100%;
+    margin: 16px auto 0;
   }
 
   .ta-svc .cred-strip,
@@ -2368,6 +2368,7 @@
 
 @media (max-width: 820px) {
   .ta-svc .svc-hero-img-left .svc-hero-grid { grid-template-columns: 1fr; }
+  .ta-svc .svc-hero-img-left .mt-hero-visual { order: 2; }
   .ta-svc .svc-hero-img-left .mt-hero-visual:has(.svc-hero-media) { justify-content: center; }
 }
 

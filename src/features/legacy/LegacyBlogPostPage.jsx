@@ -88,11 +88,11 @@ export default async function BlogDetailPage({ params }) {
                   <ChevronRight className="w-3.5 h-3.5 text-sp-slate/50 shrink-0" />
                 )}
                 {isLast ? (
-                  <span className="text-sp-ink font-semibold truncate">
+                  <span className="text-sp-ink font-semibold truncate max-w-[200px] sm:max-w-none">
                     {b.label}
                   </span>
                 ) : (
-                  <Link href={b.href} className="hover:text-sp-primary truncate">
+                  <Link href={b.href} className="hover:text-sp-primary shrink-0 whitespace-nowrap transition-colors">
                     {b.label}
                   </Link>
                 )}

@@ -39,12 +39,12 @@ function FloatingWhatsApp() {
       {/* Mobile Sticky Bottom Action Bar (Call, WhatsApp, Get Started) */}
       <aside
         aria-label="Mobile quick actions"
-        className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-sp-border-strong px-3 py-2.5 shadow-sp-lift"
+        className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-sp-border-strong px-2 sm:px-3 py-2 sm:py-2.5 shadow-sp-lift"
       >
-        <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2 max-w-md mx-auto">
           <a
             href="tel:+918800028794"
-            className="inline-flex items-center justify-center gap-1.5 h-11 px-3 rounded-sp-btn border border-sp-border-strong bg-white text-sp-ink text-xs font-semibold whitespace-nowrap active:scale-[0.99]"
+            className="inline-flex items-center justify-center gap-1 sm:gap-1.5 h-10 sm:h-11 px-2 sm:px-3 rounded-sp-btn border border-sp-border-strong bg-white text-sp-ink text-[11px] sm:text-xs font-semibold whitespace-nowrap active:scale-[0.99]"
           >
             <Phone className="w-3.5 h-3.5 text-sp-primary shrink-0" />
             <span>Call</span>
@@ -54,7 +54,7 @@ function FloatingWhatsApp() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-1.5 h-11 px-3 rounded-sp-btn border border-sp-border-strong bg-sp-bg text-sp-ink text-xs font-semibold whitespace-nowrap active:scale-[0.99]"
+            className="inline-flex items-center justify-center gap-1 sm:gap-1.5 h-10 sm:h-11 px-2 sm:px-3 rounded-sp-btn border border-sp-border-strong bg-sp-bg text-sp-ink text-[11px] sm:text-xs font-semibold whitespace-nowrap active:scale-[0.99]"
           >
             <MessageCircle className="w-3.5 h-3.5 text-sp-primary shrink-0" />
             <span>WhatsApp</span>
@@ -62,7 +62,7 @@ function FloatingWhatsApp() {
 
           <Link
             href="/user-register"
-            className="inline-flex items-center justify-center gap-1 h-11 px-3 rounded-sp-btn bg-sp-navy text-white text-xs font-semibold whitespace-nowrap shadow-sp-btn-primary active:scale-[0.99]"
+            className="inline-flex items-center justify-center gap-1 h-10 sm:h-11 px-1.5 sm:px-3 rounded-sp-btn bg-sp-navy text-white text-[11px] sm:text-xs font-semibold whitespace-nowrap shadow-sp-btn-primary active:scale-[0.99]"
           >
             <span>Get Started</span>
             <span aria-hidden="true">+</span>

@@ -134,6 +134,20 @@
   scrollbar-width: none;
 }
 
+/* Ensure inputs prevent unwanted iOS automatic zoom on focus */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 /* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

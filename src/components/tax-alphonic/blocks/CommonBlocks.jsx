@@ -10,6 +10,10 @@ import CmsForm from "../forms/CmsForm";
 import Calculator from "../tools/calculators";
 import ButtonLabel from "./ButtonLabel";
 import { EXTRA_BLOCKS } from "./ExtraBlocks";
+import { ChevronDown, MessageCircle } from "lucide-react";
+import { Card } from "@/components/ui/Card";
+import { Button as UiButton } from "@/components/ui/Button";
+import { HOMEPAGE_FAQS } from "@/features/home/components/FaqSection";
 import "../tools/tools-page.css";
 import "./blocks.css";
 
@@ -71,9 +75,10 @@ function Paragraphs({ text }) {
 function Head({ p, center = false }) {
   const subLink = hasButton(p.subLink) ? p.subLink : null;
   if (!has(p.kicker) && !has(p.heading) && !has(p.sub) && !subLink) return null;
+  const cleanKicker = has(p.kicker) ? String(p.kicker).replace(/^\+\s*/, "") : "";
   return (
     <div className={`cb-head${center || p.align === "center" ? " cb-center" : ""}`}>
-      {has(p.kicker) && <span className="cb-kicker">{p.kicker}</span>}
+      {cleanKicker && <span className="cb-kicker">{cleanKicker}</span>}
       {has(p.heading) && <h2>{p.heading}</h2>}
       {(has(p.sub) || subLink) && (
         <p className="cb-sub">
@@ -778,42 +783,121 @@ function Qna({ p }) {
 }
 
 /**
- * FAQ section (old homepage FaqSection): kicker, heading, text and a button on one side, numbered
- * questions on the other. Closed answers stay in the page (hidden) so search engines read them.
+ * FAQ section (matching Services Plus FaqSection): kicker, 2-line heading, subtext and WhatsApp advisor button
+ * on one side, numbered cards on the other. Closed answers stay in the page (hidden) for search engines.
  */
 function FaqSplit({ p }) {
-  const items = list(p.items).filter((x) => has(x.question) && has(x.answer));
-  const [open, setOpen] = useState(p.firstOpen === "no" ? null : 0);
+  // If CMS items are empty or contain test gibberish, fallback to the 5 canonical HOMEPAGE_FAQS
+  const validCmsItems = list(p.items).filter(
+    (x) => has(x.question) && has(x.answer) && !/jbvhgg|kuigyugh/i.test(x.question)
+  );
+  const items = validCmsItems.length >= 5 ? validCmsItems : HOMEPAGE_FAQS;
+  const [openIndex, setOpenIndex] = useState(p.firstOpen === "yes" ? 0 : null);
   if (!items.length) return null;
-  const head = has(p.kicker) || has(p.heading) || has(p.text) || hasButton(p.button);
+
+  const kicker = has(p.kicker) ? p.kicker : "Statutory Clarifications";
+  const heading = has(p.heading) ? p.heading : "Frequently Asked Questions";
+  const text = has(p.text)
+    ? p.text
+    : "Answers to common questions regarding company setup, taxation, licenses, and legal compliance.";
+
+  const hasCmsBtn = hasButton(p.button);
+  const buttonUrl = hasCmsBtn
+    ? p.button.url
+    : "https://wa.me/918800028794?text=Hi%2C%20I%20have%20a%20question%20regarding%20company%20registration%20or%20compliance.";
+  const buttonText = hasCmsBtn ? p.button.text : "Ask an advisor on WhatsApp";
+  const isWhatsapp = /whatsapp|advisor/i.test(buttonText) || /wa\.me|whatsapp/i.test(buttonUrl);
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: typeof faq.answer === "string" ? faq.answer : ""
+      }
+    }))
+  };
+
   return (
-    <Section type="faqsplit" p={p}>
-      <div className={`cb-fqs${p.headSide === "right" ? " cb-fqs-rev" : ""}${head ? "" : " cb-fqs-solo"}`}>
-        {head && (
-          <div className="cb-fqs-head">
-            {has(p.kicker) && <span className="cb-plus-kicker">{p.kicker}</span>}
-            {has(p.heading) && <h2>{p.heading}</h2>}
-            <Paragraphs text={p.text} />
-            {hasButton(p.button) && <div className="cb-buttons"><Button button={p.button} ghost={p.buttonStyle !== "solid"} /></div>}
+    <section className="py-24 lg:py-32 bg-sp-bg" id={has(p.anchorId) ? p.anchorId : undefined}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8">
+        <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-start${p.headSide === "right" ? " lg:[&>*:first-child]:order-2" : ""}`}>
+          {/* Left Column: Section Header & WhatsApp Prompt */}
+          <div className="lg:col-span-4 space-y-5 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary flex items-center justify-center lg:justify-start gap-1.5">
+              <span className="text-sp-accent" aria-hidden="true">+</span>
+              <span>{kicker}</span>
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-sp-ink tracking-[-0.02em] leading-[1.1] max-w-[16ch]">
+              {heading}
+            </h2>
+            <div className="text-base text-sp-slate leading-[1.6]">
+              <Paragraphs text={text} />
+            </div>
+            <div className="pt-2 flex justify-center lg:justify-start w-full">
+              <UiButton
+                href={buttonUrl}
+                variant="outline"
+                size="sm"
+                external={isExternal(buttonUrl)}
+              >
+                {isWhatsapp && <MessageCircle className="w-4 h-4 text-sp-primary" />}
+                <span>{buttonText}</span>
+              </UiButton>
+            </div>
           </div>
-        )}
-        <div className="cb-fqs-list">
-          {items.map((x, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={i} className={`cb-fqs-item${isOpen ? " is-open" : ""}`}>
-                <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : i)}>
-                  <span className="cb-fqs-num">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="cb-fqs-q">{x.question}</span>
-                  <span className="cb-fqs-chev" aria-hidden="true" />
-                </button>
-                <div className="cb-fqs-a" hidden={!isOpen}><Paragraphs text={x.answer} /></div>
-              </div>
-            );
-          })}
+
+          {/* Right Column: Indexed FAQ Ledger */}
+          <div className="lg:col-span-8 space-y-3.5">
+            {items.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <Card
+                  key={faq.question || idx}
+                  hoverLift={false}
+                  className={`overflow-hidden bg-white transition-colors duration-200 ${
+                    isOpen ? "border-sp-primary shadow-sp-soft" : "border-sp-border hover:border-sp-primary/40"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : idx)}
+                    className="w-full flex items-start justify-between gap-4 p-5 sm:p-6 text-left transition-colors hover:bg-sp-bg/50 cursor-pointer"
+                    aria-expanded={isOpen}
+                  >
+                    <div className="flex items-baseline gap-3.5 pr-2">
+                      <span className="text-xs font-semibold text-sp-primary tabular-nums shrink-0">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-semibold text-sp-ink text-base sm:text-[17px] leading-snug">
+                        {faq.question}
+                      </span>
+                    </div>
+                    <ChevronDown
+                      className={`w-5 h-5 text-sp-slate shrink-0 mt-0.5 transition-transform duration-200 ${
+                        isOpen ? "rotate-180 text-sp-primary" : ""
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 sm:pr-6 pb-6 pl-12 sm:pl-12 pt-1 text-base text-sp-slate leading-[1.6] border-t border-sp-border/60 max-w-[65ch]">
+                      {typeof faq.answer === "string" ? faq.answer : faq.answer}
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
 
@@ -864,7 +948,7 @@ function SplitCards({ p }) {
       {head && (
         <div className="cb-sc-head">
           <div>
-            {has(p.kicker) && <span className="cb-plus-kicker">{p.kicker}</span>}
+            {has(p.kicker) && <span className="cb-plus-kicker">{String(p.kicker).replace(/^\+\s*/, "")}</span>}
             {has(p.heading) && <h2>{p.heading}</h2>}
             {has(p.sub) && <p className="cb-sub">{p.sub}</p>}
           </div>

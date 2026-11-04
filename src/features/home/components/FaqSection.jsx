@@ -35,7 +35,7 @@ const HOMEPAGE_FAQS = [
 ];
 
 function FaqSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -61,8 +61,8 @@ function FaqSection() {
       <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left 4 Columns: Section Header & Direct Question Prompt */}
-          <div className="lg:col-span-4 space-y-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary flex items-center gap-1.5">
+          <div className="lg:col-span-4 space-y-5 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary flex items-center justify-center lg:justify-start gap-1.5">
               <span className="text-sp-accent" aria-hidden="true">+</span>
               <span>Statutory Clarifications</span>
             </p>
@@ -72,7 +72,7 @@ function FaqSection() {
             <p className="text-base text-sp-slate leading-[1.6]">
               Answers to common questions regarding company setup, taxation, licenses, and legal compliance.
             </p>
-            <div className="pt-2">
+            <div className="pt-2 flex justify-center lg:justify-start w-full">
               <Button
                 href="https://wa.me/918800028794?text=Hi%2C%20I%20have%20a%20question%20regarding%20company%20registration%20or%20compliance."
                 variant="outline"
@@ -118,7 +118,7 @@ function FaqSection() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 pl-12 pt-1 text-base text-sp-slate leading-[1.6] border-t border-sp-border/60 max-w-[65ch]">
+                    <div className="px-5 sm:pr-6 pb-6 pl-12 sm:pl-12 pt-1 text-base text-sp-slate leading-[1.6] border-t border-sp-border/60 max-w-[65ch]">
                       {faq.answer}
                     </div>
                   )}
@@ -132,4 +132,4 @@ function FaqSection() {
   );
 }
 
-export { FaqSection };
+export { FaqSection, HOMEPAGE_FAQS };

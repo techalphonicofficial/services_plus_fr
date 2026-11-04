@@ -155,6 +155,17 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
   const [scrolled, setScrolled] = useState(false);
   const accountRef = useRef(null);
 
+  // Lock background body scroll when mobile menu drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [mobileMenuOpen]);
+
   useEffect(() => {
     const onScroll = () => {
       const isPast = window.scrollY > 8;
@@ -499,7 +510,7 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
       {/* Mobile Full-Screen Drawer with Accordions */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-50 lg:hidden bg-white flex flex-col"
+          className="fixed inset-0 z-50 lg:hidden bg-white flex flex-col overscroll-contain"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
@@ -519,7 +530,7 @@ function TopNav({ navigation = EMPTY_NAVIGATION }) {
           </div>
 
           {/* Drawer Accordion Content */}
-          <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
+          <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6 overscroll-contain">
             {categories.length > 0 && (
               <div className="space-y-2">
                 <p className="text-xs font-semibold text-sp-slate px-1">

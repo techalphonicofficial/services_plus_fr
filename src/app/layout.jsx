@@ -127,7 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <SmoothScroll>
           <TopNav navigation={navigation} />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 pb-16 md:pb-0">{children}</main>
           <Footer menu={footerMenu} />
           <FloatingWhatsApp />
           {/* "#form-<id>" buttons open that CMS form in a popup (landing pages mount their own). */}

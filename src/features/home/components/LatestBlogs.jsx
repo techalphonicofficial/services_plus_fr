@@ -51,9 +51,9 @@ function LatestBlogs() {
     <section className="py-24 lg:py-32 bg-white border-t border-sp-border">
       <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary mb-2.5 flex items-center gap-1.5">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-12 gap-4 text-center md:text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sp-primary mb-2.5 flex items-center justify-center md:justify-start gap-1.5">
               <span className="text-sp-accent" aria-hidden="true">+</span>
               <span>Regulatory Research &amp; Guides</span>
             </p>
